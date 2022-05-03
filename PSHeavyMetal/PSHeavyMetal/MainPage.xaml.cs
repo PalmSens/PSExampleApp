@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace PSHeavyMetal
+namespace PSHeavyMetal.Forms
 {
     public partial class MainPage : ContentPage
     {
