@@ -1,4 +1,5 @@
 ﻿using PSHeavyMetal.Common.Models;
+using PSHeavyMetal.Core.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,19 +8,26 @@ namespace PSHeavyMetal.Core.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> LoadUserAsync(Guid id)
+        private readonly IDataOperations _dataOperations;
+
+        public UserRepository(IDataOperations dataOperations)
         {
-            throw new NotImplementedException();
+            _dataOperations = dataOperations;
         }
 
-        public Task<Guid> SaveUserAsync(string username, string password)
+        public Task<User> LoadUser(string id)
         {
-            throw new NotImplementedException();
+            return _dataOperations.LoadAsync<User>(id);
         }
 
-        Task<IEnumerable<User>> IUserRepository.GetAllUsers()
+        public Task SaveUser(string username, string password)
         {
-            throw new NotImplementedException();
+            return _dataOperations.SaveAsync(new User { Name = username, Password = password, Id = Guid.NewGuid().ToString() });
+        }
+
+        public Task<IEnumerable<User>> GetAllUsers()
+        {
+            return _dataOperations.GetAllAsync<User>();
         }
     }
 }

@@ -1,17 +1,22 @@
-﻿using Android.Content.Res;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MvvmHelpers;
+using System;
 using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms
 {
     public partial class App : Application
     {
+        private static IServiceProvider ServiceProvider;
+
         public App()
         {
             InitializeComponent();
-            Startup.Init();
-            MainPage = new MainPage();
+            ServiceProvider = Startup.Init();
+            MainPage = new AppShell();
         }
+
+        public static BaseViewModel GetViewModel<T>() where T : BaseViewModel => ServiceProvider.GetService<T>();
 
         protected override void OnStart()
         {

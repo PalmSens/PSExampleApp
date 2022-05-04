@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="RavenDB.Embedded" Version="5.3.102" />
   </ItemGroup>
 

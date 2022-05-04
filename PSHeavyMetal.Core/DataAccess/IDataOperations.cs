@@ -27,7 +27,7 @@ namespace PSHeavyMetal.Core.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<T> LoadAsyncAsync<T>(string id) where T : DataObject;
+        public Task<T> LoadAsync<T>(string id) where T : DataObject;
 
         /// <summary>
         /// For testing purposes. Should only be used for unit testing!

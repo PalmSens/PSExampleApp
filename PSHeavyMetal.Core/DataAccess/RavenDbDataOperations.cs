@@ -58,7 +58,7 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
-        public async Task<T> LoadAsyncAsync<T>(string id) where T : DataObject
+        public async Task<T> LoadAsync<T>(string id) where T : DataObject
         {
             using (var session = _documentStore.OpenAsyncSession())
             {

@@ -2,6 +2,7 @@
 using PSHeavyMetal.Core.DataAccess;
 using PSHeavyMetal.Core.Repositories;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.ViewModels;
 
 namespace PSHeavyMetal.Forms
 {
@@ -15,6 +16,7 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitializeViewModels(this IServiceCollection services)
         {
+            services.AddTransient<LoginViewModel>();
             return services;
         }
 

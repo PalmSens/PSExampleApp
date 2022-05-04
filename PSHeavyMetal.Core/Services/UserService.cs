@@ -1,4 +1,5 @@
 ﻿using PSHeavyMetal.Common.Models;
+using PSHeavyMetal.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,9 +8,16 @@ namespace PSHeavyMetal.Core.Services
 {
     public class UserService : IUserService
     {
-        public Task<IEnumerable<User>> GetAllUsersAsync()
+        private IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            throw new NotImplementedException();
+            _userRepository = userRepository;
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllUsers();
         }
 
         public Task<User> LoadUserAsync(Guid id)
@@ -17,7 +25,7 @@ namespace PSHeavyMetal.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<User> SaveUserAsync(string username, string password)
+        public Task<User> SaveUserAsync(string username)
         {
             throw new NotImplementedException();
         }

@@ -12,7 +12,7 @@ namespace PSHeavyMetal.Core.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<User> LoadUserAsync(Guid id);
+        Task<User> LoadUser(string id);
 
         /// <summary>
         /// Saves a user based on username and password. Generates a id while saving
@@ -20,7 +20,7 @@ namespace PSHeavyMetal.Core.Repositories
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<Guid> SaveUserAsync(string username, string password);
+        Task SaveUser(string username, string password);
 
         /// <summary>
         /// Get all saved users

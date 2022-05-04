@@ -5,11 +5,9 @@ namespace PSHeavyMetal.Forms
 {
     internal static class Startup
     {
-        public static IServiceProvider ServiceProvider { get; set; }
-
-        public static void Init()
+        public static ServiceProvider Init()
         {
-            ServiceProvider = new ServiceCollection().InitiliazeServices().
+            return new ServiceCollection().InitiliazeServices().
                 InitializeRepositories().
                 InitializeViewModels().
                 BuildServiceProvider();
