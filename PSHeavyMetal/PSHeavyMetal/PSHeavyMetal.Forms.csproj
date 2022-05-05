@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
@@ -24,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Styling\Generic.xaml.cs">
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -31,6 +35,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="AppShell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styling\Generic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AddUserView.xaml">

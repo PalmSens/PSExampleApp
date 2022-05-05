@@ -3,5 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PSHeavyMetal.Forms.App">
     <Application.Resources>
+        <ResourceDictionary Source="Styling/Generic.xaml"></ResourceDictionary>
     </Application.Resources>
 </Application>

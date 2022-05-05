@@ -4,7 +4,8 @@
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" x:DataType="viewmodels:LoginViewModel"
              x:Class="PSHeavyMetal.Forms.Views.LoginView"
              Visual="Material"
-             BackgroundImageSource="background.jpg">
+             BackgroundImageSource="background.jpg"
+             Title="PS Heavy Metal v0.1">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="WELCOME"
@@ -18,19 +19,24 @@
                    VerticalOptions="Start"
                    Margin="10,10,0,20"
                    FontSize="Medium" />
-            <Grid VerticalOptions="CenterAndExpand"
-                  HorizontalOptions="CenterAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Picker Grid.Column="1" />
-                <Button Grid.Column="2"
-                    Text="AddUser" Command="{Binding OpenAddUserViewCommand}"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand" />
-            </Grid>
-            <Button Text="Login" Command="{Binding LoginCommand}"
+            <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                <Picker Grid.Column="1"
+                        WidthRequest="200"
+                        ItemsSource="{Binding Users}"
+                        ItemDisplayBinding="{Binding Name}" />
+                <ImageButton Grid.Column="2"
+                    WidthRequest="30"
+                    HeightRequest="30"
+                    BackgroundColor="Transparent"
+                    Aspect="Fill"
+                    Source="plusicon.png"
+                    Command="{Binding OpenAddUserViewCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+            </StackLayout>
+            <Button Text="Continue" Command="{Binding LoginCommand}"
                     Margin="100"
                     HorizontalOptions="CenterAndExpand" />
         </StackLayout>
