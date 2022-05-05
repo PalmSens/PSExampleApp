@@ -1,8 +1,10 @@
-﻿namespace PSHeavyMetal.Common.Models
+﻿using System;
+
+namespace PSHeavyMetal.Common.Models
 {
     public abstract class DataObject
     {
         public string Name { get; set; }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -24,8 +24,7 @@ namespace PSHeavyMetal.Core.Services
         /// Saves a specific user
         /// </summary>
         /// <param name="username"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
-        Task<User> SaveUserAsync(string username);
+        Task SaveUserAsync(string username);
     }
 }

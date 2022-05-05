@@ -11,11 +11,12 @@ namespace PSHeavyMetal.Forms
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(AddUserView), typeof(AddUserView));
+            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Current.GoToAsync("//LoginPage");
         }
     }
 }

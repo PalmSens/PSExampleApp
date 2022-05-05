@@ -10,22 +10,23 @@ namespace PSHeavyMetal.Forms
     {
         public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IUserService, UserService>();
             return services;
         }
 
         public static IServiceCollection InitializeViewModels(this IServiceCollection services)
         {
             services.AddTransient<LoginViewModel>();
+            services.AddTransient<AddUserViewModel>();
             return services;
         }
 
         public static IServiceCollection InitializeRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IDataOperations, RavenDbDataOperations>();
-            services.AddScoped<IDeviceRepository, DeviceRepository>();
-            services.AddScoped<IMeasurementRepository, MeasurementRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddSingleton<IDataOperations, LiteDbDataOperations>();
+            services.AddSingleton<IDeviceRepository, DeviceRepository>();
+            services.AddSingleton<IMeasurementRepository, MeasurementRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             return services;
         }
     }

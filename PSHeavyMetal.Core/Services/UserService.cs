@@ -25,9 +25,9 @@ namespace PSHeavyMetal.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<User> SaveUserAsync(string username)
+        public async Task SaveUserAsync(string username)
         {
-            throw new NotImplementedException();
+            await _userRepository.SaveUser(username);
         }
     }
 }

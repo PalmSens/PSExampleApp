@@ -21,7 +21,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OpenAddUserClicked()
         {
-            await Shell.Current.GoToAsync($"//{nameof(AddUserView)}");
+            await Shell.Current.GoToAsync($"{nameof(AddUserView)}");
         }
 
         private Task OnLoginClicked()

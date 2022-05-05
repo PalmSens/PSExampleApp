@@ -12,14 +12,15 @@ namespace PSHeavyMetal.Forms.ViewModels
         public AddUserViewModel(IUserService userService)
         {
             _userService = userService;
-            AddUserCommand = new AsyncCommand<string>(OnAddUserClicked);
+            AddUserCommand = new AsyncCommand(OnAddUserClicked);
         }
 
-        public AsyncCommand<string> AddUserCommand { get; }
+        public AsyncCommand AddUserCommand { get; }
+        public string UserName { get; set; }
 
-        private async Task OnAddUserClicked(string name)
+        public async Task OnAddUserClicked()
         {
-            await _userService.SaveUserAsync(name);
+            await _userService.SaveUserAsync(UserName);
         }
     }
 }

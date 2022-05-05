@@ -15,14 +15,19 @@ namespace PSHeavyMetal.Core.Repositories
             _dataOperations = dataOperations;
         }
 
-        public Task<User> LoadUser(string id)
+        public Task<User> LoadUserById(Guid id)
         {
-            return _dataOperations.LoadAsync<User>(id);
+            return _dataOperations.LoadByIdAsync<User>(id);
         }
 
-        public Task SaveUser(string username, string password)
+        public Task<User> LoadUserByName(string name)
         {
-            return _dataOperations.SaveAsync(new User { Name = username, Password = password, Id = Guid.NewGuid().ToString() });
+            return _dataOperations.LoadByNameAsync<User>(name);
+        }
+
+        public Task SaveUser(string username)
+        {
+            return _dataOperations.SaveAsync(new User { Name = username, Password = "123", Id = Guid.NewGuid() });
         }
 
         public Task<IEnumerable<User>> GetAllUsers()
