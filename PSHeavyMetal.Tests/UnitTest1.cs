@@ -19,10 +19,6 @@ namespace PSHeavyMetal.Tests
 
             var user2 = new User { Id = Guid.NewGuid(), Name = "testName2", Password = "blah" };
             await datastorage.SaveAsync(user2);
-
-            var loadedUser = await datastorage.LoadByIdAsync<User>(user2.Id);
-
-            var users = await datastorage.GetAllAsync<User>();
         }
     }
 }

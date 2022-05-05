@@ -9,42 +9,38 @@ namespace PSHeavyMetal.Core.DataAccess
 {
     public class LiteDbDataOperations : IDataOperations
     {
-        private string _connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XamarinLiteDB.db");
+        private readonly string _connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XamarinLiteDB.db");
 
         public async Task<IEnumerable<T>> GetAllAsync<T>() where T : DataObject
         {
-            using (var db = new LiteDatabaseAsync(_connectionString))
-            {
-                var collection = db.GetCollection<T>();
-                return await collection.Query().ToListAsync();
-            }
+            using var db = new LiteDatabaseAsync(_connectionString);
+
+            var collection = db.GetCollection<T>();
+            return await collection.Query().ToListAsync();
         }
 
         public async Task SaveAsync<T>(T entity) where T : DataObject
         {
-            using (var db = new LiteDatabaseAsync(_connectionString))
-            {
-                var collection = db.GetCollection<T>();
-                await collection.UpsertAsync(entity);
-            }
+            using var db = new LiteDatabaseAsync(_connectionString);
+
+            var collection = db.GetCollection<T>();
+            await collection.UpsertAsync(entity);
         }
 
         public async Task<T> LoadByIdAsync<T>(Guid id) where T : DataObject
         {
-            using (var db = new LiteDatabaseAsync(_connectionString))
-            {
-                var collection = db.GetCollection<T>();
-                return await collection.FindByIdAsync(id);
-            }
+            using var db = new LiteDatabaseAsync(_connectionString);
+
+            var collection = db.GetCollection<T>();
+            return await collection.FindByIdAsync(id);
         }
 
         public async Task<T> LoadByNameAsync<T>(string name) where T : DataObject
         {
-            using (var db = new LiteDatabaseAsync(_connectionString))
-            {
-                var collection = db.GetCollection<T>();
-                return await collection.FindOneAsync(x => x.Name == name);
-            }
+            using var db = new LiteDatabaseAsync(_connectionString);
+
+            var collection = db.GetCollection<T>();
+            return await collection.FindOneAsync(x => x.Name == name);
         }
     }
 }

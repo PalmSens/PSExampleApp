@@ -4,12 +4,12 @@
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
              x:DataType="viewmodels:AddUserViewModel"
              x:Class="PSHeavyMetal.Forms.Views.AddUserView"
-             BackgroundColor="DeepPink">
+             Visual="Material"
+             BackgroundImageSource="background.jpg">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Orientation="Vertical">
-            <Label Text="Welcome to Xamarin.Forms!" />
+                     Orientation="Vertical">            
             <Button Text="Add user" Command="{Binding AddUserCommand}" />
             <Entry BackgroundColor="White" Text="{Binding UserName}" />
         </StackLayout>

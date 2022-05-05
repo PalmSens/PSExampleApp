@@ -3,14 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" x:DataType="viewmodels:LoginViewModel"
              x:Class="PSHeavyMetal.Forms.Views.LoginView"
-             BackgroundColor="Aqua">
+             Visual="Material"
+             BackgroundImageSource="background.jpg">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Login" Command="{Binding LoginCommand}" />
-            <Button Text="AddUser" Command="{Binding OpenAddUserViewCommand}" />
+            <Label Text="WELCOME"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Start"
+                   Margin="0,100,0,0"
+                   FontSize="Large" />
+            <Label Text="Please turn on the reader to continue"
+                   WidthRequest="200"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Start"
+                   Margin="10,10,0,20"
+                   FontSize="Medium" />
+            <Grid VerticalOptions="CenterAndExpand"
+                  HorizontalOptions="CenterAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Picker Grid.Column="1" />
+                <Button Grid.Column="2"
+                    Text="AddUser" Command="{Binding OpenAddUserViewCommand}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+            </Grid>
+            <Button Text="Login" Command="{Binding LoginCommand}"
+                    Margin="100"
+                    HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

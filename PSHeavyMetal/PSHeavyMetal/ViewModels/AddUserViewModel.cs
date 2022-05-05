@@ -21,6 +21,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         public async Task OnAddUserClicked()
         {
             await _userService.SaveUserAsync(UserName);
+            UserName = string.Empty;
         }
     }
 }
