@@ -1,17 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PSHeavyMetal.Forms.Styling.Generic">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    x:Class="PSHeavyMetal.Forms.Styling.Generic">
+
+    <system:Double x:Key="DefaultControlWidth">240</system:Double>
+    <system:Double x:Key="DefaultEntryHeight">60</system:Double>
+    <system:Double x:Key="DefaultControlButtonHeight">50</system:Double>
+
+    <Color x:Key="BackGroundColor">#015f5d</Color>
+
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="White" />
     </Style>
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="White" />
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="BorderColor" Value="White"/>
-        <Setter Property="BorderWidth" Value="2"/>
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="White" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="HeightRequest" Value="{StaticResource DefaultControlButtonHeight}" />
+        <Setter Property="WidthRequest" Value="{StaticResource DefaultControlWidth}" />
+    </Style>
+    <Style TargetType="Entry">
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="HeightRequest" Value="{StaticResource DefaultEntryHeight}" />
+        <Setter Property="WidthRequest" Value="{StaticResource DefaultControlWidth}" />
     </Style>
     <Style TargetType="Picker">
-        
     </Style>
 </ResourceDictionary>

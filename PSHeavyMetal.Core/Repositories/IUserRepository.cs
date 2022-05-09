@@ -33,6 +33,12 @@ namespace PSHeavyMetal.Core.Repositories
         /// Get all saved users
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<IEnumerable<User>> GetAllUsersAsync();
+
+        /// <summary>
+        /// Get all saved users
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<User> GetAllUsers();
     }
 }

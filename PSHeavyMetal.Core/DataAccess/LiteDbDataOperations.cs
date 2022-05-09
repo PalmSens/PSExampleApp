@@ -1,4 +1,5 @@
-﻿using LiteDB.Async;
+﻿using LiteDB;
+using LiteDB.Async;
 using PSHeavyMetal.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,14 @@ namespace PSHeavyMetal.Core.DataAccess
 
             var collection = db.GetCollection<T>();
             return await collection.FindOneAsync(x => x.Name == name);
+        }
+
+        public IEnumerable<T> GetAll<T>() where T : DataObject
+        {
+            using var db = new LiteDatabase(_connectionString);
+
+            var collection = db.GetCollection<T>();
+            return collection.Query().ToList();
         }
     }
 }

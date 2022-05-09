@@ -15,9 +15,14 @@ namespace PSHeavyMetal.Core.Services
             _userRepository = userRepository;
         }
 
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _userRepository.GetAllUsers();
+        }
+
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return await _userRepository.GetAllUsers();
+            return await _userRepository.GetAllUsersAsync();
         }
 
         public Task<User> LoadUserAsync(Guid id)

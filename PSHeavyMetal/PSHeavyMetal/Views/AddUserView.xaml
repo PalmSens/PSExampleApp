@@ -5,13 +5,21 @@
              x:DataType="viewmodels:AddUserViewModel"
              x:Class="PSHeavyMetal.Forms.Views.AddUserView"
              Visual="Material"
-             BackgroundImageSource="background.jpg">
+             BackgroundColor="{StaticResource BackGroundColor}">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand"
+        <Grid>
+            <StackLayout VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Orientation="Vertical">            
-            <Button Text="Add user" Command="{Binding AddUserCommand}" />
-            <Entry BackgroundColor="White" Text="{Binding UserName}" />
-        </StackLayout>
+                     Orientation="Vertical">                
+                <Entry Text="{Binding UserName}" Placeholder="Enter a user name"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="EndAndExpand" 
+                         HorizontalOptions="CenterAndExpand" 
+                         Margin="0,0,0,75" 
+                         Spacing="20" >
+                <Button Text="Add user" Command="{Binding AddUserCommand}"/>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

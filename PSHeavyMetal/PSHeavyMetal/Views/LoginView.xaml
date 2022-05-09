@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" x:DataType="viewmodels:LoginViewModel"
+             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common" x:DataType="viewmodels:LoginViewModel"
              x:Class="PSHeavyMetal.Forms.Views.LoginView"
              Visual="Material"
-             BackgroundImageSource="background.jpg"
+             BackgroundColor="{StaticResource BackGroundColor}"
              Title="PS Heavy Metal v0.1">
     <ContentPage.Content>
         <StackLayout>
@@ -20,15 +20,16 @@
                    Margin="10,10,0,20"
                    FontSize="Medium" />
             <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="CenterAndExpand">
-                <Picker Grid.Column="1"
+                         HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand">
+                <Picker Title="Select user"
+                        Grid.Column="1"
                         WidthRequest="200"
                         ItemsSource="{Binding Users}"
                         ItemDisplayBinding="{Binding Name}" />
                 <ImageButton Grid.Column="2"
-                    WidthRequest="30"
-                    HeightRequest="30"
+                    WidthRequest="40"
+                    HeightRequest="40"
                     BackgroundColor="Transparent"
                     Aspect="Fill"
                     Source="plusicon.png"
@@ -36,7 +37,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center" />
             </StackLayout>
-            <Button Text="Continue" Command="{Binding LoginCommand}"
+            <Button Text="Continue" Command="{Binding LoginCommand}" BackgroundColor="Transparent"
                     Margin="100"
                     HorizontalOptions="CenterAndExpand" />
         </StackLayout>

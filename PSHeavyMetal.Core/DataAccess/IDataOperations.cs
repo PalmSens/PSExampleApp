@@ -15,6 +15,13 @@ namespace PSHeavyMetal.Core.DataAccess
         public Task<IEnumerable<T>> GetAllAsync<T>() where T : DataObject;
 
         /// <summary>
+        /// Loads all entities from the collection
+        /// </summary>
+        /// <typeparam name="T">Type of collection</typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> GetAll<T>() where T : DataObject;
+
+        /// <summary>
         /// Saves a enitity
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -30,9 +30,14 @@ namespace PSHeavyMetal.Core.Repositories
             return _dataOperations.SaveAsync(new User { Name = username, Password = "123", Id = Guid.NewGuid() });
         }
 
-        public Task<IEnumerable<User>> GetAllUsers()
+        public Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return _dataOperations.GetAllAsync<User>();
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _dataOperations.GetAll<User>();
         }
     }
 }
