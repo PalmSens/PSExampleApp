@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PalmSens.PSAndroid.Core</name>
+    </assembly>
+    <members>
+        <member name="M:PalmSens.PSAndroid.Comm.BlueToothChildActivity.#ctor">
+            eventReceiver: The class that handles events fired by the BlueToothSession.
+            This class is responsible for any UI-messages/interaction concerning the state of the bluetooth connection
+            It also signals the class responsible for communications to start or stop communications       
+        </member>
+        <member name="T:PalmSens.PSAndroid.Comm.DeviceListActivity">
+            <summary>
+            This Activity appears as a dialog. It lists any paired devices and
+            devices detected in the area after discovery. When a device is chosen
+            by the user, the MAC address of the device is sent back to the parent
+            Activity in the result Intent.
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Comm.DeviceListActivity.DoDiscovery">
+            <summary>
+            Start device discover with the BluetoothAdapter
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Comm.DeviceListActivity.DeviceListClick(System.Object,Android.Widget.AdapterView.ItemClickEventArgs)">
+            <summary>
+            The on-click listener for all devices in the ListViews
+            </summary>
+        </member>
+        <member name="E:PalmSens.PSAndroid.Comm.ThreadedReadDevice.DeviceReadError">
+            <summary>
+            An event handler that will fire when the device has a read error.
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Comm.ThreadedReadDevice.Dispose">
+            <summary>
+                Disposes of device resources
+                Identical to Close()
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Comm.ThreadedReadDevice.InternalRead(System.Byte[],System.Int32)">
+            <summary>
+                Read data from the device, does not support the cancellation of blocking reads.
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Comm.UsbChildActivity.#ctor(System.Boolean)">
+            eventReceiver: The class that handles events fired by the USBSession.
+            This class is responsible for any UI-messages/interaction concerning the state of the usb connection
+            It also signals the class responsible for communications to start or stop communications       
+        </member>
+        <member name="T:PalmSens.PSAndroid.LoadSaveHelperFunctions">
+            <summary>
+            Functions for saving and loading files.
+            - Working with relative paths
+            - Save rich text to single line
+            -...
+            </summary>
+        </member>
+        <member name="P:PalmSens.PSAndroid.LoadSaveHelperFunctions.AssemblyDirectory">
+            <summary>
+            Gets the assembly directory.
+            </summary>
+        </member>
+        <member name="F:PalmSens.PSAndroid.LoadSaveHelperFunctions.LoadMethodDialogFilter">
+            <summary>
+            Use as filter for load method file dialog
+            </summary>
+        </member>
+        <member name="F:PalmSens.PSAndroid.LoadSaveHelperFunctions.PrevLoadDialogPath">
+            <summary>
+            The default dialog path for loading files
+            </summary>
+        </member>
+        <member name="F:PalmSens.PSAndroid.LoadSaveHelperFunctions.PrevSaveDialogPath">
+            <summary>
+            The default dialog path for saving files
+            </summary>
+        </member>
+        <member name="F:PalmSens.PSAndroid.LoadSaveHelperFunctions.CurrentPath">
+            <summary>
+            The path of the current file to use for relative paths
+            </summary>
+        </member>
+        <member name="F:PalmSens.PSAndroid.LoadSaveHelperFunctions._backGroundWorker">
+            <summary>
+            The back ground worker
+            </summary>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.MakeRelative(System.String)">
+            <summary>
+            Makes an absolute path relative to the location of the file
+            </summary>
+            <param name="absolutepath">The absolute path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.ShortenPathForDisplay(System.String,System.Int32)">
+            <summary>
+            Shortens the path for display.
+            </summary>
+            <param name="fullPath">The full path.</param>
+            <param name="maxLength">Max length of the string. Default is 60 characters, minimum is 20 characters</param>
+            <returns>A path with a \...\ parts in it if longer than maxLength</returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.SaveStringToFile(System.String,System.String)">
+            <summary>
+            Saves the string to the given filepath using the default encoding from DataFile.DefaultEncoding
+            </summary>
+            <param name="contents">The contents.</param>
+            <param name="filepath">The filepath.</param>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.SaveStringToFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Saves the string to the given filepath
+            </summary>
+            <param name="contents">The contents.</param>
+            <param name="filepath">The filepath.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.MakeAbsolute(System.String)">
+            <summary>
+            Makes an absolute path relative to the location of the file
+            </summary>
+            <param name="inputpath">The inputpath.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.GetNextAvailableDataFilename(System.String,System.String)">
+            <summary>
+            Gets the next available data filename.
+            Returns a filepath as filepath-#.extension, where # is an incremental number.
+            </summary>
+            <param name="filepath">The filepath.</param>
+            <param name="extension">The extension.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.GetValidFilename(System.String)">
+            <summary>
+            Filters out invalid characters and returns cleaned filename.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.LoadMethod(System.String,System.Boolean)">
+            <summary>
+            Loads the method. Allowed extensions: .psmethod, .pst and .pss
+            </summary>
+            <param name="filepath">The filepath.</param>
+            <param name="isCorrosion">if set to <c>true</c> [is corrosion]. This is only required for old style method files with extension .pmt and .pms.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.LoadCurve(System.String,System.Boolean)">
+            <summary>
+            Loads the curve and tries to load the corresponding method file if exists.
+            </summary>
+            <param name="filepath">The filepath.</param>
+            <returns>Curve with corresponding method</returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.LoadSaveHelperFunctions.LoadMuxMeasurementFile(System.String,System.Boolean)">
+            <summary>
+            Loads the mux measurement file and tries to load the corresponding method file if exists.
+            </summary>
+            <param name="filepath">The filepath.</param>
+            <returns>Measurement with curve data and corresponding method parameters</returns>
+        </member>
+        <member name="M:PalmSens.PSAndroid.Views.TextViewAutoScaleText.SetMinTextSize(System.Single)">
+            Set the minimum text size for this view
+            
+            @param minTextSize
+                       The minimum text size
+        </member>
+        <member name="M:PalmSens.PSAndroid.Views.TextViewAutoScaleText.RefitText(System.String,System.Int32)">
+            Resize the text so that it fits
+            
+            @param text
+                       The text. Neither <code>null</code> nor empty.
+            @param textWidth
+                       The width of the TextView. > 0
+        </member>
+        <member name="M:PalmSens.PSAndroid.Views.ButtonAutoScaleText.SetMinTextSize(System.Single)">
+            Set the minimum text size for this view
+            
+            @param minTextSize
+                       The minimum text size
+        </member>
+        <member name="M:PalmSens.PSAndroid.Views.ButtonAutoScaleText.RefitText(System.String,System.Int32)">
+            Resize the text so that it fits
+            
+            @param text
+                       The text. Neither <code>null</code> nor empty.
+            @param textWidth
+                       The width of the TextView. > 0
+        </member>
+    </members>
+</doc>
