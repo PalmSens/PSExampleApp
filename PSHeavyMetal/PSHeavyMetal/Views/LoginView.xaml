@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common" x:DataType="viewmodels:LoginViewModel"
+             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+             xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
+             x:DataType="viewmodels:LoginViewModel"
              x:Class="PSHeavyMetal.Forms.Views.LoginView"
              Visual="Material"
-             BackgroundColor="{StaticResource BackGroundColor}"
-             Title="PS Heavy Metal v0.1">
+             Style="{StaticResource CustomPage}">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="WELCOME"

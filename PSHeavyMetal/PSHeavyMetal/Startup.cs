@@ -7,7 +7,8 @@ namespace PSHeavyMetal.Forms
     {
         public static ServiceProvider Init()
         {
-            return new ServiceCollection().InitiliazeServices().
+            return new ServiceCollection().
+                InitiliazeServices().
                 InitializeRepositories().
                 InitializeViewModels().
                 BuildServiceProvider();

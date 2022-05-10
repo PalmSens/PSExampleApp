@@ -8,7 +8,7 @@ namespace PSHeavyMetal.Core.Repositories
     {
         public List<Device> GetDevices()
         {
-            throw new NotImplementedException();
+            return new List<Device>();
         }
     }
 }

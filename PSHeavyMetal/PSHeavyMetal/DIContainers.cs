@@ -11,6 +11,7 @@ namespace PSHeavyMetal.Forms
         public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IDeviceService, DeviceService>();
             return services;
         }
 
@@ -18,6 +19,7 @@ namespace PSHeavyMetal.Forms
         {
             services.AddTransient<LoginViewModel>();
             services.AddTransient<AddUserViewModel>();
+            services.AddTransient<SelectDeviceViewModel>();
             return services;
         }
 

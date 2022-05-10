@@ -45,9 +45,9 @@ namespace PSHeavyMetal.Forms.ViewModels
             await Shell.Current.GoToAsync($"{nameof(AddUserView)}");
         }
 
-        private Task OnLoginClicked()
+        private async Task OnLoginClicked()
         {
-            throw new NotImplementedException();
+            await Shell.Current.GoToAsync($"//{nameof(SelectDeviceView)}");
         }
     }
 }
