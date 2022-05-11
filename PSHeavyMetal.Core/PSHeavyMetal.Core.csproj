@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ex\sdk\PSLibraries\PalmSens.Core.Simplified.Android\PalmSens.Core.Simplified.Android.csproj" />
     <ProjectReference Include="..\PSHeavyMetal.Common\PSHeavyMetal.Common.csproj" />
+    <ProjectReference Include="..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj" />    
   </ItemGroup>
 
   <ItemGroup>

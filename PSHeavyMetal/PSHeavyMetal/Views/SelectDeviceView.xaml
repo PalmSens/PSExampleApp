@@ -1,13 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" x:DataType="viewmodels:SelectDeviceViewModel"
              x:Class="PSHeavyMetal.Forms.Views.SelectDeviceView"
-             Style="{StaticResource CustomPage}">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             Style="{StaticResource CustomPage}"
+             Visual="Material">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand }" />
+    </ContentPage.Behaviors>
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Select a device." HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
+        </Frame>
+        <ListView ItemsSource="{Binding AvailableDevices}">
+            <ListView.Behaviors>
+                <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnInstrumentSelected}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BackgroundColor="#2196F3" Padding="0">
+                            <Label Text="blah" Padding="3" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" />
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

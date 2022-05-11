@@ -46,6 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="PalmSens.Core">
+      <HintPath>..\..\..\ex\sdk\PSLibraries\PalmSens.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +57,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Plugin.CurrentActivity">
+      <Version>2.1.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>2.0.2</Version>
     </PackageReference>
@@ -67,6 +73,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PermissionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -90,6 +97,18 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
+      <Project>{CB510E02-A04F-46A6-832F-D8925066036E}</Project>
+      <Name>PalmSens.Core.Simplified.XF.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Infrastructure.Android\PalmSens.Core.Simplified.XF.Infrastructure.Android.csproj">
+      <Project>{3E72DA4E-376C-43AA-956D-AE7BBEC54F96}</Project>
+      <Name>PalmSens.Core.Simplified.XF.Infrastructure.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj">
+      <Project>{564E4775-148F-4CCB-ADA2-74B50A3AACBA}</Project>
+      <Name>PalmSens.Core.Simplified</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PSHeavyMetal\PSHeavyMetal.Forms.csproj">
       <Project>{5F2F565C-A2E9-47B8-909D-37DE50ACD6DA}</Project>
       <Name>PSHeavyMetal.Forms</Name>

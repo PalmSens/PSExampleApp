@@ -15,8 +15,8 @@ namespace PSHeavyMetal.Forms.Views
     {
         public SelectDeviceView()
         {
-            InitializeComponent();
             BindingContext = App.GetViewModel<SelectDeviceViewModel>();
+            InitializeComponent();
         }
     }
 }

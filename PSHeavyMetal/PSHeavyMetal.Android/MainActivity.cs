@@ -2,7 +2,12 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.Core.Simplified.XF.Infrastructure.Android.Services;
+using Plugin.CurrentActivity;
+using PSHeavyMetal.Droid.Services;
 using PSHeavyMetal.Forms;
+using Xamarin.Forms;
 
 namespace PSHeavyMetal.Droid
 {
@@ -12,6 +17,13 @@ namespace PSHeavyMetal.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            //Register context required to prevent device going to sleep during measurement
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
+            //Register platform specific services
+            DependencyService.RegisterSingleton(new InstrumentService(new PlatformDeviceManager()));
+            DependencyService.RegisterSingleton<IPermissionService>(new PermissionService());
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

@@ -1,28 +1,35 @@
-﻿using PalmSens.Core.Simplified.Android;
+﻿using PalmSens.Core.Simplified.XF.Application.Models;
+using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.Devices;
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Services
 {
     public class DeviceService : IDeviceService
     {
-        private readonly PSCommSimpleAndroid _commService;
+        private readonly InstrumentService _instrumentService;
 
-        public DeviceService()
+        public DeviceService(InstrumentService instrumentService)
         {
+            _instrumentService = instrumentService;
         }
 
-        public async Task DetectDevices()
+        public async Task DetectDevicesAsync(CancellationToken? cancellationToken = null)
         {
-            var blah = await _commService.GetConnectedDevices();
+            await _instrumentService.GetConnectedDevices().ConfigureAwait(false);
         }
 
-        public List<string> DetectedDevices()
+        public event EventHandler<PlatformDevice> DeviceDiscovered
         {
-            throw new NotImplementedException();
+            add => _instrumentService.DeviceDiscovered += value;
+            remove => _instrumentService.DeviceDiscovered -= value;
+        }
+
+        public async Task ConnectToDeviceAsync(Device device)
+        {
+            await _instrumentService.ConnectAsync(device);
         }
     }
 }

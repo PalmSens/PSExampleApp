@@ -4,6 +4,7 @@
        xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
        x:Class="PSHeavyMetal.Forms.AppShell"
        Shell.NavBarIsVisible="False">
+
     <ShellContent Route="LoginView">
         <views:LoginView />
     </ShellContent>

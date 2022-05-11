@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
@@ -12,16 +11,17 @@ using Plugin.CurrentActivity;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
-    public class PlatformDeviceManager: IInstrumentPlatfrom
+    public class PlatformDeviceManager : IInstrumentPlatfrom
     {
         #region fields
 
         private Context Context => CrossCurrentActivity.Current.AppContext;
         private DeviceHandler _deviceHandler;
         private Handler _mainHandler;
+
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
-        #endregion
+        #endregion fields
 
         public PlatformDeviceManager()
         {
@@ -34,6 +34,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
         }
 
         #region methods
+
         /// <summary>
         /// Required initialization for using the async functionalities of the PalmSens SDK.
         /// The amount of simultaneous operations will be limited to prevent performance issues.
@@ -57,7 +58,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
                 platformDevice.Device = device;
                 platformDevices.Add(platformDevice);
             }
-            
+
             return platformDevices;
         }
 
@@ -80,7 +81,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
         {
             if (Looper.MyLooper() != Looper.MainLooper)//Check if event needs to be cast to the UI thread
             {
-                _mainHandler.Post(() => method.DynamicInvoke(args)); //Recast event to UI thread                
+                _mainHandler.Post(() => method.DynamicInvoke(args)); //Recast event to UI thread
                 return true;
             }
             return false;
@@ -96,6 +97,6 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             DeviceDiscovered = null;
         }
 
-        #endregion
+        #endregion methods
     }
 }

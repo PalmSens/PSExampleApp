@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.DataAccess;
 using PSHeavyMetal.Core.Repositories;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.ViewModels;
+using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms
 {
@@ -11,6 +13,8 @@ namespace PSHeavyMetal.Forms
         public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton(DependencyService.Resolve<IPermissionService>());
+            services.AddSingleton(DependencyService.Resolve<InstrumentService>());
             services.AddSingleton<IDeviceService, DeviceService>();
             return services;
         }
