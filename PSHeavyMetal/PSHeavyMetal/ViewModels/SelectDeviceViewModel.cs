@@ -1,6 +1,7 @@
 ﻿using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
@@ -39,8 +40,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             OnInstrumentSelected = CommandFactory.Create(async pd => await ConnectToInstrument(pd as PlatformDevice));
         }
 
-        public ObservableCollection<PlatformDevice> AvailableDevices { get; } =
-            new ObservableCollection<PlatformDevice>();
+        public ObservableCollection<PlatformDevice> AvailableDevices { get; } = new ObservableCollection<PlatformDevice>();
 
         private async Task OnPageAppearing()
         {
@@ -62,7 +62,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             AbortDeviceDiscovery();
             await Task.Delay(100);
-            await _deviceService.ConnectToDeviceAsync(device.Device);
+            await _deviceService.ConnectToDeviceAsync(device);
+
+            await Shell.Current.GoToAsync($"//{nameof(PrepareMeasurementView)}");
         }
 
         private void AbortDeviceDiscovery()

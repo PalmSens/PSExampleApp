@@ -11,6 +11,8 @@ namespace PSHeavyMetal.Core.Services
     {
         private readonly InstrumentService _instrumentService;
 
+        public PlatformDevice ConnectedDevice { get; private set; }
+
         public DeviceService(InstrumentService instrumentService)
         {
             _instrumentService = instrumentService;
@@ -27,9 +29,10 @@ namespace PSHeavyMetal.Core.Services
             remove => _instrumentService.DeviceDiscovered -= value;
         }
 
-        public async Task ConnectToDeviceAsync(Device device)
+        public async Task ConnectToDeviceAsync(PlatformDevice device)
         {
-            await _instrumentService.ConnectAsync(device);
+            await _instrumentService.ConnectAsync(device.Device);
+            ConnectedDevice = device;
         }
     }
 }

@@ -11,4 +11,7 @@
     <ShellContent Route="SelectDeviceView">
         <views:SelectDeviceView />
     </ShellContent>
+    <ShellContent Route="PrepareMeasurementView">
+        <views:PrepareMeasurementView />
+    </ShellContent>
 </Shell>

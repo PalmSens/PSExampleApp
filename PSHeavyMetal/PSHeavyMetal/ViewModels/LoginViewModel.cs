@@ -1,13 +1,10 @@
 ﻿using MvvmHelpers.Commands;
 using PSHeavyMetal.Common.Models;
-using PSHeavyMetal.Forms.Views;
-using System;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using Xamarin.Forms;
 using PSHeavyMetal.Core.Services;
-using System.Runtime.CompilerServices;
-using System.ComponentModel;
+using PSHeavyMetal.Forms.Views;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
