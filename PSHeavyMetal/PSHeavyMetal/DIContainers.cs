@@ -25,6 +25,7 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<AddUserViewModel>();
             services.AddTransient<SelectDeviceViewModel>();
             services.AddTransient<PrepareMeasurementViewModel>();
+            services.AddTransient<SettingsViewModel>();
             return services;
         }
 

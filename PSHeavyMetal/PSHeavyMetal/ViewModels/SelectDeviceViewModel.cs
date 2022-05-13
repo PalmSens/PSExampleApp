@@ -64,7 +64,8 @@ namespace PSHeavyMetal.Forms.ViewModels
             await Task.Delay(100);
             await _deviceService.ConnectToDeviceAsync(device);
 
-            await Shell.Current.GoToAsync($"//{nameof(PrepareMeasurementView)}");
+            //await Shell.Current.GoToAsync($"//{nameof(PrepareMeasurementView)}");
+            await Application.Current.MainPage.Navigation.PushAsync(new PrepareMeasurementView());
         }
 
         private void AbortDeviceDiscovery()

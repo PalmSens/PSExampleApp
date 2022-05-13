@@ -39,12 +39,12 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OpenAddUserClicked()
         {
-            await Shell.Current.GoToAsync($"{nameof(AddUserView)}");
+            await Application.Current.MainPage.Navigation.PushAsync(new AddUserView());
         }
 
         private async Task OnLoginClicked()
         {
-            await Shell.Current.GoToAsync($"//{nameof(SelectDeviceView)}");
+            await Application.Current.MainPage.Navigation.PushAsync(new SelectDeviceView());
         }
     }
 }

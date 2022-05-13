@@ -8,11 +8,10 @@
     <system:Double x:Key="DefaultEntryHeight">60</system:Double>
     <system:Double x:Key="DefaultControlButtonHeight">50</system:Double>
 
-    <Color x:Key="BackGroundColor">#015f5d</Color>
-
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="White" />
     </Style>
+
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="White" />
         <Setter Property="BackgroundColor" Value="Transparent" />

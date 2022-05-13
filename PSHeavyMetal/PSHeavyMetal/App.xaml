@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary Source="Styling/Generic.xaml"></ResourceDictionary>
         <Style TargetType="ContentPage" x:Key="CustomPage">
-            <Setter Property="BackgroundImageSource" Value="background.jpeg" />
+            <!--<Setter Property="BackgroundImageSource" Value="background.jpeg" />-->
         </Style>
     </Application.Resources>
 </Application>

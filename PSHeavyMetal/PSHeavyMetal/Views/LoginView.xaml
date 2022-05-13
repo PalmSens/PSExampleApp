@@ -2,11 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-             xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
+             xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+             xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
              x:DataType="viewmodels:LoginViewModel"
              x:Class="PSHeavyMetal.Forms.Views.LoginView"
              Visual="Material"
              Style="{StaticResource CustomPage}">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
             <Label Text="WELCOME"
@@ -39,8 +51,8 @@
                     HorizontalOptions="Center" />
             </StackLayout>
             <Button Text="Continue" Command="{Binding LoginCommand}" BackgroundColor="Transparent"
-                    Margin="100"
-                    HorizontalOptions="CenterAndExpand" />
+                    IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,100" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

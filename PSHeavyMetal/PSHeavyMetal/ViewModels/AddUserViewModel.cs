@@ -24,12 +24,13 @@ namespace PSHeavyMetal.Forms.ViewModels
         public async Task OnAddUserClicked()
         {
             await _userService.SaveUserAsync(UserName);
-            await Shell.Current.GoToAsync($"..");
+            //await Shell.Current.GoToAsync($"..");
         }
 
         public async Task OnCancelClicked()
         {
-            await Shell.Current.GoToAsync($"..");
+            //await Shell.Current.GoToAsync($"..");
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 }

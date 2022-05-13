@@ -3,15 +3,13 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
        x:Class="PSHeavyMetal.Forms.AppShell"
-       Shell.NavBarIsVisible="False">
-
-    <ShellContent Route="LoginView">
-        <views:LoginView />
-    </ShellContent>
-    <ShellContent Route="SelectDeviceView">
-        <views:SelectDeviceView />
-    </ShellContent>
-    <ShellContent Route="PrepareMeasurementView">
-        <views:PrepareMeasurementView />
-    </ShellContent>
-</Shell>
+       Shell.NavBarIsVisible="True">
+    <TabBar>
+        <ShellContent Route="LoginView">
+            <views:LoginView />
+        </ShellContent>
+        <ShellContent Route="SelectDeviceView">
+            <views:SelectDeviceView />
+        </ShellContent>
+    </TabBar>
+</Shell>    

@@ -9,7 +9,7 @@ using PalmSens.PSAndroid.Comm;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
-    class DeviceHandler: IDeviceHandler
+    internal class DeviceHandler : IDeviceHandler
     {
         internal DeviceHandler()
         {
@@ -19,6 +19,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         public bool EnableBluetooth { get; set; } = true;
         public bool EnableUSB { get; set; } = true;
+
         public event EventHandler<Device> DeviceDiscoverered;
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             }
             finally
             {
-                if(deviceDiscoverer != null)
+                if (deviceDiscoverer != null)
                 {
                     deviceDiscoverer.DeviceDiscovered -= DeviceDiscoverer_DeviceDiscovered;
                     deviceDiscoverer.Dispose();
@@ -81,8 +82,11 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
             try
             {
-                await device.OpenAsync(); //Open the device to allow a connection
-                comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
+                device.Open();
+                comm = new CommManager(device);
+
+                //await device.OpenAsync(); //Open the device to allow a connection
+                //comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
             }
             catch (Exception ex)
             {

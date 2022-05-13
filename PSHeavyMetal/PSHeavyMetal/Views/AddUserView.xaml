@@ -4,8 +4,7 @@
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
              x:DataType="viewmodels:AddUserViewModel"
              x:Class="PSHeavyMetal.Forms.Views.AddUserView"
-             Visual="Material"
-             BackgroundColor="{StaticResource BackGroundColor}">
+             Visual="Material">
     <ContentPage.Content>
         <Grid>
             <StackLayout VerticalOptions="CenterAndExpand"
