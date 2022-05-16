@@ -6,5 +6,6 @@
         AddUserView,
         PrepareMeasurementView,
         SelectDeviceView,
+        ConfigureMeasurementView,
     }
 }

@@ -16,6 +16,7 @@ namespace PSHeavyMetal.Forms
             services.AddSingleton(DependencyService.Resolve<IPermissionService>());
             services.AddSingleton(DependencyService.Resolve<InstrumentService>());
             services.AddSingleton<IDeviceService, DeviceService>();
+            services.AddSingleton<IMeasurementService, MeasurementService>();
             return services;
         }
 

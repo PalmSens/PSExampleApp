@@ -2,7 +2,6 @@
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
-using PSHeavyMetal.Forms.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
@@ -10,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
     public class SelectDeviceViewModel : BaseViewModel
     {
+        public ICommand CancelCommand { get; }
         public ICommand OnPageAppearingCommand { get; }
         public ICommand OnPageDisappearingCommand { get; }
         public ICommand OnInstrumentSelected { get; }
@@ -39,6 +38,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                             }), allowsMultipleExecutions: false);
             OnPageDisappearingCommand = CommandFactory.Create(AbortDeviceDiscovery);
             OnInstrumentSelected = CommandFactory.Create(async pd => await ConnectToInstrument(pd as PlatformDevice));
+            CancelCommand = CommandFactory.Create(async () => await NavigationDispatcher.Pop());
         }
 
         public ObservableCollection<PlatformDevice> AvailableDevices { get; } = new ObservableCollection<PlatformDevice>();

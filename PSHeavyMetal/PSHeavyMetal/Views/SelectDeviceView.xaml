@@ -3,40 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
              xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
-             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels" xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
              x:DataType="viewmodels:SelectDeviceViewModel"
              x:Class="PSHeavyMetal.Forms.Views.SelectDeviceView"
              Style="{StaticResource CustomPage}"
              Visual="Material">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
         <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand }" />
     </ContentPage.Behaviors>
     <ContentPage.Content>
-        <StackLayout WidthRequest="200" 
-                     HeightRequest="500" 
-                     HorizontalOptions="CenterAndExpand"                      
-                     Orientation="Vertical">
-            <Label Text="3 readers found, please select" 
-                   FontSize="30" 
-                   Margin="5,150,0,50" 
-                   HorizontalTextAlignment="Center"/>
-            <ListView ItemsSource="{Binding AvailableDevices}" 
-                      VerticalOptions="CenterAndExpand" 
-                      HorizontalOptions="Center"                                   
-                      HasUnevenRows="True" >
+        <StackLayout WidthRequest="200"
+                     HeightRequest="500"
+                     HorizontalOptions="CenterAndExpand"
+                     Orientation="Vertical"
+                     Margin="50">
+            <Label Text="3 readers found, please select"
+                   FontSize="30"
+                   Margin="5,100,0,50"
+                   HorizontalTextAlignment="Center" />
+            <ListView ItemsSource="{Binding AvailableDevices}"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="Center"
+                      HasUnevenRows="True">
                 <ListView.Behaviors>
                     <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnInstrumentSelected}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:PlatformDevice">
                         <ViewCell>
-                            <StackLayout>                                
-                                <Frame BorderColor="White" BackgroundColor="Transparent" HasShadow="False" Padding="0" HeightRequest="50" CornerRadius="0" Margin="7" >
+                            <StackLayout>
+                                <Frame BorderColor="White" BackgroundColor="Transparent" HasShadow="False" Padding="0" HeightRequest="50" CornerRadius="0" Margin="7">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                        <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Padding="0,0,0,3" FontSize="20"/>
-                                        <Image Source="arrow_right.xml" HeightRequest="15" WidthRequest="30" Scale="0.8"/>
+                                        <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Padding="0,0,0,3" FontSize="20" />
+                                        <Image Source="arrow_right.xml" HeightRequest="15" WidthRequest="30" Scale="0.8" />
                                     </StackLayout>
                                 </Frame>
                             </StackLayout>
@@ -44,6 +49,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

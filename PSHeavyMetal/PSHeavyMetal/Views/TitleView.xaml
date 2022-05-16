@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PSHeavyMetal.Forms.Views.TitleView">
     <ContentView.Content>
-        <StackLayout VerticalOptions="CenterAndExpand"
-                     HorizontalOptions="CenterAndExpand">
+        <StackLayout VerticalOptions="Fill"
+                     HorizontalOptions="Fill"
+                     BackgroundColor="Aqua">
             <Label  FontSize="25"
                     HorizontalTextAlignment="Center"
                     FontFamily="PatrickFont"

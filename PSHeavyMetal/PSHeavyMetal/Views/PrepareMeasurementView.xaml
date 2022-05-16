@@ -3,18 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
              xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+             xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
              x:DataType="viewmodels:PrepareMeasurementViewModel"
              x:Class="PSHeavyMetal.Forms.Views.PrepareMeasurementView"
              Style="{StaticResource CustomPage}"
              Visual="Material">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="CenterAndExpand"
+                     Orientation="Vertical">
             <Label Text="{Binding ConnectedDevice.Name}" />
+            <Entry Text="{Binding SampleName}"
+                   Placeholder="Sample name"
+                   Margin="0,0,0,20" />
+            <Editor Text="{Binding SampleNotes}"
+                    Placeholder="Notes"
+                    AutoSize="Disabled" MaxLength="300"
+                    MinimumHeightRequest="150"
+                    HeightRequest="150" />
+            <Button Text="Continue"
+                    Command="{Binding ContinueCommand}"
+                    Margin="0,20,0,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

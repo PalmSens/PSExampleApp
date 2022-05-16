@@ -39,7 +39,8 @@
                         Grid.Column="1"
                         WidthRequest="200"
                         ItemsSource="{Binding Users}"
-                        ItemDisplayBinding="{Binding Name}" />
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedUser}" />
                 <ImageButton Grid.Column="2"
                     WidthRequest="40"
                     HeightRequest="40"

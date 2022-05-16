@@ -2,21 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+             xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
              x:DataType="viewmodels:AddUserViewModel"
              x:Class="PSHeavyMetal.Forms.Views.AddUserView"
              Visual="Material">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <Grid>
             <StackLayout VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Orientation="Vertical">                
-                <Entry Text="{Binding UserName}" Placeholder="Enter a user name"/>
+                     Orientation="Vertical">
+                <Entry Text="{Binding UserName}" Placeholder="Enter a user name" />
             </StackLayout>
-            <StackLayout VerticalOptions="EndAndExpand" 
-                         HorizontalOptions="CenterAndExpand" 
-                         Margin="0,0,0,75" 
-                         Spacing="20" >
-                <Button Text="Add user" Command="{Binding AddUserCommand}"/>
+            <StackLayout VerticalOptions="EndAndExpand"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="0,0,0,75"
+                         Spacing="20">
+                <Button Text="Add user" Command="{Binding AddUserCommand}" />
                 <Button Text="Cancel" Command="{Binding CancelCommand}" />
             </StackLayout>
         </Grid>
