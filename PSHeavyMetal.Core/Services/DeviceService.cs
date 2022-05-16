@@ -1,6 +1,5 @@
 ﻿using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
-using PalmSens.Devices;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

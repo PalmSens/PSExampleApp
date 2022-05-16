@@ -11,7 +11,7 @@ namespace PSHeavyMetal.Core.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Measurement LoadMeasurement(Guid id);
+        HeavyMetalMeasurement LoadMeasurement(Guid id);
 
         /// <summary>
         /// Saves a measurement
@@ -19,12 +19,12 @@ namespace PSHeavyMetal.Core.Repositories
         /// <param name="Measurementname"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Guid SaveMeasurement(Measurement measurement);
+        Guid SaveMeasurement(HeavyMetalMeasurement measurement);
 
         /// <summary>
         /// Get all saved measurements
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Measurement> GetAllMeasurements();
+        IEnumerable<HeavyMetalMeasurement> GetAllMeasurements();
     }
 }

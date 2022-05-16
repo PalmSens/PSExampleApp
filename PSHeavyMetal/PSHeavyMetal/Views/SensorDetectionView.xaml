@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PSHeavyMetal.Forms.Views.SensorDetectionView">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand">
+            <Label Text="Sample:" HorizontalTextAlignment="Center" 
+                   FontSize="20"/>
+            <Label Text="Test sample" 
+                   HorizontalTextAlignment="Center"
+                   FontSize="20"
+                   FontAttributes="Italic"/>
+            <Label Text="Insert sensor" 
+                   HorizontalTextAlignment="Center" 
+                   Margin="0,150,0,0"
+                   FontSize="30"/>
+            <StackLayout Orientation="Horizontal" Margin="50">
+                <Frame CornerRadius="5"
+                       BorderColor="White"
+                       WidthRequest="100"
+                       HeightRequest="50"
+                       BackgroundColor="Transparent" />
+                <Image Source="sensor.png" WidthRequest="120"
+                       Margin="20"/>
+            </StackLayout>
+            <Button Text="Continue" HorizontalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

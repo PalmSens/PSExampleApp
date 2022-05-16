@@ -42,6 +42,9 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.SelectDeviceView:
                     return new SelectDeviceView();
 
+                case NavigationViewType.ConfigureMeasurementView:
+                    return new ConfigureMeasurementView();
+
                 default:
                     throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }

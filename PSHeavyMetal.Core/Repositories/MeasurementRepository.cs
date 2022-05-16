@@ -6,17 +6,17 @@ namespace PSHeavyMetal.Core.Repositories
 {
     public class MeasurementRepository : IMeasurementRepository
     {
-        public IEnumerable<Measurement> GetAllMeasurements()
+        public IEnumerable<HeavyMetalMeasurement> GetAllMeasurements()
         {
             throw new NotImplementedException();
         }
 
-        public Measurement LoadMeasurement(Guid id)
+        public HeavyMetalMeasurement LoadMeasurement(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Guid SaveMeasurement(Measurement measurement)
+        public Guid SaveMeasurement(HeavyMetalMeasurement measurement)
         {
             throw new NotImplementedException();
         }

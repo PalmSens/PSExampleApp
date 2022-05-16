@@ -22,11 +22,13 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitializeViewModels(this IServiceCollection services)
         {
+            services.AddTransient<ConfigureMeasurementViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<AddUserViewModel>();
             services.AddTransient<SelectDeviceViewModel>();
             services.AddTransient<PrepareMeasurementViewModel>();
             services.AddTransient<SettingsViewModel>();
+            services.AddTransient<SensorDetectionViewModel>();
             return services;
         }
 
