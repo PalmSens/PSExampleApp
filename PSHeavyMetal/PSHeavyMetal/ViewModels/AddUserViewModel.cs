@@ -1,8 +1,7 @@
-﻿using MvvmHelpers;
-using MvvmHelpers.Commands;
+﻿using MvvmHelpers.Commands;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Navigation;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
@@ -24,13 +23,12 @@ namespace PSHeavyMetal.Forms.ViewModels
         public async Task OnAddUserClicked()
         {
             await _userService.SaveUserAsync(UserName);
-            //await Shell.Current.GoToAsync($"..");
+            await NavigationDispatcher.Pop();
         }
 
         public async Task OnCancelClicked()
         {
-            //await Shell.Current.GoToAsync($"..");
-            await Application.Current.MainPage.Navigation.PopAsync();
+            await NavigationDispatcher.Pop();
         }
     }
 }

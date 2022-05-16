@@ -1,6 +1,7 @@
 ﻿using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -64,8 +65,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             await Task.Delay(100);
             await _deviceService.ConnectToDeviceAsync(device);
 
-            //await Shell.Current.GoToAsync($"//{nameof(PrepareMeasurementView)}");
-            await Application.Current.MainPage.Navigation.PushAsync(new PrepareMeasurementView());
+            await NavigationDispatcher.Push(NavigationViewType.PrepareMeasurementView);
         }
 
         private void AbortDeviceDiscovery()

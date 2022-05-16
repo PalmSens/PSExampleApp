@@ -1,10 +1,9 @@
 ﻿using MvvmHelpers.Commands;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
-using PSHeavyMetal.Forms.Views;
+using PSHeavyMetal.Forms.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
@@ -39,12 +38,12 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OpenAddUserClicked()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new AddUserView());
+            await NavigationDispatcher.Push(NavigationViewType.AddUserView);
         }
 
         private async Task OnLoginClicked()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new SelectDeviceView());
+            await NavigationDispatcher.Push(NavigationViewType.SelectDeviceView);
         }
     }
 }
