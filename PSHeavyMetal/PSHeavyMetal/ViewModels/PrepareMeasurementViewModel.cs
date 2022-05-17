@@ -12,6 +12,7 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class PrepareMeasurementViewModel : BaseViewModel
     {
         private IDeviceService _deviceService;
+        private IMeasurementService _measurementService;
         private PlatformDevice _platformDevice;
         private string _sampleName;
         private string _sampleNotes;
@@ -19,17 +20,24 @@ namespace PSHeavyMetal.Forms.ViewModels
         public ICommand ContinueCommand { get; }
         public ICommand OnPageAppearingCommand { get; }
 
-        public PrepareMeasurementViewModel(IDeviceService deviceService)
+        public PrepareMeasurementViewModel(IDeviceService deviceService, IMeasurementService measurementService)
         {
             _deviceService = deviceService;
+            _measurementService = measurementService;
 
-            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
+            ContinueCommand = CommandFactory.Create(async () => await Continue());
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing, onException: ex =>
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     //DisplayAlert();
                     Console.WriteLine(ex.Message);
                 }), allowsMultipleExecutions: false);
+        }
+
+        private async Task Continue()
+        {
+            _measurementService.CreateMeasurement(SampleName, SampleNotes);
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
 
         public string SampleName

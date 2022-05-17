@@ -7,5 +7,6 @@
         PrepareMeasurementView,
         SelectDeviceView,
         ConfigureMeasurementView,
+        SensorDetectionView,
     }
 }

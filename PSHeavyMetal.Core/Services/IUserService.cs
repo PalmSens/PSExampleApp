@@ -8,6 +8,11 @@ namespace PSHeavyMetal.Core.Services
     public interface IUserService
     {
         /// <summary>
+        /// The active user that is logged in
+        /// </summary>
+        User ActiveUser { get; }
+
+        /// <summary>
         /// Retrieves all users
         /// </summary>
         /// <returns></returns>

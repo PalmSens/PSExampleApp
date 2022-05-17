@@ -15,6 +15,8 @@ namespace PSHeavyMetal.Core.Services
             _userRepository = userRepository;
         }
 
+        public User ActiveUser => throw new NotImplementedException();
+
         public IEnumerable<User> GetAllUsers()
         {
             return _userRepository.GetAllUsers();

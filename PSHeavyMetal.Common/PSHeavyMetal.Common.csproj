@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PSXamarinFormsSDK\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PalmSens.Core">
       <HintPath>..\..\ex\sdk\PSLibraries\PalmSens.Core.dll</HintPath>
     </Reference>

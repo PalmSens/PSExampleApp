@@ -1,12 +1,18 @@
 ﻿using PSHeavyMetal.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PSHeavyMetal.Core.Services;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
     public class SensorDetectionViewModel : BaseViewModel
     {
-        public HeavyMetalMeasurement _measurement;
+        private readonly IMeasurementService _measurementService;
+
+        public SensorDetectionViewModel(IMeasurementService measurementService)
+        {
+            _measurementService = measurementService;
+            ActiveMeasurement = _measurementService.ActiveMeasurement;
+        }
+
+        public HeavyMetalMeasurement ActiveMeasurement { get; }
     }
 }
