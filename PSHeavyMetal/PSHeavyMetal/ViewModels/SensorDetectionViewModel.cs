@@ -1,5 +1,8 @@
 ﻿using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Navigation;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
@@ -11,8 +14,10 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             _measurementService = measurementService;
             ActiveMeasurement = _measurementService.ActiveMeasurement;
+            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.DropDetectionView));
         }
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
+        public ICommand ContinueCommand { get; }
     }
 }

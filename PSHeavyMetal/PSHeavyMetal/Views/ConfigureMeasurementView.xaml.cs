@@ -9,7 +9,7 @@ namespace PSHeavyMetal.Forms.Views
     {
         public ConfigureMeasurementView()
         {
-            App.GetViewModel<ConfigureMeasurementViewModel>();
+            BindingContext = App.GetViewModel<ConfigureMeasurementViewModel>();
             InitializeComponent();
         }
     }

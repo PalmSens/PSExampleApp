@@ -1,26 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-             x:DataType="viewmodels:ConfigureMeasurementViewModel"
-             x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView">
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:ConfigureMeasurementViewModel"
+    Style="{StaticResource CustomPage}"
+    Visual="Material">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand"
-                     VerticalOptions="CenterAndExpand">
-            <Label Text="Sample:" HorizontalTextAlignment="Center"
-                   FontSize="20" />
-            <Label Text="{Binding ActiveMeasurement.Name}"
-                   HorizontalTextAlignment="Center"
-                   FontSize="20"
-                   FontAttributes="Italic" />
-            <Label Text="Select analyte" FontSize="20" />
-            <StackLayout HorizontalOptions="CenterAndExpand"
-                         VerticalOptions="CenterAndExpand"
-                         WidthRequest="200"
-                         Spacing="5">
-                <Button Text="Pb" Command="{Binding SetPbConfigurationCommand}" />
-                <Button Text="Cu" IsEnabled="False" />
-                <Button Text="Cd" IsEnabled="False" />
+        <StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="Sample:"
+                    VerticalOptions="Start" />
+                <Label
+                    FontAttributes="Italic"
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ActiveMeasurement.Name}" />
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="30"
+                VerticalOptions="StartAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="Select analyte" />
+                <StackLayout
+                    HorizontalOptions="CenterAndExpand"
+                    Spacing="20"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200">
+                    <Button Command="{Binding SetPbConfigurationCommand}" Text="Pb" />
+                    <Button IsEnabled="False" Text="Cu" />
+                    <Button IsEnabled="False" Text="Cd" />
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

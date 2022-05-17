@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.DropDetectionView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:DropDetectionViewModel">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="Sample:"
+                    VerticalOptions="Start" />
+                <Label
+                    FontAttributes="Italic"
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ActiveMeasurement.Name}" />
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="30"
+                VerticalOptions="StartAndExpand"
+                WidthRequest="250">
+                <Label
+                    Margin="0,50,0,0"
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"
+                    Text="Mix sample with buffer and add droplet" />
+                <Image Margin="20" Source="dropdetection.png" />
+                <Button
+                    Command="{Binding ContinueCommand}"
+                    HorizontalOptions="Center"
+                    Text="Continue"
+                    WidthRequest="200" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

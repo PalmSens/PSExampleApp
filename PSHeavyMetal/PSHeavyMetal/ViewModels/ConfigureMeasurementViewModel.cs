@@ -11,10 +11,6 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private IMeasurementService _measurementService;
 
-        public ICommand SetPbConfigurationCommand;
-        public ICommand SetCuConfigurationCommand;
-        public ICommand SetCdConfigurationCommand;
-
         public ConfigureMeasurementViewModel(IMeasurementService measurementService)
         {
             _measurementService = measurementService;
@@ -24,6 +20,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         }
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
+        public ICommand SetCdConfigurationCommand { get; }
+        public ICommand SetCuConfigurationCommand { get; }
+        public ICommand SetPbConfigurationCommand { get; }
 
         public async Task SetPbConfiguration()
         {

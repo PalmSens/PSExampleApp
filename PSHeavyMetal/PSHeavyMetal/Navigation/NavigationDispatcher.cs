@@ -11,6 +11,17 @@ namespace PSHeavyMetal.Forms.Navigation
 
         private INavigation _navigation;
 
+        internal static NavigationDispatcher Instance =>
+                              _instance ?? (_instance = new NavigationDispatcher());
+
+        internal INavigation Navigation =>
+                             _navigation ?? throw new Exception("NavigationDispatcher is not initialized");
+
+        internal static async Task Pop()
+        {
+            await _instance.Navigation.PopAsync();
+        }
+
         /// <summary>
         /// Uses the navigation view type to navigate to the page. This makes sure that the view model doesn't have to know about the page
         /// </summary>
@@ -21,9 +32,9 @@ namespace PSHeavyMetal.Forms.Navigation
             await _instance.Navigation.PushAsync(PageSelector(navigationViewType));
         }
 
-        internal static async Task Pop()
+        internal void Initialize(INavigation navigation)
         {
-            await _instance.Navigation.PopAsync();
+            _navigation = navigation;
         }
 
         private static ContentPage PageSelector(NavigationViewType navigationViewType)
@@ -48,20 +59,12 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.SensorDetectionView:
                     return new SensorDetectionView();
 
+                case NavigationViewType.DropDetectionView:
+                    return new DropDetectionView();
+
                 default:
                     throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }
-        }
-
-        internal static NavigationDispatcher Instance =>
-                      _instance ?? (_instance = new NavigationDispatcher());
-
-        internal INavigation Navigation =>
-                     _navigation ?? throw new Exception("NavigationDispatcher is not initialized");
-
-        internal void Initialize(INavigation navigation)
-        {
-            _navigation = navigation;
         }
     }
 }

@@ -10,13 +10,12 @@ namespace PSHeavyMetal.Forms
 {
     public static class DIContainers
     {
-        public static IServiceCollection InitiliazeServices(this IServiceCollection services)
+        public static IServiceCollection InitializeRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton(DependencyService.Resolve<IPermissionService>());
-            services.AddSingleton(DependencyService.Resolve<InstrumentService>());
-            services.AddSingleton<IDeviceService, DeviceService>();
-            services.AddSingleton<IMeasurementService, MeasurementService>();
+            services.AddSingleton<IDataOperations, LiteDbDataOperations>();
+            services.AddSingleton<IDeviceRepository, DeviceRepository>();
+            services.AddSingleton<IMeasurementRepository, MeasurementRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             return services;
         }
 
@@ -29,15 +28,17 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<PrepareMeasurementViewModel>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SensorDetectionViewModel>();
+            services.AddTransient<DropDetectionViewModel>();
             return services;
         }
 
-        public static IServiceCollection InitializeRepositories(this IServiceCollection services)
+        public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
-            services.AddSingleton<IDataOperations, LiteDbDataOperations>();
-            services.AddSingleton<IDeviceRepository, DeviceRepository>();
-            services.AddSingleton<IMeasurementRepository, MeasurementRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton(DependencyService.Resolve<IPermissionService>());
+            services.AddSingleton(DependencyService.Resolve<InstrumentService>());
+            services.AddSingleton<IDeviceService, DeviceService>();
+            services.AddSingleton<IMeasurementService, MeasurementService>();
             return services;
         }
     }

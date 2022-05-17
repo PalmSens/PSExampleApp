@@ -1,30 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PSHeavyMetal.Forms.Views.SensorDetectionView">
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.SensorDetectionView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:SensorDetectionViewModel">
+
+    <NavigationPage.TitleView>
+        <views:TitleView />
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand"
-                     VerticalOptions="CenterAndExpand">
-            <Label Text="Sample:" HorizontalTextAlignment="Center" 
-                   FontSize="20"/>
-            <Label Text="Test sample" 
-                   HorizontalTextAlignment="Center"
-                   FontSize="20"
-                   FontAttributes="Italic"/>
-            <Label Text="Insert sensor" 
-                   HorizontalTextAlignment="Center" 
-                   Margin="0,150,0,0"
-                   FontSize="30"/>
-            <StackLayout Orientation="Horizontal" Margin="50">
-                <Frame CornerRadius="5"
-                       BorderColor="White"
-                       WidthRequest="100"
-                       HeightRequest="50"
-                       BackgroundColor="Transparent" />
-                <Image Source="sensor.png" WidthRequest="120"
-                       Margin="20"/>
+        <StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="Sample:"
+                    VerticalOptions="Start" />
+                <Label
+                    FontAttributes="Italic"
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ActiveMeasurement.Name}" />
             </StackLayout>
-            <Button Text="Continue" HorizontalOptions="Center" />
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="30"
+                VerticalOptions="StartAndExpand">
+                <Label
+                    Margin="0,50,0,0"
+                    FontSize="25"
+                    HorizontalTextAlignment="Center"
+                    Text="Insert sensor and wait for indicator to turn BLUE" />
+                <StackLayout Margin="50" Orientation="Horizontal">
+                    <Frame
+                        BackgroundColor="Transparent"
+                        BorderColor="White"
+                        CornerRadius="5"
+                        HeightRequest="50"
+                        WidthRequest="100" />
+                    <Image
+                        Margin="20"
+                        Source="sensor.png"
+                        WidthRequest="120" />
+                </StackLayout>
+                <Button
+                    Command="{Binding ContinueCommand}"
+                    HorizontalOptions="Center"
+                    Text="Continue"
+                    WidthRequest="200" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

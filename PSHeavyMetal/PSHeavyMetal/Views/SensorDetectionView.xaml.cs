@@ -10,7 +10,7 @@ namespace PSHeavyMetal.Forms.Views
     {
         public SensorDetectionView()
         {
-            App.GetViewModel<SensorDetectionViewModel>();
+            BindingContext = App.GetViewModel<SensorDetectionViewModel>();
             InitializeComponent();
         }
     }
