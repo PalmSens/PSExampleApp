@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-             xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-             xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-             x:DataType="viewmodels:LoginViewModel"
-             x:Class="PSHeavyMetal.Forms.Views.LoginView"
-             Visual="Material"
-             Style="{StaticResource CustomPage}">
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.LoginView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:LoginViewModel"
+    Style="{StaticResource CustomPage}"
+    Visual="Material">
 
     <NavigationPage.TitleView>
         <views:TitleView />
@@ -21,39 +22,52 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="WELCOME"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="Start"
-                   Margin="0,100,0,0"
-                   FontSize="Large" />
-            <Label Text="Please turn on the reader to continue"
-                   WidthRequest="200"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="Start"
-                   Margin="10,10,0,20"
-                   FontSize="Medium" />
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="CenterAndExpand"
-                         VerticalOptions="CenterAndExpand">
-                <Picker Title="Select user"
-                        Grid.Column="1"
-                        WidthRequest="200"
-                        ItemsSource="{Binding Users}"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedUser}" />
-                <ImageButton Grid.Column="2"
-                    WidthRequest="40"
-                    HeightRequest="40"
-                    BackgroundColor="Transparent"
-                    Aspect="Fill"
-                    Source="plusicon.png"
-                    Command="{Binding OpenAddUserViewCommand}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
+            <StackLayout Spacing="30" VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="WELCOME"
+                    VerticalOptions="Start" />
+                <Label
+                    FontSize="25"
+                    HorizontalTextAlignment="Center"
+                    Text="Please turn on the reader to continue" />
             </StackLayout>
-            <Button Text="Continue" Command="{Binding LoginCommand}" BackgroundColor="Transparent"
+            <StackLayout VerticalOptions="StartAndExpand">
+                <StackLayout
+                    HorizontalOptions="CenterAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="20"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200">
+                    <Picker
+                        Title="Select user"
+                        Grid.Column="1"
+                        HorizontalOptions="CenterAndExpand"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Users}"
+                        SelectedItem="{Binding SelectedUser}"
+                        WidthRequest="200" />
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="Fill"
+                        BackgroundColor="Transparent"
+                        Command="{Binding OpenAddUserViewCommand}"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="plusicon.png"
+                        VerticalOptions="Center"
+                        WidthRequest="60" />
+                </StackLayout>
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding LoginCommand}"
+                    HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,100" />
+                    Text="Continue"
+                    VerticalOptions="End"
+                    WidthRequest="200" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

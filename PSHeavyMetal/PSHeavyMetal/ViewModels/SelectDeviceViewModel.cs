@@ -14,19 +14,16 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class SelectDeviceViewModel : BaseViewModel
     {
-        public ICommand CancelCommand { get; }
-        public ICommand OnPageAppearingCommand { get; }
-        public ICommand OnPageDisappearingCommand { get; }
-        public ICommand OnInstrumentSelected { get; }
-
+        private readonly CancellationTokenSource _deviceDiscoveryCancellationTokenSource;
         private readonly IDeviceService _deviceService;
         private readonly IPermissionService _permissionService;
-        private readonly CancellationTokenSource _deviceDiscoveryCancellationTokenSource;
 
         public SelectDeviceViewModel(IDeviceService deviceService, IPermissionService permissionService)
         {
             _deviceService = deviceService;
             _permissionService = permissionService;
+
+            AvailableDevices.CollectionChanged += AvailableDevices_CollectionChanged;
 
             _deviceDiscoveryCancellationTokenSource = new CancellationTokenSource(); //Add optional timeout
             _deviceService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
@@ -43,10 +40,30 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ObservableCollection<PlatformDevice> AvailableDevices { get; } = new ObservableCollection<PlatformDevice>();
 
-        private async Task OnPageAppearing()
+        public ICommand CancelCommand { get; }
+
+        public ICommand OnInstrumentSelected { get; }
+
+        public ICommand OnPageAppearingCommand { get; }
+
+        public ICommand OnPageDisappearingCommand { get; }
+
+        public string ReaderResult
         {
-            await _permissionService.RequestBluetoothPermission();
-            await DiscoverDevices();
+            get
+            {
+                switch (AvailableDevices.Count)
+                {
+                    case 0:
+                        return "Searching";
+
+                    case 1:
+                        return "1 reader found,\n please select:";
+
+                    default:
+                        return $"{AvailableDevices.Count} readers found,\n please select:";
+                }
+            }
         }
 
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)
@@ -54,9 +71,15 @@ namespace PSHeavyMetal.Forms.ViewModels
             AvailableDevices.Add(e);
         }
 
-        private async Task DiscoverDevices()
+        private void AbortDeviceDiscovery()
         {
-            await _deviceService.DetectDevicesAsync(_deviceDiscoveryCancellationTokenSource.Token);
+            _deviceDiscoveryCancellationTokenSource.Cancel();
+            _deviceService.DeviceDiscovered -= _instrumentService_DeviceDiscovered;
+        }
+
+        private void AvailableDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(ReaderResult));
         }
 
         private async Task ConnectToInstrument(PlatformDevice device)
@@ -68,10 +91,15 @@ namespace PSHeavyMetal.Forms.ViewModels
             await NavigationDispatcher.Push(NavigationViewType.PrepareMeasurementView);
         }
 
-        private void AbortDeviceDiscovery()
+        private async Task DiscoverDevices()
         {
-            _deviceDiscoveryCancellationTokenSource.Cancel();
-            _deviceService.DeviceDiscovered -= _instrumentService_DeviceDiscovered;
+            await _deviceService.DetectDevicesAsync(_deviceDiscoveryCancellationTokenSource.Token);
+        }
+
+        private async Task OnPageAppearing()
+        {
+            await _permissionService.RequestBluetoothPermission();
+            await DiscoverDevices();
         }
     }
 }

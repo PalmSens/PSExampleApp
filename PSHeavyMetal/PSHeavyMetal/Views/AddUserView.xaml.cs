@@ -9,8 +9,8 @@ namespace PSHeavyMetal.Forms.Views
     {
         public AddUserView()
         {
-            InitializeComponent();
             BindingContext = App.GetViewModel<AddUserViewModel>();
+            InitializeComponent();
         }
     }
 }

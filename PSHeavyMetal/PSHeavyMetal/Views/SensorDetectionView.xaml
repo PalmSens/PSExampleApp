@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    x:DataType="viewmodels:SensorDetectionViewModel">
+    x:DataType="viewmodels:SensorDetectionViewModel"
+    Style="{StaticResource CustomPage}"
+    Visual="Material">
 
     <NavigationPage.TitleView>
         <views:TitleView />
