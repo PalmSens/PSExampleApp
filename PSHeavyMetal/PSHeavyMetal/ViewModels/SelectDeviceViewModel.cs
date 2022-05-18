@@ -17,6 +17,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly CancellationTokenSource _deviceDiscoveryCancellationTokenSource;
         private readonly IDeviceService _deviceService;
         private readonly IPermissionService _permissionService;
+        private bool _isConnecting;
 
         public SelectDeviceViewModel(IDeviceService deviceService, IPermissionService permissionService)
         {
@@ -41,6 +42,12 @@ namespace PSHeavyMetal.Forms.ViewModels
         public ObservableCollection<PlatformDevice> AvailableDevices { get; } = new ObservableCollection<PlatformDevice>();
 
         public ICommand CancelCommand { get; }
+
+        public bool IsConnecting
+        {
+            get => _isConnecting;
+            set => SetProperty(ref _isConnecting, value);
+        }
 
         public ICommand OnInstrumentSelected { get; }
 
@@ -84,6 +91,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task ConnectToInstrument(PlatformDevice device)
         {
+            IsConnecting = true;
             AbortDeviceDiscovery();
             await Task.Delay(100);
             await _deviceService.ConnectToDeviceAsync(device);
@@ -98,6 +106,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OnPageAppearing()
         {
+            IsConnecting = false;
             await _permissionService.RequestBluetoothPermission();
             await DiscoverDevices();
         }
