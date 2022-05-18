@@ -30,6 +30,7 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SensorDetectionViewModel>();
             services.AddTransient<DropDetectionViewModel>();
+            services.AddTransient<TitleViewModel>();
             return services;
         }
 

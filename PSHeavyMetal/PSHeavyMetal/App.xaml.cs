@@ -13,8 +13,8 @@ namespace PSHeavyMetal.Forms
 
         public App()
         {
-            InitializeComponent();
             ServiceProvider = Startup.Init();
+            InitializeComponent();
 
             var navigationPage = new NavigationPage(new LoginView())
             {
@@ -34,7 +34,7 @@ namespace PSHeavyMetal.Forms
 
         public static BaseViewModel GetViewModel<T>() where T : BaseViewModel => ServiceProvider.GetService<T>();
 
-        protected override void OnStart()
+        protected override void OnResume()
         {
         }
 
@@ -42,7 +42,7 @@ namespace PSHeavyMetal.Forms
         {
         }
 
-        protected override void OnResume()
+        protected override void OnStart()
         {
         }
     }

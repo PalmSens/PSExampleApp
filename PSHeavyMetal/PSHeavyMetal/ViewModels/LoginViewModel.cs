@@ -12,17 +12,6 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly IUserService _userService;
         private User _user;
 
-        public AsyncCommand LoginCommand { get; }
-        public AsyncCommand OpenAddUserViewCommand { get; }
-
-        public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
-
-        public User SelectedUser
-        {
-            get => _user;
-            set => SetProperty(ref _user, value);
-        }
-
         public LoginViewModel(IUserService userService)
         {
             LoginCommand = new AsyncCommand(OnLoginClicked);
@@ -36,14 +25,26 @@ namespace PSHeavyMetal.Forms.ViewModels
             }
         }
 
-        private async Task OpenAddUserClicked()
+        public AsyncCommand LoginCommand { get; }
+        public AsyncCommand OpenAddUserViewCommand { get; }
+
+        public User SelectedUser
         {
-            await NavigationDispatcher.Push(NavigationViewType.AddUserView);
+            get => _user;
+            set => SetProperty(ref _user, value);
         }
+
+        public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
 
         private async Task OnLoginClicked()
         {
+            _userService.SetActiveUser(SelectedUser);            
             await NavigationDispatcher.Push(NavigationViewType.SelectDeviceView);
+        }
+
+        private async Task OpenAddUserClicked()
+        {
+            await NavigationDispatcher.Push(NavigationViewType.AddUserView);
         }
     }
 }

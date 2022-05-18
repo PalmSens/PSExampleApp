@@ -2,18 +2,33 @@
 <ContentView
     x:Class="PSHeavyMetal.Forms.Views.TitleView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:TitleViewModel">
     <ContentView.Content>
-        <AbsoluteLayout
-            Margin="0"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand">
-            <Label
-                Margin="-60,0,0,0"
-                FontFamily="PatrickFont"
-                FontSize="25"
-                HorizontalTextAlignment="Center"
-                Text="PS Heavy Metal" />
-        </AbsoluteLayout>
+        <Grid>
+            <AbsoluteLayout
+                Margin="0"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    Margin="-60,0,0,0"
+                    FontFamily="PatrickFont"
+                    FontSize="25"
+                    HorizontalTextAlignment="Center"
+                    Text="PS Heavy Metal" />
+            </AbsoluteLayout>
+            <StackLayout HorizontalOptions="End" Orientation="Horizontal">
+                <Image
+                    HeightRequest="40"
+                    Source="usericon.png"
+                    WidthRequest="40" />
+                <Label
+                    Margin="0,0,20,0"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ActiveUserName}"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+        </Grid>
     </ContentView.Content>
 </ContentView>

@@ -9,13 +9,24 @@ namespace PSHeavyMetal.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private User _activeUser;
 
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public User ActiveUser => throw new NotImplementedException();
+        public event EventHandler<User> ActiveUserChanged;
+
+        public User ActiveUser
+        {
+            get => _activeUser;
+            private set
+            {
+                _activeUser = value;
+                ActiveUserChanged?.Invoke(this, value);
+            }
+        }
 
         public IEnumerable<User> GetAllUsers()
         {
@@ -27,14 +38,22 @@ namespace PSHeavyMetal.Core.Services
             return await _userRepository.GetAllUsersAsync();
         }
 
-        public Task<User> LoadUserAsync(Guid id)
+        public async Task<User> LoadUserAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var loadedUser = await _userRepository.LoadUserById(id);
+            ActiveUser = loadedUser;
+            return loadedUser;
         }
 
         public async Task SaveUserAsync(string username)
         {
-            await _userRepository.SaveUser(username);
+            var user = await _userRepository.SaveUser(username);
+            ActiveUser = user;
+        }
+
+        public void SetActiveUser(User user)
+        {
+            ActiveUser = user;
         }
     }
 }

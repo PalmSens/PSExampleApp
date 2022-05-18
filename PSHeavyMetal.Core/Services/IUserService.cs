@@ -8,6 +8,11 @@ namespace PSHeavyMetal.Core.Services
     public interface IUserService
     {
         /// <summary>
+        /// Triggers event when the active users changes. View models can listen to the event
+        /// </summary>
+        event EventHandler<User> ActiveUserChanged;
+
+        /// <summary>
         /// The active user that is logged in
         /// </summary>
         User ActiveUser { get; }
@@ -37,5 +42,11 @@ namespace PSHeavyMetal.Core.Services
         /// <param name="username"></param>
         /// <returns></returns>
         Task SaveUserAsync(string username);
+
+        /// <summary>
+        /// Sets the user as active user
+        /// </summary>
+        /// <param name="user"></param>
+        void SetActiveUser(User user);
     }
 }
