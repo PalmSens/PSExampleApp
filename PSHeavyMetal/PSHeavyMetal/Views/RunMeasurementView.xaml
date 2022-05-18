@@ -3,9 +3,11 @@
     x:Class="PSHeavyMetal.Forms.Views.RunMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
-    x:DataType="viewmodels:RunMeasurementViewModel">
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:RunMeasurementViewModel"
+    Style="{StaticResource CustomPage}"
+    Visual="Material">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />

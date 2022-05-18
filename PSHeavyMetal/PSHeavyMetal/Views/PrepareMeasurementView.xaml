@@ -9,10 +9,6 @@
     Style="{StaticResource CustomPage}"
     Visual="Material">
 
-    <NavigationPage.TitleView>
-        <views:TitleView />
-    </NavigationPage.TitleView>
-
     <ContentPage.Content>
         <StackLayout
             HorizontalOptions="CenterAndExpand"

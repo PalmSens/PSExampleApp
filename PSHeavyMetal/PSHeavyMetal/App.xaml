@@ -1,11 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-             x:Class="PSHeavyMetal.Forms.App">
+<Application
+    x:Class="PSHeavyMetal.Forms.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views">
     <Application.Resources>
-        <ResourceDictionary Source="Styling/Generic.xaml"></ResourceDictionary>
-        <Style TargetType="ContentPage" x:Key="CustomPage">
-            <!--<Setter Property="BackgroundImageSource" Value="background.jpeg" />-->
+        <ResourceDictionary Source="Styling/Generic.xaml" />
+        <Style x:Key="CustomPage" TargetType="ContentPage">
+            <Setter Property="NavigationPage.TitleView">
+                <Setter.Value>
+                    <views:TitleView />
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

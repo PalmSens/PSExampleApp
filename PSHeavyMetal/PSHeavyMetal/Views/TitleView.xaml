@@ -4,12 +4,16 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentView.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <AbsoluteLayout
+            Margin="0"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand">
             <Label
+                Margin="-60,0,0,0"
                 FontFamily="PatrickFont"
                 FontSize="25"
                 HorizontalTextAlignment="Center"
                 Text="PS Heavy Metal" />
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>

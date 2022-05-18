@@ -4,14 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}"
     Visual="Material">
-
-    <NavigationPage.TitleView>
-        <views:TitleView />
-    </NavigationPage.TitleView>
 
     <ContentPage.Content>
         <StackLayout>
