@@ -10,16 +10,9 @@ namespace PSHeavyMetal.Core.Services
     {
         private readonly InstrumentService _instrumentService;
 
-        public PlatformDevice ConnectedDevice { get; private set; }
-
         public DeviceService(InstrumentService instrumentService)
         {
             _instrumentService = instrumentService;
-        }
-
-        public async Task DetectDevicesAsync(CancellationToken? cancellationToken = null)
-        {
-            await _instrumentService.GetConnectedDevices().ConfigureAwait(false);
         }
 
         public event EventHandler<PlatformDevice> DeviceDiscovered
@@ -28,10 +21,17 @@ namespace PSHeavyMetal.Core.Services
             remove => _instrumentService.DeviceDiscovered -= value;
         }
 
+        public PlatformDevice ConnectedDevice { get; private set; }
+
         public async Task ConnectToDeviceAsync(PlatformDevice device)
         {
             await _instrumentService.ConnectAsync(device.Device);
             ConnectedDevice = device;
+        }
+
+        public async Task DetectDevicesAsync(CancellationToken? cancellationToken = null)
+        {
+            await _instrumentService.GetConnectedDevices().ConfigureAwait(false);
         }
     }
 }

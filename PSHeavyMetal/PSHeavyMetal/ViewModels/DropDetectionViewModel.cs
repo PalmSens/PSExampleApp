@@ -14,7 +14,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             _measurementService = measurementService;
             ActiveMeasurement = _measurementService.ActiveMeasurement;
-            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
+            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.RunMeasurementView));
         }
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }

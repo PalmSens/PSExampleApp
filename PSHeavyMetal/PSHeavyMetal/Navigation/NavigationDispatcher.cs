@@ -62,6 +62,9 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.DropDetectionView:
                     return new DropDetectionView();
 
+                case NavigationViewType.RunMeasurementView:
+                    return new RunMeasurementView();
+
                 default:
                     throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }

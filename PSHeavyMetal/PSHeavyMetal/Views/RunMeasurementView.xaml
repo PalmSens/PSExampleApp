@@ -2,7 +2,15 @@
 <ContentPage
     x:Class="PSHeavyMetal.Forms.Views.RunMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    x:DataType="viewmodels:RunMeasurementViewModel">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
         <StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
@@ -20,7 +28,20 @@
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
                 Spacing="30"
-                VerticalOptions="StartAndExpand" />
+                VerticalOptions="StartAndExpand">
+                <ListView ItemsSource="{Binding ReceivedData}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label
+                                    FontSize="10"
+                                    HeightRequest="10"
+                                    Text="{Binding}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
