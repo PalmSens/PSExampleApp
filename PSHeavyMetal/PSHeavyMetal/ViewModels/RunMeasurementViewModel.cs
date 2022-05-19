@@ -5,6 +5,7 @@ using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -16,21 +17,26 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private readonly IMeasurementService _measurementService;
         private SimpleCurve _activeCurve;
+        private Countdown _countdown = new Countdown();
+
+        private bool _measurementFinished = false;
 
         /// <summary>
         /// The instance of method class containing the Linear Sweep Voltammetry parameters
         /// </summary>
         private LinearSweep _methodLSV;
 
+        private double _progress;
+        private int _progressPercentage;
+
         public RunMeasurementViewModel(IMeasurementService measurementService)
         {
+            Progress = 0;
             _measurementService = measurementService;
             _measurementService.DataReceived += _measurementService_DataReceived;
+            _measurementService.MeasurementEnded += _measurementService_MeasurementEnded;
 
             ActiveMeasurement = _measurementService.ActiveMeasurement;
-
-            ReceivedData.Add($"Data received potential 1, current 2");
-            ReceivedData.Add($"Data received potential 1, current 2");
 
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing, onException: ex =>
                             MainThread.BeginInvokeOnMainThread(() =>
@@ -38,16 +44,45 @@ namespace PSHeavyMetal.Forms.ViewModels
                                 //DisplayAlert();
                                 Console.WriteLine(ex.Message);
                             }), allowsMultipleExecutions: false);
+
+            ContinueCommand = CommandFactory.Create(Continue);
         }
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
+
+        public ICommand ContinueCommand { get; }
+
+        public bool MeasurementIsFinished
+        {
+            get => _measurementFinished;
+            set => SetProperty(ref _measurementFinished, value);
+        }
+
         public ICommand OnPageAppearingCommand { get; }
+
+        public double Progress
+        {
+            get => _progress;
+            set => SetProperty(ref _progress, value);
+        }
+
+        public int ProgressPercentage
+        {
+            get => _progressPercentage;
+            set => SetProperty(ref _progressPercentage, value);
+        }
+
         public ObservableCollection<string> ReceivedData { get; set; } = new ObservableCollection<string>();
 
         private void _measurementService_DataReceived(object sender, SimpleCurve activeSimpleCurve)
         {
             _activeCurve = activeSimpleCurve;
             activeSimpleCurve.NewDataAdded += ActiveSimpleCurve_NewDataAdded;
+        }
+
+        private void _measurementService_MeasurementEnded(object sender, EventArgs e)
+        {
+            _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
         }
 
         private void ActiveSimpleCurve_NewDataAdded(object sender, PalmSens.Data.ArrayDataAddedEventArgs e)
@@ -59,8 +94,16 @@ namespace PSHeavyMetal.Forms.ViewModels
             {
                 double xValue = _activeCurve.XAxisValue(i); //Get the value on Curve's X-Axis (potential) at the specified index
                 double yValue = _activeCurve.YAxisValue(i); //Get the value on Curve's Y-Axis (current) at the specified index
-                ReceivedData.Add($"Data received potential {xValue}, current {yValue}");
+
+                Debug.WriteLine($"Data received potential { xValue}, current { yValue}");
+                ReceivedData.Add($"potential {xValue}, current {yValue}");
             }
+        }
+
+        private async Task Continue()
+        {
+            _measurementService.DataReceived -= _measurementService_DataReceived;
+            _measurementService.MeasurementEnded -= _measurementService_MeasurementEnded;
         }
 
         /// <summary>
@@ -80,9 +123,31 @@ namespace PSHeavyMetal.Forms.ViewModels
             _methodLSV.Ranging.MaximumCurrentRange = new CurrentRange(CurrentRanges.cr1mA); //Max current range 1mA
         }
 
+        private void OnCountdownCompleted()
+        {
+            _countdown.Ticked -= OnCountdownTicked;
+            _countdown.Completed -= OnCountdownCompleted;
+            Progress = 1;
+            ProgressPercentage = 100;
+            MeasurementIsFinished = true;
+        }
+
+        private void OnCountdownTicked()
+        {
+            Progress = _countdown.ElapsedTime / _countdown.TotalTimeInMilliSeconds;
+            ProgressPercentage = (int)(Progress * 100);
+
+            Debug.WriteLine(Progress.ToString());
+        }
+
         private async Task OnPageAppearing()
         {
+            Debug.WriteLine("In page on appearing");
             InitLSVMethod();
+            _countdown.Start((int)Math.Round(_methodLSV.MinimumEstimatedMeasurementDuration * 1000));
+            _countdown.Ticked += OnCountdownTicked;
+            _countdown.Completed += OnCountdownCompleted;
+
             await _measurementService.StartMeasurement(_methodLSV);
         }
     }

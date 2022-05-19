@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PSXamarinFormsSDK\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj" />
   </ItemGroup>
 

@@ -3,47 +3,59 @@
     x:Class="PSHeavyMetal.Forms.Views.RunMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:RunMeasurementViewModel"
     Style="{StaticResource CustomPage}"
     Visual="Material">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout VerticalOptions="CenterAndExpand">
-                <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="Analyizing Sample"
-                    VerticalOptions="Start" />
-                <Label
-                    FontAttributes="Italic"
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ActiveMeasurement.Name}" />
-            </StackLayout>
-            <StackLayout
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            Spacing="50"
+            VerticalOptions="CenterAndExpand">
+            <Label
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Analyizing Sample"
+                VerticalOptions="Start" />
+            <Label
+                FontAttributes="Italic"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="{Binding ActiveMeasurement.Name}" />
+            <Grid
+                HeightRequest="200"
                 HorizontalOptions="CenterAndExpand"
-                Spacing="30"
-                VerticalOptions="StartAndExpand">
-                <ListView ItemsSource="{Binding ReceivedData}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Label
-                                    FontSize="10"
-                                    HeightRequest="10"
-                                    Text="{Binding}" />
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="200">
+                <plugin:ProgressRing
+                    HorizontalOptions="FillAndExpand"
+                    Progress="{Binding Progress}"
+                    RingBaseColor="Gray"
+                    RingProgressColor="White"
+                    RingThickness="10"
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="{Binding ProgressPercentage, StringFormat='{0}%'}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Button
+                Command="{Binding ContinueCommand}"
+                HorizontalOptions="Center"
+                IsVisible="{Binding MeasurementIsFinished}"
+                Text="Continue"
+                WidthRequest="200" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

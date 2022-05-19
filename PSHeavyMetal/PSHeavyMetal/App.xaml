@@ -3,15 +3,14 @@
     x:Class="PSHeavyMetal.Forms.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views">
+    xmlns:styles="clr-namespace:PSHeavyMetal.Forms.Styles">
     <Application.Resources>
-        <ResourceDictionary Source="Styling/Generic.xaml" />
-        <Style x:Key="CustomPage" TargetType="ContentPage">
-            <Setter Property="NavigationPage.TitleView">
-                <Setter.Value>
-                    <views:TitleView />
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:Colors />
+                <styles:Fonts />
+                <styles:Generic />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -60,11 +60,14 @@
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ProgressRing">
+      <Version>0.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>2.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms.Visual.Material">
       <Version>5.0.0.2401</Version>
     </PackageReference>
@@ -76,6 +79,10 @@
     <Compile Include="Services\PermissionService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\sourcesanspro-bold.ttf" />
+    <AndroidAsset Include="Assets\sourcesanspro-light.ttf" />
+    <AndroidAsset Include="Assets\sourcesanspro-regular.ttf" />
+    <AndroidAsset Include="Assets\sourcesanspro-semibold.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

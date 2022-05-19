@@ -26,6 +26,18 @@ namespace PSHeavyMetal.Core.Services
             remove => _instrumentService.SimpleCurveStartReceivingData -= value;
         }
 
+        public event EventHandler MeasurementEnded
+        {
+            add => _instrumentService.MeasurementEnded += value;
+            remove => _instrumentService.MeasurementEnded -= value;
+        }
+
+        public event EventHandler MeasurementStarted
+        {
+            add => _instrumentService.MeasurementStarted += value;
+            remove => _instrumentService.MeasurementStarted -= value;
+        }
+
         public HeavyMetalMeasurement ActiveMeasurement { get; private set; }
 
         public HeavyMetalMeasurement CreateMeasurement(string name, string description)
@@ -37,7 +49,7 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
         {
-            return await _instrumentService.MeasureAsync(method);
+            return await Task.Run(() => _instrumentService.Measure(method));
         }
     }
 }

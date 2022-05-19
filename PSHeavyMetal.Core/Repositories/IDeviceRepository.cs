@@ -1,7 +1,4 @@
-﻿using PSHeavyMetal.Common.Models;
-using System.Collections.Generic;
-
-namespace PSHeavyMetal.Core.Repositories
+﻿namespace PSHeavyMetal.Core.Repositories
 {
     public interface IDeviceRepository
     {
@@ -9,6 +6,6 @@ namespace PSHeavyMetal.Core.Repositories
         /// Gets all known devices
         /// </summary>
         /// <returns></returns>
-        List<Device> GetDevices();
+        //List<Device> GetDevices();
     }
 }

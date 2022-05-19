@@ -1,14 +1,10 @@
-﻿using PSHeavyMetal.Common.Models;
-using System;
-using System.Collections.Generic;
-
-namespace PSHeavyMetal.Core.Repositories
+﻿namespace PSHeavyMetal.Core.Repositories
 {
     public class DeviceRepository : IDeviceRepository
     {
-        public List<Device> GetDevices()
-        {
-            return new List<Device>();
-        }
+        //public List<Device> GetDevices()
+        //{
+        //    return new List<Device>();
+        //}
     }
 }
