@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using PalmSens.Comm;
 using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using Plugin.CurrentActivity;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
-    public class PlatformDeviceManager : IInstrumentPlatfrom
+    public class PlatformDeviceManager : IInstrumentPlatform
     {
         #region fields
 
-        private Context Context => CrossCurrentActivity.Current.AppContext;
         private DeviceHandler _deviceHandler;
         private Handler _mainHandler;
 
         public event EventHandler<PlatformDevice> DeviceDiscovered;
+
+        private Context Context => CrossCurrentActivity.Current.AppContext;
 
         #endregion fields
 
@@ -35,15 +36,19 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         #region methods
 
-        /// <summary>
-        /// Required initialization for using the async functionalities of the PalmSens SDK.
-        /// The amount of simultaneous operations will be limited to prevent performance issues.
-        /// When possible it will leave one core free for the UI.
-        /// </summary>
-        /// <param name="nCores">The number of CPU cores.</param>
-        private void InitAsyncFunctionality(int nCores)
+        public Task<CommManager> Connect(Devices.Device device)
         {
-            SynchronizationContextRemover.Init(nCores > 1 ? nCores - 1 : 1);
+            return _deviceHandler.ConnectAsync(device);
+        }
+
+        public Task Disconnect(CommManager comm)
+        {
+            return _deviceHandler.DisconnectAsync(comm);
+        }
+
+        public void Dispose()
+        {
+            DeviceDiscovered = null;
         }
 
         public async Task<List<PlatformDevice>> GetConnectedDevices(CancellationToken? cancellationToken = null)
@@ -62,21 +67,6 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             return platformDevices;
         }
 
-        private void _deviceHandler_DeviceDiscoverered(object sender, Devices.Device e)
-        {
-            if (InvokeIfRequired(new EventHandler<PalmSens.Devices.Device>(_deviceHandler_DeviceDiscoverered), e))
-            {
-                return;
-            }
-
-            DeviceDiscovered?.Invoke(this, new PlatformDevice() { Name = e.ToString(), Device = e });
-        }
-
-        public Task<CommManager> Connect(Devices.Device device)
-        {
-            return _deviceHandler.ConnectAsync(device);
-        }
-
         public bool InvokeIfRequired(Delegate method, params object[] args)
         {
             if (Looper.MyLooper() != Looper.MainLooper)//Check if event needs to be cast to the UI thread
@@ -87,14 +77,25 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             return false;
         }
 
-        public Task Disconnect(CommManager comm)
+        private void _deviceHandler_DeviceDiscoverered(object sender, Devices.Device e)
         {
-            return _deviceHandler.DisconnectAsync(comm);
+            if (InvokeIfRequired(new EventHandler<PalmSens.Devices.Device>(_deviceHandler_DeviceDiscoverered), e))
+            {
+                return;
+            }
+
+            DeviceDiscovered?.Invoke(this, new PlatformDevice() { Name = e.ToString(), Device = e });
         }
 
-        public void Dispose()
+        /// <summary>
+        /// Required initialization for using the async functionalities of the PalmSens SDK.
+        /// The amount of simultaneous operations will be limited to prevent performance issues.
+        /// When possible it will leave one core free for the UI.
+        /// </summary>
+        /// <param name="nCores">The number of CPU cores.</param>
+        private void InitAsyncFunctionality(int nCores)
         {
-            DeviceDiscovered = null;
+            SynchronizationContextRemover.Init(nCores > 1 ? nCores - 1 : 1);
         }
 
         #endregion methods

@@ -25,7 +25,7 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task ConnectToDeviceAsync(PlatformDevice device)
         {
-            await _instrumentService.ConnectAsync(device.Device);
+            await _instrumentService.ConnectAsync(device.Device).ConfigureAwait(false);
             ConnectedDevice = device;
         }
 

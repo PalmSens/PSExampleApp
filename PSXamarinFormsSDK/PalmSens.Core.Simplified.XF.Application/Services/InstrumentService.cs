@@ -8,9 +8,9 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
 {
     public class InstrumentService : PSCommSimple
     {
-        private readonly IInstrumentPlatfrom _platformDeviceManager;
+        private readonly IInstrumentPlatform _platformDeviceManager;
 
-        public InstrumentService(IInstrumentPlatfrom platform) : base(platform)
+        public InstrumentService(IInstrumentPlatform platform) : base(platform)
         {
             _platformDeviceManager = platform;
         }

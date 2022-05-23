@@ -1,5 +1,4 @@
-﻿using PalmSens;
-using PalmSens.Core.Simplified.Data;
+﻿using PalmSens.Core.Simplified.Data;
 using PalmSens.Techniques;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
@@ -106,23 +105,6 @@ namespace PSHeavyMetal.Forms.ViewModels
             _measurementService.MeasurementEnded -= _measurementService_MeasurementEnded;
         }
 
-        /// <summary>
-        /// Initializes the LSV method.
-        /// </summary>
-        private void InitLSVMethod()
-        {
-            _methodLSV = new LinearSweep(); //Create a new linear sweep method with the default settings
-            _methodLSV.BeginPotential = -.5f; //Sets the potential to start the sweep from
-            _methodLSV.EndPotential = .5f - 0.05f; //Sets the potential for the sweep to stop at
-            _methodLSV.StepPotential = 0.05f; //Sets the step size
-            _methodLSV.Scanrate = 0.1f; //Sets the scan rate to 0.05 V/s
-
-            _methodLSV.EquilibrationTime = 1f; //Equilabrates the cell at the defined potential for 1 second before starting the measurement
-            _methodLSV.Ranging.StartCurrentRange = new CurrentRange(CurrentRanges.cr1uA); //Starts equilabration in the 1µA current range
-            _methodLSV.Ranging.MinimumCurrentRange = new CurrentRange(CurrentRanges.cr10nA); //Min current range 10nA
-            _methodLSV.Ranging.MaximumCurrentRange = new CurrentRange(CurrentRanges.cr1mA); //Max current range 1mA
-        }
-
         private void OnCountdownCompleted()
         {
             _countdown.Ticked -= OnCountdownTicked;
@@ -142,13 +124,15 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OnPageAppearing()
         {
-            Debug.WriteLine("In page on appearing");
-            InitLSVMethod();
-            _countdown.Start((int)Math.Round(_methodLSV.MinimumEstimatedMeasurementDuration * 1000));
+            var method = _measurementService.LoadMethod("PSDiffPulse.psmethod");
+
+            _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
             _countdown.Ticked += OnCountdownTicked;
             _countdown.Completed += OnCountdownCompleted;
 
-            await _measurementService.StartMeasurement(_methodLSV);
+            await _measurementService.StartMeasurement(method);
+
+            var blah = "g";
         }
     }
 }

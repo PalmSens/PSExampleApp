@@ -12,12 +12,16 @@ namespace PSHeavyMetal.Core.Services
     public class MeasurementService : IMeasurementService
     {
         private readonly InstrumentService _instrumentService;
+        private readonly ILoadAssetsService _loadAssetsService;
+        private readonly ILoadSavePlatformService _loadSavePlatformService;
         private readonly IMeasurementRepository _measurementRepository;
 
-        public MeasurementService(IMeasurementRepository repository, InstrumentService instrumentService)
+        public MeasurementService(IMeasurementRepository repository, InstrumentService instrumentService, ILoadSavePlatformService loadSavePlatformService, ILoadAssetsService loadAssetsService)
         {
             _measurementRepository = repository;
             _instrumentService = instrumentService;
+            _loadSavePlatformService = loadSavePlatformService;
+            _loadAssetsService = loadAssetsService;
         }
 
         public event SimpleCurveStartReceivingDataHandler DataReceived
@@ -47,9 +51,19 @@ namespace PSHeavyMetal.Core.Services
             return measurement;
         }
 
+        public Method LoadMethod(string filename)
+        {
+            using (var filestream = _loadAssetsService.LoadFile(filename))
+            {
+                return _loadSavePlatformService.LoadMethod(filestream);
+            }
+        }
+
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
         {
-            return await Task.Run(() => _instrumentService.Measure(method));
+            //return await Task.Run(() => _instrumentService.Measure(method));
+
+            return _instrumentService.Measure(method);
         }
     }
 }

@@ -19,6 +19,8 @@ namespace PSHeavyMetal.Core.Services
 
         public HeavyMetalMeasurement CreateMeasurement(string name, string description);
 
+        public Method LoadMethod(string filename);
+
         public Task<SimpleMeasurement> StartMeasurement(Method method);
     }
 }
