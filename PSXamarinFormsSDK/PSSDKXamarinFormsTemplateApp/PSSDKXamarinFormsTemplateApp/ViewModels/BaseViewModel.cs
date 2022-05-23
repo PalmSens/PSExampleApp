@@ -9,12 +9,12 @@ namespace PSSDKXamarinFormsTemplateApp.ViewModels
 {
     internal class BaseViewModel : INotifyPropertyChanged
     {
-        protected InstrumentService _instrumentService;
+        protected InstrumentService InstrumentService { get; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public BaseViewModel()
         {
-            _instrumentService = DependencyService.Resolve<InstrumentService>();
+            InstrumentService = DependencyService.Resolve<InstrumentService>();
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

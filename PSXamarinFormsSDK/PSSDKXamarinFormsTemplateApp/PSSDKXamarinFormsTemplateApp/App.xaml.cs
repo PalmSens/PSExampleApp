@@ -1,4 +1,6 @@
 ﻿using System;
+using PSSDKXamarinFormsTemplateApp.Pages;
+using PSSDKXamarinFormsTemplateApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +12,10 @@ namespace PSSDKXamarinFormsTemplateApp
         {
             InitializeComponent();
 
-            MainPage = new Pages.ConnectionPage();
+            //var mainViewModel = new MainViewModel();
+            //DependencyService.RegisterSingleton(mainViewModel);
+            MainPage = new MainPage();
+            //MainPage.BindingContext = mainViewModel;
         }
 
         protected override void OnStart()

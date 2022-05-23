@@ -115,7 +115,7 @@
       <Name>PalmSens.Core.Simplified</Name>
     </ProjectReference>
     <ProjectReference Include="..\PSSDKXamarinFormsTemplateApp\PSSDKXamarinFormsTemplateApp.csproj">
-      <Project>{6D0E9669-7C54-4CB3-AE91-336AD74030C2}</Project>
+      <Project>{5B9547B1-258D-492E-97C9-41E3201316BD}</Project>
       <Name>PSSDKXamarinFormsTemplateApp</Name>
     </ProjectReference>
   </ItemGroup>
