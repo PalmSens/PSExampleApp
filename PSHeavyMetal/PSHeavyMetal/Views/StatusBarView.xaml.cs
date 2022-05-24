@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PSHeavyMetal.Forms.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,6 +10,7 @@ namespace PSHeavyMetal.Forms.Views
     {
         public StatusBarView()
         {
+            BindingContext = App.GetViewModel<StatusBarViewModel>();
             InitializeComponent();
         }
     }

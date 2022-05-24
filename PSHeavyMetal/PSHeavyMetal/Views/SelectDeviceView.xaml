@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:SelectDeviceViewModel"
     Style="{StaticResource CustomPage}"
     Visual="Material">
@@ -22,83 +23,83 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
-        <Grid>
+    <Grid>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding IsConnecting}"
+            Spacing="50"
+            VerticalOptions="CenterAndExpand">
+            <Label FontSize="30" Text="Connecting..." />
+            <ActivityIndicator
+                HeightRequest="100"
+                IsRunning="True"
+                WidthRequest="100"
+                Color="White" />
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsConnecting, Converter={StaticResource InverseBool}}">
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="30"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ReaderResult}" />
+            </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
-                IsVisible="{Binding IsConnecting}"
-                Spacing="50"
-                VerticalOptions="CenterAndExpand">
-                <Label FontSize="30" Text="Connecting..." />
-                <ActivityIndicator
-                    HeightRequest="100"
-                    IsRunning="True"
-                    WidthRequest="100"
-                    Color="White" />
-            </StackLayout>
-            <StackLayout IsVisible="{Binding IsConnecting, Converter={StaticResource InverseBool}}">
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <Label
-                        FontSize="30"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding ReaderResult}" />
-                </StackLayout>
-                <StackLayout
+                Orientation="Vertical"
+                VerticalOptions="Start"
+                WidthRequest="200">
+                <ListView
+                    HasUnevenRows="True"
+                    HeightRequest="400"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding AvailableDevices}">
+                    <ListView.Behaviors>
+                        <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnInstrumentSelected}" />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:PlatformDevice">
+                            <ViewCell>
+                                <!--<ScrollView>-->
+                                <StackLayout VerticalOptions="Start">
+                                    <Frame
+                                        Margin="7"
+                                        Padding="0"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="White"
+                                        CornerRadius="0"
+                                        HasShadow="False"
+                                        HeightRequest="50">
+                                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                                            <Label
+                                                Padding="0,0,0,3"
+                                                FontSize="20"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Name}"
+                                                VerticalTextAlignment="Center" />
+                                            <Image
+                                                HeightRequest="15"
+                                                Scale="0.8"
+                                                Source="arrow_right.xml"
+                                                WidthRequest="30" />
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                                <!--</ScrollView>-->
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button
+                    Margin="0,0,0,50"
+                    Command="{Binding CancelCommand}"
                     HorizontalOptions="CenterAndExpand"
-                    Orientation="Vertical"
-                    VerticalOptions="Start"
-                    WidthRequest="200">
-                    <ListView
-                        HasUnevenRows="True"
-                        HeightRequest="400"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding AvailableDevices}">
-                        <ListView.Behaviors>
-                            <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnInstrumentSelected}" />
-                        </ListView.Behaviors>
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="model:PlatformDevice">
-                                <ViewCell>
-                                    <!--<ScrollView>-->
-                                    <StackLayout VerticalOptions="Start">
-                                        <Frame
-                                            Margin="7"
-                                            Padding="0"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="White"
-                                            CornerRadius="0"
-                                            HasShadow="False"
-                                            HeightRequest="50">
-                                            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                                                <Label
-                                                    Padding="0,0,0,3"
-                                                    FontSize="20"
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="{Binding Name}"
-                                                    VerticalTextAlignment="Center" />
-                                                <Image
-                                                    HeightRequest="15"
-                                                    Scale="0.8"
-                                                    Source="arrow_right.xml"
-                                                    WidthRequest="30" />
-                                            </StackLayout>
-                                        </Frame>
-                                    </StackLayout>
-                                    <!--</ScrollView>-->
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Button
-                        Margin="0,0,0,50"
-                        Command="{Binding CancelCommand}"
-                        HorizontalOptions="CenterAndExpand"
-                        Text="Cancel"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="190" />
-                </StackLayout>
+                    Text="Cancel"
+                    WidthRequest="190" />
             </StackLayout>
-        </Grid>
-    </ContentPage.Content>
+            <ContentView VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </StackLayout>
+    </Grid>
 </ContentPage>

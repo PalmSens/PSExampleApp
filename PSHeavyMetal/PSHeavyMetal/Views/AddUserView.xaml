@@ -4,26 +4,29 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:AddUserViewModel"
     Style="{StaticResource CustomPage}"
     Visual="Material">
 
-    <ContentPage.Content>
-        <Grid>
-            <StackLayout
-                HorizontalOptions="CenterAndExpand"
-                Orientation="Vertical"
-                VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Enter a user name" Text="{Binding UserName}" />
-            </StackLayout>
-            <StackLayout
-                Margin="0,0,0,75"
-                HorizontalOptions="CenterAndExpand"
-                Spacing="20"
-                VerticalOptions="EndAndExpand">
-                <Button Command="{Binding AddUserCommand}" Text="Add user" />
-                <Button Command="{Binding CancelCommand}" Text="Cancel" />
-            </StackLayout>
-        </Grid>
-    </ContentPage.Content>
+    <Grid>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="CenterAndExpand">
+            <Entry Placeholder="Enter a user name" Text="{Binding UserName}" />
+        </StackLayout>
+        <StackLayout
+            Margin="0,0,0,75"
+            HorizontalOptions="CenterAndExpand"
+            Spacing="20"
+            VerticalOptions="EndAndExpand">
+            <Button Command="{Binding AddUserCommand}" Text="Add user" />
+            <Button Command="{Binding CancelCommand}" Text="Cancel" />
+        </StackLayout>
+
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
 </ContentPage>

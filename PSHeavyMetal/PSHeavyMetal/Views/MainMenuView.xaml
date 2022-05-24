@@ -4,12 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Main Menu">
-    <ContentPage.Content>
+    <Grid>
         <StackLayout>
             <Label
                 HorizontalOptions="End"
                 Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="End" />
         </StackLayout>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>

@@ -2,7 +2,9 @@
 <ContentView
     x:Class="PSHeavyMetal.Forms.Views.StatusBarView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:StatusBarViewModel">
     <ContentView.Content>
         <Grid>
             <Frame BackgroundColor="Black" Opacity="0.6" />
@@ -19,7 +21,7 @@
                     <Label
                         FontSize="20"
                         HorizontalTextAlignment="Center"
-                        Text="Searching"
+                        Text="{Binding StatusText}"
                         VerticalTextAlignment="Center" />
                 </StackLayout>
                 <ImageButton

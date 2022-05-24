@@ -9,7 +9,7 @@
     Style="{StaticResource CustomPage}"
     Visual="Material">
 
-    <ContentPage.Content>
+    <Grid>
         <StackLayout
             HorizontalOptions="CenterAndExpand"
             Orientation="Vertical"
@@ -30,5 +30,9 @@
                 Command="{Binding ContinueCommand}"
                 Text="Continue" />
         </StackLayout>
-    </ContentPage.Content>
+
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
 </ContentPage>

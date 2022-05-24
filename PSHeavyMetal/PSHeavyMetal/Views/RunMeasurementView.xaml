@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:RunMeasurementViewModel"
     Style="{StaticResource CustomPage}"
@@ -15,7 +16,7 @@
         <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
-    <ContentPage.Content>
+    <Grid>
         <StackLayout
             HorizontalOptions="CenterAndExpand"
             Spacing="50"
@@ -57,5 +58,9 @@
                 Text="Continue"
                 WidthRequest="200" />
         </StackLayout>
-    </ContentPage.Content>
+
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
 </ContentPage>
