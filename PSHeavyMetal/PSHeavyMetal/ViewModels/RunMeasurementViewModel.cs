@@ -2,6 +2,7 @@
 using PalmSens.Techniques;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -82,6 +83,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private void _measurementService_MeasurementEnded(object sender, EventArgs e)
         {
             _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
+            _countdown.Ticked -= OnCountdownTicked;
 
             Progress = 1;
             ProgressPercentage = 100;
@@ -105,14 +107,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task Continue()
         {
-            _measurementService.DataReceived -= _measurementService_DataReceived;
-            _measurementService.MeasurementEnded -= _measurementService_MeasurementEnded;
-        }
-
-        private void OnCountdownCompleted()
-        {
-            _countdown.Ticked -= OnCountdownTicked;
-            _countdown.Completed -= OnCountdownCompleted;
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
 
         private void OnCountdownTicked()
@@ -127,7 +122,6 @@ namespace PSHeavyMetal.Forms.ViewModels
 
             _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
             _countdown.Ticked += OnCountdownTicked;
-            _countdown.Completed += OnCountdownCompleted;
 
             _measurementService.ActiveMeasurement.ConfiguredMeasurement = await _measurementService.StartMeasurement(method);
         }

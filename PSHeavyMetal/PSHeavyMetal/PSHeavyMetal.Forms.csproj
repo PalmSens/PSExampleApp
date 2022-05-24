@@ -29,9 +29,9 @@
 
   <ItemGroup>
     <Reference Include="PalmSens.Core">
-      <HintPath>..\..\..\ex\sdk\PSLibraries\PalmSens.Core.dll</HintPath>
+      <HintPath>..\..\PSXamarinFormsSDK\PSLibraries\PalmSens.Core.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>	
 
   <ItemGroup>
     <Compile Update="Styling\Generic.xaml.cs">
@@ -80,6 +80,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StatusBarView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TitleView.xaml">

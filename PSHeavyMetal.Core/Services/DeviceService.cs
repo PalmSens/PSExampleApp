@@ -32,6 +32,7 @@ namespace PSHeavyMetal.Core.Services
         public async Task DetectDevicesAsync(CancellationToken? cancellationToken = null)
         {
             await _instrumentService.GetConnectedDevices().ConfigureAwait(false);
+            System.Diagnostics.Debug.WriteLine("Done discovering");
         }
     }
 }

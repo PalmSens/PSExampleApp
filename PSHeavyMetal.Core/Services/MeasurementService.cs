@@ -61,7 +61,7 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
         {
-            return await Task.Run(() => _instrumentService.Measure(method));
+            return await _instrumentService.MeasureAsync(method);
         }
     }
 }

@@ -41,9 +41,6 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
             try
             {
-                //device.Open();
-                //comm = new CommManager(device);
-
                 await device.OpenAsync(); //Open the device to allow a connection
                 comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
             }

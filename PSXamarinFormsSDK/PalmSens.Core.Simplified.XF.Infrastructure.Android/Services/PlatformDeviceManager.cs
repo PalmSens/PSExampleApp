@@ -53,7 +53,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         public async Task<List<PlatformDevice>> GetConnectedDevices(CancellationToken? cancellationToken = null)
         {
-            var scannedDevices = await _deviceHandler.ScanDevicesAsync(cancellationToken);
+            var scannedDevices = await _deviceHandler.ScanDevicesAsync(cancellationToken, 5000);
 
             var platformDevices = new List<PlatformDevice>();
             foreach (var device in scannedDevices)
