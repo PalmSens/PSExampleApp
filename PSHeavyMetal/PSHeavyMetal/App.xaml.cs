@@ -3,7 +3,6 @@ using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.ViewModels;
 using PSHeavyMetal.Forms.Views;
 using System;
-using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms
@@ -15,7 +14,7 @@ namespace PSHeavyMetal.Forms
         public App()
         {
             ServiceProvider = Startup.Init();
-            InitializeComponent();            
+            InitializeComponent();
 
             var navigationPage = new NavigationPage(new LoginView())
             {

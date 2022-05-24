@@ -1,26 +1,76 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Android.Content;
 using PalmSens.Comm;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PalmSens.Devices;
 using PalmSens.PSAndroid.Comm;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
     internal class DeviceHandler : IDeviceHandler
     {
+        internal Context Context;
+
         internal DeviceHandler()
         {
         }
 
-        internal Context Context;
+        public event EventHandler<Device> DeviceDiscoverered;
 
         public bool EnableBluetooth { get; set; } = true;
         public bool EnableUSB { get; set; } = true;
 
-        public event EventHandler<Device> DeviceDiscoverered;
+        /// <summary>
+        /// Connects to the specified device and returns its CommManager.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <returns>
+        /// The CommManager of the device or null
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">The specified device cannot be null.</exception>
+        /// <exception cref="System.Exception">Could not connect to the specified device.</exception>
+        public async Task<CommManager> ConnectAsync(Device device)
+        {
+            if (device == null)
+                throw new ArgumentNullException("The specified device cannot be null.");
+            CommManager comm = null;
+
+            await new SynchronizationContextRemover();
+
+            try
+            {
+                //device.Open();
+                //comm = new CommManager(device);
+
+                await device.OpenAsync(); //Open the device to allow a connection
+                comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
+            }
+            catch (Exception ex)
+            {
+                device.Close();
+                throw new Exception($"Could not connect to the specified device. {ex.Message}");
+            }
+
+            return comm;
+        }
+
+        /// <summary>
+        /// The asynchronous version of method 'Disconnect'.
+        /// </summary>
+        /// <param name="comm">The device's CommManager.</param>
+        /// <exception cref="System.ArgumentNullException">The specified CommManager cannot be null.</exception>
+        public async Task DisconnectAsync(CommManager comm)
+        {
+            if (comm == null) throw new ArgumentNullException("The specified CommManager cannot be null.");
+            await comm.DisconnectAsync();
+        }
+
+        public void Dispose()
+        {
+            DeviceDiscoverered = null;
+        }
 
         /// <summary>
         /// Scans for connected devices.
@@ -56,45 +106,6 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
                 }
             }
             return devices;
-        }
-
-        private void DeviceDiscoverer_DeviceDiscovered(object sender, Device e)
-        {
-            DeviceDiscoverered?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Connects to the specified device and returns its CommManager.
-        /// </summary>
-        /// <param name="device">The device.</param>
-        /// <returns>
-        /// The CommManager of the device or null
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">The specified device cannot be null.</exception>
-        /// <exception cref="System.Exception">Could not connect to the specified device.</exception>
-        public async Task<CommManager> ConnectAsync(Device device)
-        {
-            if (device == null)
-                throw new ArgumentNullException("The specified device cannot be null.");
-            CommManager comm = null;
-
-            await new SynchronizationContextRemover();
-
-            try
-            {
-                device.Open();
-                comm = new CommManager(device);
-
-                //await device.OpenAsync(); //Open the device to allow a connection
-                //comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
-            }
-            catch (Exception ex)
-            {
-                device.Close();
-                throw new Exception($"Could not connect to the specified device. {ex.Message}");
-            }
-
-            return comm;
         }
 
         /// <summary>
@@ -139,20 +150,9 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             comm.Disconnect();
         }
 
-        /// <summary>
-        /// The asynchronous version of method 'Disconnect'.
-        /// </summary>
-        /// <param name="comm">The device's CommManager.</param>
-        /// <exception cref="System.ArgumentNullException">The specified CommManager cannot be null.</exception>
-        public async Task DisconnectAsync(CommManager comm)
+        private void DeviceDiscoverer_DeviceDiscovered(object sender, Device e)
         {
-            if (comm == null) throw new ArgumentNullException("The specified CommManager cannot be null.");
-            await comm.DisconnectAsync();
-        }
-
-        public void Dispose()
-        {
-            DeviceDiscoverered = null;
+            DeviceDiscoverered?.Invoke(this, e);
         }
     }
 }

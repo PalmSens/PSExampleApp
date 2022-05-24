@@ -29,14 +29,19 @@
                     Text="Please turn on the reader to continue" />
             </StackLayout>
             <StackLayout VerticalOptions="StartAndExpand">
-                <StackLayout
-                    HorizontalOptions="CenterAndExpand"
-                    Orientation="Horizontal"
-                    Spacing="20"
-                    VerticalOptions="StartAndExpand"
-                    WidthRequest="200">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <Picker
                         Title="Select user"
+                        Grid.Row="0"
                         Grid.Column="1"
                         HorizontalOptions="CenterAndExpand"
                         ItemDisplayBinding="{Binding Name}"
@@ -44,24 +49,27 @@
                         SelectedItem="{Binding SelectedUser}"
                         WidthRequest="200" />
                     <ImageButton
+                        Grid.Row="0"
                         Grid.Column="2"
                         Aspect="Fill"
                         BackgroundColor="Transparent"
                         Command="{Binding OpenAddUserViewCommand}"
                         HeightRequest="60"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="Start"
                         Source="plusicon.png"
                         VerticalOptions="Center"
                         WidthRequest="60" />
-                </StackLayout>
-                <Button
-                    BackgroundColor="Transparent"
-                    Command="{Binding LoginCommand}"
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
-                    Text="Continue"
-                    VerticalOptions="End"
-                    WidthRequest="200" />
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundColor="Transparent"
+                        Command="{Binding LoginCommand}"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
+                        Text="Continue"
+                        VerticalOptions="End"
+                        WidthRequest="200" />
+                </Grid>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

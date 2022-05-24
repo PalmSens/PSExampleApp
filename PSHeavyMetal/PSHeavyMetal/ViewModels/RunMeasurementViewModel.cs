@@ -82,6 +82,10 @@ namespace PSHeavyMetal.Forms.ViewModels
         private void _measurementService_MeasurementEnded(object sender, EventArgs e)
         {
             _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
+
+            Progress = 1;
+            ProgressPercentage = 100;
+            MeasurementIsFinished = true;
         }
 
         private void ActiveSimpleCurve_NewDataAdded(object sender, PalmSens.Data.ArrayDataAddedEventArgs e)
@@ -109,17 +113,12 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             _countdown.Ticked -= OnCountdownTicked;
             _countdown.Completed -= OnCountdownCompleted;
-            Progress = 1;
-            ProgressPercentage = 100;
-            MeasurementIsFinished = true;
         }
 
         private void OnCountdownTicked()
         {
             Progress = _countdown.ElapsedTime / _countdown.TotalTimeInMilliSeconds;
             ProgressPercentage = (int)(Progress * 100);
-
-            Debug.WriteLine(Progress.ToString());
         }
 
         private async Task OnPageAppearing()
@@ -130,9 +129,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             _countdown.Ticked += OnCountdownTicked;
             _countdown.Completed += OnCountdownCompleted;
 
-            await _measurementService.StartMeasurement(method);
-
-            var blah = "g";
+            _measurementService.ActiveMeasurement.ConfiguredMeasurement = await _measurementService.StartMeasurement(method);
         }
     }
 }
