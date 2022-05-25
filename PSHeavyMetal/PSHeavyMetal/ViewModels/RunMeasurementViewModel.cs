@@ -1,5 +1,4 @@
 ﻿using PalmSens.Core.Simplified.Data;
-using PalmSens.Techniques;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
@@ -20,12 +19,6 @@ namespace PSHeavyMetal.Forms.ViewModels
         private Countdown _countdown = new Countdown();
 
         private bool _measurementFinished = false;
-
-        /// <summary>
-        /// The instance of method class containing the Linear Sweep Voltammetry parameters
-        /// </summary>
-        private LinearSweep _methodLSV;
-
         private double _progress;
         private int _progressPercentage;
 
@@ -80,14 +73,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             activeSimpleCurve.NewDataAdded += ActiveSimpleCurve_NewDataAdded;
         }
 
-        private void _measurementService_MeasurementEnded(object sender, EventArgs e)
+        private async void _measurementService_MeasurementEnded(object sender, EventArgs e)
         {
             _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
             _countdown.Ticked -= OnCountdownTicked;
 
-            Progress = 1;
-            ProgressPercentage = 100;
-            MeasurementIsFinished = true;
+            await RunPeakAnalysis();
         }
 
         private void ActiveSimpleCurve_NewDataAdded(object sender, PalmSens.Data.ArrayDataAddedEventArgs e)
@@ -100,7 +91,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                 double xValue = _activeCurve.XAxisValue(i); //Get the value on Curve's X-Axis (potential) at the specified index
                 double yValue = _activeCurve.YAxisValue(i); //Get the value on Curve's Y-Axis (current) at the specified index
 
-                Debug.WriteLine($"Data received potential { xValue}, current { yValue}");
+                Debug.WriteLine($"Data received potential {xValue}, current {yValue}");
                 ReceivedData.Add($"potential {xValue}, current {yValue}");
             }
         }
@@ -108,6 +99,15 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task Continue()
         {
             await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
+        }
+
+        private void Curve_DetectedPeaks(object sender, EventArgs e)
+        {
+            _measurementService.CalculateConcentration();
+
+            Progress = 1;
+            ProgressPercentage = 100;
+            MeasurementIsFinished = true;
         }
 
         private void OnCountdownTicked()
@@ -124,6 +124,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             _countdown.Ticked += OnCountdownTicked;
 
             _measurementService.ActiveMeasurement.ConfiguredMeasurement = await _measurementService.StartMeasurement(method);
+        }
+
+        private async Task RunPeakAnalysis()
+        {
+            _activeCurve.DetectedPeaks += Curve_DetectedPeaks;
+            await _activeCurve.DetectPeaksAsync(0.05, 0.005);
         }
     }
 }

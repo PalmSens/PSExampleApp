@@ -17,9 +17,16 @@ namespace PSHeavyMetal.Core.Services
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
 
+        /// <summary>
+        /// Calculations based on the configuration of the caluclation method
+        /// </summary>
+        public void CalculateConcentration();
+
         public HeavyMetalMeasurement CreateMeasurement(string name, string description);
 
         public Method LoadMethod(string filename);
+
+        public void SetCalculationMethod(MethodType method);
 
         public Task<SimpleMeasurement> StartMeasurement(Method method);
     }
