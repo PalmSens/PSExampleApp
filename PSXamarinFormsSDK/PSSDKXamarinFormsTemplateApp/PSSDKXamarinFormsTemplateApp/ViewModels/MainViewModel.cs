@@ -18,7 +18,7 @@ namespace PSSDKXamarinFormsTemplateApp.ViewModels
     {
         private string _currentView;
         public ICommand OnPageAppearingCommand { get; }
-        private readonly CancellationTokenSource _instrumentDiscoveryCancellationTokenSource;
+        private CancellationTokenSource _instrumentDiscoveryCancellationTokenSource;
         private IPermissionService _permissionService;
         private string _status;
         public ICommand OnInstrumentSelected { get; }
@@ -85,8 +85,9 @@ namespace PSSDKXamarinFormsTemplateApp.ViewModels
             _instrumentDiscoveryCancellationTokenSource.Cancel();
             await Task.Delay(10);
             Status = "Connecting...";
-            await InstrumentService.ConnectAsync(device.Device);
+            Task connectTask = InstrumentService.ConnectAsync(device.Device);
             CurrentView = nameof(MeasurementView);
+            await connectTask;
             Status = "Connected";
             await InstrumentService.MeasureAsync(new AmperometricDetection()
             {
@@ -95,6 +96,11 @@ namespace PSSDKXamarinFormsTemplateApp.ViewModels
                 EquilibrationTime = 1,
                 RunTime = 3
             });
+            await InstrumentService.DisconnectAsync();
+            _instrumentDiscoveryCancellationTokenSource.Dispose();
+            _instrumentDiscoveryCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            var token = _instrumentDiscoveryCancellationTokenSource.Token;
+            var devices = await InstrumentService.GetConnectedDevices(token);
         }
     }
 }

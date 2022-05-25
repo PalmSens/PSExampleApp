@@ -1,28 +1,27 @@
-﻿using Android.Content;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using Android.Content;
 using Android.OS;
 using PalmSens.Comm;
 using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using Plugin.CurrentActivity;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
-    public class PlatformDeviceManager : IInstrumentPlatform
+    public class PlatformDeviceManager: IInstrumentPlatfrom
     {
         #region fields
 
+        private Context Context => CrossCurrentActivity.Current.AppContext;
         private DeviceHandler _deviceHandler;
         private Handler _mainHandler;
-
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
-        private Context Context => CrossCurrentActivity.Current.AppContext;
-
-        #endregion fields
+        #endregion
 
         public PlatformDeviceManager()
         {
@@ -35,25 +34,20 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
         }
 
         #region methods
-
-        public Task<CommManager> Connect(Devices.Device device)
+        /// <summary>
+        /// Required initialization for using the async functionalities of the PalmSens SDK.
+        /// The amount of simultaneous operations will be limited to prevent performance issues.
+        /// When possible it will leave one core free for the UI.
+        /// </summary>
+        /// <param name="nCores">The number of CPU cores.</param>
+        private void InitAsyncFunctionality(int nCores)
         {
-            return _deviceHandler.ConnectAsync(device);
-        }
-
-        public Task Disconnect(CommManager comm)
-        {
-            return _deviceHandler.DisconnectAsync(comm);
-        }
-
-        public void Dispose()
-        {
-            DeviceDiscovered = null;
+            SynchronizationContextRemover.Init(nCores > 1 ? nCores - 1 : 1);
         }
 
         public async Task<List<PlatformDevice>> GetConnectedDevices(CancellationToken? cancellationToken = null)
         {
-            var scannedDevices = await _deviceHandler.ScanDevicesAsync(cancellationToken, 5000);
+            var scannedDevices = await _deviceHandler.ScanDevicesAsync(cancellationToken);
 
             var platformDevices = new List<PlatformDevice>();
             foreach (var device in scannedDevices)
@@ -63,18 +57,8 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
                 platformDevice.Device = device;
                 platformDevices.Add(platformDevice);
             }
-
+            
             return platformDevices;
-        }
-
-        public bool InvokeIfRequired(Delegate method, params object[] args)
-        {
-            if (Looper.MyLooper() != Looper.MainLooper)//Check if event needs to be cast to the UI thread
-            {
-                _mainHandler.Post(() => method.DynamicInvoke(args)); //Recast event to UI thread
-                return true;
-            }
-            return false;
         }
 
         private void _deviceHandler_DeviceDiscoverered(object sender, Devices.Device e)
@@ -87,17 +71,31 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             DeviceDiscovered?.Invoke(this, new PlatformDevice() { Name = e.ToString(), Device = e });
         }
 
-        /// <summary>
-        /// Required initialization for using the async functionalities of the PalmSens SDK.
-        /// The amount of simultaneous operations will be limited to prevent performance issues.
-        /// When possible it will leave one core free for the UI.
-        /// </summary>
-        /// <param name="nCores">The number of CPU cores.</param>
-        private void InitAsyncFunctionality(int nCores)
+        public Task<CommManager> Connect(Devices.Device device)
         {
-            SynchronizationContextRemover.Init(nCores > 1 ? nCores - 1 : 1);
+            return _deviceHandler.ConnectAsync(device);
         }
 
-        #endregion methods
+        public bool InvokeIfRequired(Delegate method, params object[] args)
+        {
+            if (Looper.MyLooper() != Looper.MainLooper)//Check if event needs to be cast to the UI thread
+            {
+                _mainHandler.Post(() => method.DynamicInvoke(args)); //Recast event to UI thread                
+                return true;
+            }
+            return false;
+        }
+
+        public Task Disconnect(CommManager comm)
+        {
+            return _deviceHandler.DisconnectAsync(comm);
+        }
+
+        public void Dispose()
+        {
+            DeviceDiscovered = null;
+        }
+
+        #endregion
     }
 }

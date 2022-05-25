@@ -1,73 +1,25 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Android.Content;
 using PalmSens.Comm;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PalmSens.Devices;
 using PalmSens.PSAndroid.Comm;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 {
-    internal class DeviceHandler : IDeviceHandler
+    class DeviceHandler: IDeviceHandler
     {
-        internal Context Context;
-
         internal DeviceHandler()
         {
         }
 
-        public event EventHandler<Device> DeviceDiscoverered;
+        internal Context Context;
 
         public bool EnableBluetooth { get; set; } = true;
         public bool EnableUSB { get; set; } = true;
-
-        /// <summary>
-        /// Connects to the specified device and returns its CommManager.
-        /// </summary>
-        /// <param name="device">The device.</param>
-        /// <returns>
-        /// The CommManager of the device or null
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">The specified device cannot be null.</exception>
-        /// <exception cref="System.Exception">Could not connect to the specified device.</exception>
-        public async Task<CommManager> ConnectAsync(Device device)
-        {
-            if (device == null)
-                throw new ArgumentNullException("The specified device cannot be null.");
-            CommManager comm = null;
-
-            await new SynchronizationContextRemover();
-
-            try
-            {
-                await device.OpenAsync(); //Open the device to allow a connection
-                comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
-            }
-            catch (Exception ex)
-            {
-                device.Close();
-                throw new Exception($"Could not connect to the specified device. {ex.Message}");
-            }
-
-            return comm;
-        }
-
-        /// <summary>
-        /// The asynchronous version of method 'Disconnect'.
-        /// </summary>
-        /// <param name="comm">The device's CommManager.</param>
-        /// <exception cref="System.ArgumentNullException">The specified CommManager cannot be null.</exception>
-        public async Task DisconnectAsync(CommManager comm)
-        {
-            if (comm == null) throw new ArgumentNullException("The specified CommManager cannot be null.");
-            await comm.DisconnectAsync();
-        }
-
-        public void Dispose()
-        {
-            DeviceDiscoverered = null;
-        }
+        public event EventHandler<Device> DeviceDiscoverered;
 
         /// <summary>
         /// Scans for connected devices.
@@ -96,13 +48,50 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             }
             finally
             {
-                if (deviceDiscoverer != null)
+                if(deviceDiscoverer != null)
                 {
                     deviceDiscoverer.DeviceDiscovered -= DeviceDiscoverer_DeviceDiscovered;
                     deviceDiscoverer.Dispose();
                 }
             }
             return devices;
+        }
+
+        private void DeviceDiscoverer_DeviceDiscovered(object sender, Device e)
+        {
+            DeviceDiscoverered?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Connects to the specified device and returns its CommManager.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <returns>
+        /// The CommManager of the device or null
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">The specified device cannot be null.</exception>
+        /// <exception cref="System.Exception">Could not connect to the specified device.</exception>
+        public async Task<CommManager> ConnectAsync(Device device)
+        {
+            if (device == null)
+                throw new ArgumentNullException("The specified device cannot be null.");
+            CommManager comm = null;
+
+            await new SynchronizationContextRemover();
+
+            try
+            {
+                await device.OpenAsync(); //Open the device to allow a connection
+                comm = await CommManager.CommManagerAsync(device); //Connect to the selected device
+                CheckSupportForFastBLC(device, comm);
+            }
+            catch (Exception ex)
+            {
+                device.Close();
+                throw new Exception($"Could not connect to the specified device. {ex.Message}");
+            }
+
+            return comm;
         }
 
         /// <summary>
@@ -125,6 +114,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             {
                 device.Open(); //Open the device to allow a connection
                 comm = new CommManager(device); //Connect to the selected device
+                CheckSupportForFastBLC(device, comm);
             }
             catch (Exception ex)
             {
@@ -147,9 +137,34 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             comm.Disconnect();
         }
 
-        private void DeviceDiscoverer_DeviceDiscovered(object sender, Device e)
+        /// <summary>
+        /// The asynchronous version of method 'Disconnect'.
+        /// </summary>
+        /// <param name="comm">The device's CommManager.</param>
+        /// <exception cref="System.ArgumentNullException">The specified CommManager cannot be null.</exception>
+        public async Task DisconnectAsync(CommManager comm)
         {
-            DeviceDiscoverered?.Invoke(this, e);
+            if (comm == null) throw new ArgumentNullException("The specified CommManager cannot be null.");
+            await comm.DisconnectAsync();
+        }
+
+        /// <summary>
+        /// Checks and enables support for fast BLC.
+        /// This only applies when connecting to a EmStat Pico Devboard,
+        /// Sensit BT or EmStat Pico Go with the appropriate firmware.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="comm">The comm.</param>
+        private static void CheckSupportForFastBLC(Device device, CommManager comm)
+        {
+            if (device is BlueToothDevice blcDevice && comm.DeviceType is enumDeviceType.EmStatPico &&
+                comm.ClientConnection.FirmwareVersion > 1.3f)
+                blcDevice.EnableReceiveMonitor("\u0016", 2500);
+        }
+
+        public void Dispose()
+        {
+            DeviceDiscoverered = null;
         }
     }
 }
