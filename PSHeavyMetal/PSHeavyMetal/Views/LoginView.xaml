@@ -7,8 +7,7 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:LoginViewModel"
-    Style="{StaticResource CustomPage}"
-    Visual="Material">
+    Style="{StaticResource CustomPage}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -19,14 +18,8 @@
     <Grid>
         <StackLayout>
             <StackLayout Spacing="30" VerticalOptions="CenterAndExpand">
-                <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="WELCOME" />
-                <Label
-                    FontSize="25"
-                    HorizontalTextAlignment="Center"
-                    Text="Please turn on the reader to continue" />
+                <Label Style="{StaticResource TitleStyle}" Text="WELCOME" />
+                <Label Style="{StaticResource MediumTextStyle}" Text="Please turn on the reader to continue" />
             </StackLayout>
             <StackLayout VerticalOptions="StartAndExpand">
                 <Grid>

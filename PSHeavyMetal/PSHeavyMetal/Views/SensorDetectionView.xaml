@@ -6,22 +6,16 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:SensorDetectionViewModel"
-    Style="{StaticResource CustomPage}"
-    Visual="Material">
+    Style="{StaticResource CustomPage}">
 
     <Grid>
         <StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource MediumTextStyle}"
                     Text="Sample:"
                     VerticalOptions="Start" />
-                <Label
-                    FontAttributes="Italic"
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ActiveMeasurement.Name}" />
+                <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
@@ -29,8 +23,7 @@
                 VerticalOptions="StartAndExpand">
                 <Label
                     Margin="0,50,0,0"
-                    FontSize="25"
-                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SmallTextStyle}"
                     Text="Insert sensor and wait for indicator to turn BLUE" />
                 <StackLayout Margin="50" Orientation="Horizontal">
                     <Frame

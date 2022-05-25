@@ -12,15 +12,10 @@
         <StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SmallSubTextStyle}"
                     Text="Sample:"
                     VerticalOptions="Start" />
-                <Label
-                    FontAttributes="Italic"
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ActiveMeasurement.Name}" />
+                <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
@@ -29,8 +24,7 @@
                 WidthRequest="250">
                 <Label
                     Margin="0,50,0,0"
-                    FontSize="20"
-                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SmallTextStyle}"
                     Text="Mix sample with buffer and add droplet" />
                 <Image Margin="20" Source="dropdetection.png" />
                 <Button

@@ -6,8 +6,7 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:AddUserViewModel"
-    Style="{StaticResource CustomPage}"
-    Visual="Material">
+    Style="{StaticResource CustomPage}">
 
     <Grid>
         <StackLayout

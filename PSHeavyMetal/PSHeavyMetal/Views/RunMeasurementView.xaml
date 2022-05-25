@@ -8,12 +8,10 @@
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:RunMeasurementViewModel"
-    Style="{StaticResource CustomPage}"
-    Visual="Material">
+    Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
-        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
     <Grid>
@@ -22,15 +20,10 @@
             Spacing="50"
             VerticalOptions="CenterAndExpand">
             <Label
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="Analyizing Sample"
+                Style="{StaticResource MediumTextStyle}"
+                Text="ANALYZING SAMPLE"
                 VerticalOptions="Start" />
-            <Label
-                FontAttributes="Italic"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="{Binding ActiveMeasurement.Name}" />
+            <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             <Grid
                 HeightRequest="200"
                 HorizontalOptions="CenterAndExpand"
@@ -47,7 +40,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     FontSize="Medium"
-                    HorizontalOptions="Center"
+                    Style="{StaticResource MediumTextStyle}"
                     Text="{Binding ProgressPercentage, StringFormat='{0}%'}"
                     VerticalOptions="Center" />
             </Grid>

@@ -98,7 +98,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task Continue()
         {
-            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
+            await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
         }
 
         private void Curve_DetectedPeaks(object sender, EventArgs e)

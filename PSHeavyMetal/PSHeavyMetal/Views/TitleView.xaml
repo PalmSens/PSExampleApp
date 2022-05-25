@@ -4,19 +4,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-    x:DataType="viewmodels:TitleViewModel">
+    x:DataType="viewmodels:TitleViewModel"
+    Visual="Material">
     <ContentView.Content>
         <Grid>
             <AbsoluteLayout
                 Margin="0"
                 HorizontalOptions="Center"
                 VerticalOptions="CenterAndExpand">
-                <Label
-                    Margin="-60,0,0,0"
-                    FontFamily="PatrickFont"
-                    FontSize="25"
-                    HorizontalTextAlignment="Center"
-                    Text="PS Heavy Metal" />
+                <Label Margin="-60,0,0,0" Text="PS Heavy Metal" />
             </AbsoluteLayout>
             <StackLayout HorizontalOptions="End" Orientation="Horizontal">
                 <Image
@@ -25,7 +21,6 @@
                     WidthRequest="40" />
                 <Label
                     Margin="0,0,20,0"
-                    HorizontalTextAlignment="Center"
                     Text="{Binding ActiveUserName}"
                     VerticalTextAlignment="Center" />
             </StackLayout>

@@ -10,5 +10,6 @@
         SensorDetectionView,
         DropDetectionView,
         RunMeasurementView,
+        MeasurmentFinished,
     }
 }

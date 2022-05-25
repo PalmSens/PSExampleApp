@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace PSHeavyMetal.Forms.Styles
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Generic : ResourceDictionary
+    public partial class Fonts : ResourceDictionary
     {
-        public Generic()
+        public Fonts()
         {
             InitializeComponent();
         }

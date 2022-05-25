@@ -6,31 +6,21 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
-    Style="{StaticResource CustomPage}"
-    Visual="Material">
-
+    Style="{StaticResource CustomPage}">
     <Grid>
         <StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource MediumTextStyle}"
                     Text="Sample:"
                     VerticalOptions="Start" />
-                <Label
-                    FontAttributes="Italic"
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ActiveMeasurement.Name}" />
+                <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
                 Spacing="30"
                 VerticalOptions="StartAndExpand">
-                <Label
-                    FontSize="30"
-                    HorizontalTextAlignment="Center"
-                    Text="Select analyte" />
+                <Label Style="{StaticResource SmallTextStyle}" Text="Select analyte:" />
                 <StackLayout
                     HorizontalOptions="CenterAndExpand"
                     Spacing="20"

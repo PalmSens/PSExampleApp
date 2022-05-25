@@ -4,7 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-    x:DataType="viewmodels:StatusBarViewModel">
+    x:DataType="viewmodels:StatusBarViewModel"
+    Visual="Material">
     <ContentView.Content>
         <Grid>
             <Frame BackgroundColor="Black" Opacity="0.6" />
@@ -19,8 +20,7 @@
                         Source="searching.png"
                         WidthRequest="30" />
                     <Label
-                        FontSize="20"
-                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SmallTextStyle}"
                         Text="{Binding StatusText}"
                         VerticalTextAlignment="Center" />
                 </StackLayout>
