@@ -15,6 +15,7 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
         Task<Device[]> ScanDevicesAsync(CancellationToken? cancellationToken = null, int timeOut = 20000);
         Task<CommManager> ConnectAsync(Device device);
         Task DisconnectAsync(CommManager comm);
-        event EventHandler<Device> DeviceDiscoverered;
+        event EventHandler<Device> DeviceDiscovered;
+        event EventHandler<Device> DeviceRemoved;
     }
 }

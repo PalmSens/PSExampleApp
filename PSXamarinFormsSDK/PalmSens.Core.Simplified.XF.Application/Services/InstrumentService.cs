@@ -25,5 +25,11 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
             add => _platformDeviceManager.DeviceDiscovered += value;
             remove => _platformDeviceManager.DeviceDiscovered -= value;
         }
+
+        public event EventHandler<PlatformDevice> DeviceRemoved
+        {
+            add => _platformDeviceManager.DeviceRemoved += value;
+            remove => _platformDeviceManager.DeviceRemoved -= value;
+        }
     }
 }

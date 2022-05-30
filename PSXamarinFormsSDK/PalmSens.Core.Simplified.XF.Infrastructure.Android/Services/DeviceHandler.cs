@@ -19,7 +19,8 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         public bool EnableBluetooth { get; set; } = true;
         public bool EnableUSB { get; set; } = true;
-        public event EventHandler<Device> DeviceDiscoverered;
+        public event EventHandler<Device> DeviceDiscovered;
+        public event EventHandler<Device> DeviceRemoved;
 
         /// <summary>
         /// Scans for connected devices.
@@ -38,6 +39,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             {
                 deviceDiscoverer = new DeviceDiscoverer(Context);
                 deviceDiscoverer.DeviceDiscovered += DeviceDiscoverer_DeviceDiscovered;
+                deviceDiscoverer.DeviceRemoved += DeviceDiscoverer_DeviceRemoved;
                 devices = (await deviceDiscoverer.Discover(EnableUSB, EnableBluetooth, cancellationToken, timeOut))
                     .ToArray();
             }
@@ -59,7 +61,12 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         private void DeviceDiscoverer_DeviceDiscovered(object sender, Device e)
         {
-            DeviceDiscoverered?.Invoke(this, e);
+            DeviceDiscovered?.Invoke(this, e);
+        }
+
+        private void DeviceDiscoverer_DeviceRemoved(object sender, Device e)
+        {
+            DeviceRemoved?.Invoke(this, e);
         }
 
         /// <summary>
@@ -164,7 +171,8 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
 
         public void Dispose()
         {
-            DeviceDiscoverered = null;
+            DeviceDiscovered = null;
+            DeviceRemoved = null;
         }
     }
 }

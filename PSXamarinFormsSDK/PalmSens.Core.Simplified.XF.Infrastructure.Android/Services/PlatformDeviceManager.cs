@@ -8,6 +8,7 @@ using Android.OS;
 using PalmSens.Comm;
 using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.PSAndroid.Comm;
 using Plugin.CurrentActivity;
 
 namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
@@ -20,6 +21,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
         private DeviceHandler _deviceHandler;
         private Handler _mainHandler;
         public event EventHandler<PlatformDevice> DeviceDiscovered;
+        public event EventHandler<PlatformDevice> DeviceRemoved;
 
         #endregion
 
@@ -29,7 +31,8 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
             InitAsyncFunctionality(System.Environment.ProcessorCount);
             _mainHandler = new Handler(Looper.MainLooper);
             _deviceHandler = new DeviceHandler();
-            _deviceHandler.DeviceDiscoverered += _deviceHandler_DeviceDiscoverered;
+            _deviceHandler.DeviceDiscovered += DeviceHandlerDeviceDiscovered;
+            _deviceHandler.DeviceRemoved += _deviceHandler_DeviceRemoved;
             _deviceHandler.Context = Context;
         }
 
@@ -55,20 +58,53 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android.Services
                 var platformDevice = new PlatformDevice();
                 platformDevice.Name = device.ToString();
                 platformDevice.Device = device;
+                if (device is UsbCdcDevice usbCdcDevice)
+                {
+                    platformDevice.DeviceID = usbCdcDevice.UsbDevice.DeviceId;
+                }
+                if (device is FTDIDevice ftdiDevice)
+                {
+                    platformDevice.DeviceID = ftdiDevice.UsbDevice.DeviceId;
+                }
                 platformDevices.Add(platformDevice);
             }
             
             return platformDevices;
         }
 
-        private void _deviceHandler_DeviceDiscoverered(object sender, Devices.Device e)
+        private void DeviceHandlerDeviceDiscovered(object sender, Devices.Device e)
         {
-            if (InvokeIfRequired(new EventHandler<PalmSens.Devices.Device>(_deviceHandler_DeviceDiscoverered), e))
+            if (InvokeIfRequired(new EventHandler<PalmSens.Devices.Device>(DeviceHandlerDeviceDiscovered), e))
             {
                 return;
             }
 
-            DeviceDiscovered?.Invoke(this, new PlatformDevice() { Name = e.ToString(), Device = e });
+            DeviceDiscovered?.Invoke(this, new PlatformDevice() { Name = e.ToString(), Device = e, 
+                DeviceID = 
+                    e is FTDIDevice ftdiDevice 
+                        ? (int?)ftdiDevice.UsbDevice.DeviceId 
+                        : e is UsbCdcDevice usbCdcDevice 
+                            ? (int?)usbCdcDevice.UsbDevice.DeviceId 
+                            : null });
+        }
+
+        private void _deviceHandler_DeviceRemoved(object sender, Devices.Device e)
+        {
+            if (InvokeIfRequired(new EventHandler<PalmSens.Devices.Device>(DeviceHandlerDeviceDiscovered), e))
+            {
+                return;
+            }
+
+            DeviceRemoved?.Invoke(this, new PlatformDevice()
+            {
+                Name = e.ToString(), Device = e,
+                DeviceID =
+                    e is FTDIDevice ftdiDevice
+                        ? (int?)ftdiDevice.UsbDevice.DeviceId
+                        : e is UsbCdcDevice usbCdcDevice
+                            ? (int?)usbCdcDevice.UsbDevice.DeviceId
+                            : null
+            });
         }
 
         public Task<CommManager> Connect(Devices.Device device)

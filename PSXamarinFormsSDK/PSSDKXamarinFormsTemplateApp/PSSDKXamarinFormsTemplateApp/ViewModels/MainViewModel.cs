@@ -38,7 +38,7 @@ namespace PSSDKXamarinFormsTemplateApp.ViewModels
 
         public MainViewModel()
         {
-            _instrumentDiscoveryCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(20)); //Add optional timeout
+            _instrumentDiscoveryCancellationTokenSource = new CancellationTokenSource(); //Add optional timeout
             InstrumentService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing, onException: ex =>
                 MainThread.BeginInvokeOnMainThread(() =>

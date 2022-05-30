@@ -10,5 +10,6 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
     {
         Task<List<PlatformDevice>> GetConnectedDevices(CancellationToken? cancellationToken = null);
         event EventHandler<PlatformDevice> DeviceDiscovered;
+        event EventHandler<PlatformDevice> DeviceRemoved;
     }
 }

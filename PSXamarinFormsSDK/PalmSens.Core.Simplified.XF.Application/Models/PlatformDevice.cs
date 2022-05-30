@@ -6,5 +6,6 @@ namespace PalmSens.Core.Simplified.XF.Application.Models
     {
         public string? Name { get; set; }
         public Device? Device { get; set; }
+        public int? DeviceID { get; set; }
     }
 }
