@@ -10,8 +10,8 @@ namespace PSHeavyMetal.Forms.Views
     {
         public LoginView()
         {
-            InitializeComponent();
             BindingContext = App.GetViewModel<LoginViewModel>();
+            InitializeComponent();
         }
     }
 }

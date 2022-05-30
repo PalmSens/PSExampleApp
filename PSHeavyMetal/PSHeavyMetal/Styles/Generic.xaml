@@ -41,7 +41,7 @@
 
     <Style x:Key="TitleStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SourceSansSemiBold}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize40}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -51,7 +51,7 @@
 
     <Style x:Key="LargeTextStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize44}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -59,7 +59,7 @@
 
     <Style x:Key="MediumTextStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize28}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -67,7 +67,7 @@
 
     <Style x:Key="SmallTextStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize26}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize24}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -85,7 +85,7 @@
     <Style x:Key="SmallSubTextStyle" TargetType="Label">
         <Setter Property="FontAttributes" Value="Italic" />
         <Setter Property="FontFamily" Value="{StaticResource SourceSansLight}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize26}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize24}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
