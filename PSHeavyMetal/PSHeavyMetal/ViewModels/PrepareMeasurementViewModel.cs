@@ -1,11 +1,10 @@
-﻿using PalmSens.Core.Simplified.XF.Application.Models;
+﻿using MvvmHelpers;
+using PalmSens.Core.Simplified.XF.Application.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Essentials;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
@@ -16,19 +15,19 @@ namespace PSHeavyMetal.Forms.ViewModels
         private string _sampleName;
         private string _sampleNotes;
 
-        public ICommand ContinueCommand { get; }
-
         public PrepareMeasurementViewModel(IMeasurementService measurementService)
         {
             _measurementService = measurementService;
             ContinueCommand = CommandFactory.Create(async () => await Continue());
         }
 
-        private async Task Continue()
+        public PlatformDevice ConnectedDevice
         {
-            _measurementService.CreateMeasurement(SampleName, SampleNotes);
-            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
+            get => _platformDevice;
+            private set => SetProperty(ref _platformDevice, value);
         }
+
+        public ICommand ContinueCommand { get; }
 
         public string SampleName
         {
@@ -42,10 +41,10 @@ namespace PSHeavyMetal.Forms.ViewModels
             set => SetProperty(ref _sampleNotes, value);
         }
 
-        public PlatformDevice ConnectedDevice
+        private async Task Continue()
         {
-            get => _platformDevice;
-            private set => SetProperty(ref _platformDevice, value);
+            _measurementService.CreateMeasurement(SampleName, SampleNotes);
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
     }
 }

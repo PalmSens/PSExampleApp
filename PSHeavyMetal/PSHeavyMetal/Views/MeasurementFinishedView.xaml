@@ -12,17 +12,17 @@
         <StackLayout>
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label
-                    Style="{StaticResource MediumTextStyle}"
+                    Style="{StaticResource SmallTextStyle}"
                     Text="RESULT FOR"
                     VerticalOptions="Start" />
-                <Label Style="{StaticResource MediumTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
+                <Label Style="{StaticResource SmallTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
 
                 <Label
                     Margin="0,30,0,0"
-                    Style="{StaticResource MediumTextStyle}"
+                    Style="{StaticResource SmallTextStyle}"
                     Text="Found:"
                     VerticalOptions="EndAndExpand" />
-                <Label Style="{StaticResource TitleStyle}">
+                <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
                             <Binding Path="ActiveMeasurement.Concentration" />

@@ -3,11 +3,11 @@
     x:Class="PSHeavyMetal.Forms.Views.SelectDeviceView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:SelectDeviceViewModel"
     Style="{StaticResource CustomPage}">
 

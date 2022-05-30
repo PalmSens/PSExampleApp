@@ -21,8 +21,7 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitializeViewModels(this IServiceCollection services)
         {
-            services.AddTransient<MeasurementFinishedViewModel>();
-            services.AddTransient<StatusBarViewModel>();
+            services.AddTransient<MeasurementFinishedViewModel>();            
             services.AddTransient<RunMeasurementViewModel>();
             services.AddTransient<ConfigureMeasurementViewModel>();
             services.AddTransient<LoginViewModel>();
@@ -32,7 +31,9 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SensorDetectionViewModel>();
             services.AddTransient<DropDetectionViewModel>();
-            services.AddTransient<TitleViewModel>();
+            //The next view models are added as scoped since they are used more persistant in the application.
+            services.AddScoped<TitleViewModel>();
+            services.AddScoped<StatusBarViewModel>();
             return services;
         }
 

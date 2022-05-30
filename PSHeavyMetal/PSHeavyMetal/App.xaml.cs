@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MvvmHelpers;
 using PSHeavyMetal.Forms.Navigation;
-using PSHeavyMetal.Forms.ViewModels;
 using PSHeavyMetal.Forms.Views;
 using System;
 using Xamarin.Forms;

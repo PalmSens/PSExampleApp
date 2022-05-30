@@ -3,10 +3,10 @@
     x:Class="PSHeavyMetal.Forms.Views.RunMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:RunMeasurementViewModel"
     Style="{StaticResource CustomPage}">
 
@@ -20,12 +20,12 @@
             Spacing="50"
             VerticalOptions="CenterAndExpand">
             <Label
-                Style="{StaticResource MediumTextStyle}"
+                Style="{StaticResource SmallTextStyle}"
                 Text="ANALYZING SAMPLE"
                 VerticalOptions="Start" />
             <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             <Grid
-                HeightRequest="200"
+                HeightRequest="250"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="200">

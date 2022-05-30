@@ -1,4 +1,5 @@
-﻿using MvvmHelpers.Commands;
+﻿using MvvmHelpers;
+using MvvmHelpers.Commands;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using System.Threading.Tasks;

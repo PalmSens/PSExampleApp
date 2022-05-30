@@ -1,4 +1,5 @@
-﻿using MvvmHelpers.Commands;
+﻿using MvvmHelpers;
+using MvvmHelpers.Commands;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
@@ -38,7 +39,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OnLoginClicked()
         {
-            _userService.SetActiveUser(SelectedUser);            
+            _userService.SetActiveUser(SelectedUser);
             await NavigationDispatcher.Push(NavigationViewType.SelectDeviceView);
         }
 

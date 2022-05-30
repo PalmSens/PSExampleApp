@@ -1,4 +1,5 @@
-﻿using PSHeavyMetal.Common.Models;
+﻿using MvvmHelpers;
+using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 
 namespace PSHeavyMetal.Forms.ViewModels

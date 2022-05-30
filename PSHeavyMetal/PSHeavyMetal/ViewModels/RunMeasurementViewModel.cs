@@ -1,4 +1,5 @@
-﻿using PalmSens.Core.Simplified.Data;
+﻿using MvvmHelpers;
+using PalmSens.Core.Simplified.Data;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
