@@ -10,6 +10,8 @@ namespace PSHeavyMetal.Core.Services
     {
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
+        public event EventHandler<PlatformDevice> DeviceRemoved;
+
         public event EventHandler<DeviceState> DeviceStateChanged;
 
         /// <summary>

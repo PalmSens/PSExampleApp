@@ -5,6 +5,7 @@ using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -70,6 +71,14 @@ namespace PSHeavyMetal.Forms.ViewModels
             }
         }
 
+        private void _deviceService_DeviceRemoved(object sender, PlatformDevice e)
+        {
+            var deviceToBeRemoved = AvailableDevices.FirstOrDefault(x => x.Name == e.Name);
+
+            if (deviceToBeRemoved != null)
+                AvailableDevices.Remove(deviceToBeRemoved);
+        }
+
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)
         {
             if (!AvailableDevices.Contains(e))
@@ -104,6 +113,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                 AvailableDevices.Add(device);
 
             _deviceService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
+            _deviceService.DeviceRemoved += _deviceService_DeviceRemoved;
         }
 
         private async Task OnPageDisappearing()

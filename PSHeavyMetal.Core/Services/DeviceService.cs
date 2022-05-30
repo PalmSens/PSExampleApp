@@ -3,6 +3,8 @@ using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,6 +22,8 @@ namespace PSHeavyMetal.Core.Services
 
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
+        public event EventHandler<PlatformDevice> DeviceRemoved;
+
         public event EventHandler<DeviceState> DeviceStateChanged;
 
         public List<PlatformDevice> AvailableDevices { get; } = new List<PlatformDevice>();
@@ -34,11 +38,25 @@ namespace PSHeavyMetal.Core.Services
         {
             DeviceStateChanged.Invoke(this, DeviceState.Connecting);
             _cancellationTokenSource.Cancel();
+
             _instrumentService.DeviceDiscovered -= _instrumentService_DeviceDiscovered;
+
             IsDetecting = false;
-            await _instrumentService.ConnectAsync(device.Device).ConfigureAwait(false);
-            ConnectedDevice = device;
-            DeviceStateChanged.Invoke(this, DeviceState.Connected);
+
+            await Task.Delay(10);
+            _cancellationTokenSource.Dispose();
+
+            try
+            {
+                await _instrumentService.ConnectAsync(device.Device).ConfigureAwait(false);
+                ConnectedDevice = device;
+                DeviceStateChanged.Invoke(this, DeviceState.Connected);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Connection failed {ex}");
+                await DetectDevicesAsync();
+            }
         }
 
         public async Task DetectDevicesAsync()
@@ -46,16 +64,37 @@ namespace PSHeavyMetal.Core.Services
             DeviceStateChanged.Invoke(this, DeviceState.Detecting);
             AvailableDevices.Clear();
             _instrumentService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
+            _instrumentService.DeviceRemoved += _instrumentService_DeviceRemoved;
 
+            _cancellationTokenSource = new CancellationTokenSource();
             IsDetecting = true;
             await _instrumentService.GetConnectedDevices(_cancellationTokenSource.Token).ConfigureAwait(false);
-            System.Diagnostics.Debug.WriteLine("Done discovering");
         }
 
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)
         {
-            AvailableDevices.Add(e);
-            DeviceDiscovered?.Invoke(this, e);
+            if (!AvailableDevices.Contains(e))
+            {
+                AvailableDevices.Add(e);
+                DeviceDiscovered?.Invoke(this, e);
+            }
+        }
+
+        private void _instrumentService_DeviceRemoved(object sender, PlatformDevice e)
+        {
+            var deviceToBeRemoved = AvailableDevices.FirstOrDefault(x => x.Name == e.Name);
+
+            if (deviceToBeRemoved != null)
+            {
+                AvailableDevices.Remove(deviceToBeRemoved);
+                DeviceRemoved?.Invoke(this, e);
+            }
+
+            if (ConnectedDevice.Name == e.Name)
+            {
+                ConnectedDevice = null;
+                DeviceStateChanged?.Invoke(this, DeviceState.Disconnected);
+            }
         }
     }
 }
