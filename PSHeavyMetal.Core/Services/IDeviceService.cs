@@ -2,7 +2,6 @@
 using PSHeavyMetal.Common.Models;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Services
@@ -26,8 +25,17 @@ namespace PSHeavyMetal.Core.Services
         public bool IsConnected { get; }
         public bool IsDetecting { get; }
 
+        /// <summary>
+        /// Connects to a device. This cancels the disovery process
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
         public Task ConnectToDeviceAsync(PlatformDevice device);
 
-        public Task DetectDevicesAsync(CancellationToken? cancellationToken = null);
+        /// <summary>
+        /// Detects devices. This is a continous process until it gets cancelled by the connect method
+        /// </summary>
+        /// <returns></returns>
+        public Task DetectDevicesAsync();
     }
 }

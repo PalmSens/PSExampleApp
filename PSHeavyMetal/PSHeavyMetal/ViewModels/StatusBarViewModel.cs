@@ -1,7 +1,6 @@
 ﻿using MvvmHelpers;
 using PSHeavyMetal.Core.Services;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -12,9 +11,6 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class StatusBarViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
-        private CancellationTokenSource _deviceDiscoveryCancellationTokenSource = new CancellationTokenSource();
-
-        private int _discoveredDevices;
         private string _statusText;
 
         public StatusBarViewModel(IDeviceService deviceService)
@@ -76,7 +72,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task DiscoverDevices()
         {
             _deviceService.DeviceDiscovered += _deviceService_DeviceDiscovered;
-            await _deviceService.DetectDevicesAsync(_deviceDiscoveryCancellationTokenSource.Token);
+            await _deviceService.DetectDevicesAsync();
         }
 
         private async Task OnViewAppearing()

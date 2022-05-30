@@ -11,6 +11,7 @@ namespace PSHeavyMetal.Core.Services
     public class DeviceService : IDeviceService
     {
         private readonly InstrumentService _instrumentService;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public DeviceService(InstrumentService instrumentService)
         {
@@ -32,6 +33,7 @@ namespace PSHeavyMetal.Core.Services
         public async Task ConnectToDeviceAsync(PlatformDevice device)
         {
             DeviceStateChanged.Invoke(this, DeviceState.Connecting);
+            _cancellationTokenSource.Cancel();
             _instrumentService.DeviceDiscovered -= _instrumentService_DeviceDiscovered;
             IsDetecting = false;
             await _instrumentService.ConnectAsync(device.Device).ConfigureAwait(false);
@@ -39,14 +41,14 @@ namespace PSHeavyMetal.Core.Services
             DeviceStateChanged.Invoke(this, DeviceState.Connected);
         }
 
-        public async Task DetectDevicesAsync(CancellationToken? cancellationToken = null)
+        public async Task DetectDevicesAsync()
         {
             DeviceStateChanged.Invoke(this, DeviceState.Detecting);
             AvailableDevices.Clear();
             _instrumentService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
 
             IsDetecting = true;
-            await _instrumentService.GetConnectedDevices().ConfigureAwait(false);
+            await _instrumentService.GetConnectedDevices(_cancellationTokenSource.Token).ConfigureAwait(false);
             System.Diagnostics.Debug.WriteLine("Done discovering");
         }
 
