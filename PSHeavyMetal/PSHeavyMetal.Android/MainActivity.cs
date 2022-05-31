@@ -15,6 +15,11 @@ namespace PSHeavyMetal.Droid
     [Activity(Label = "PSHeavyMetal", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public override void OnBackPressed()
+        {
+            Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -28,6 +33,8 @@ namespace PSHeavyMetal.Droid
 
             //Register context required to prevent device going to sleep during measurement
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
+            Rg.Plugins.Popup.Popup.Init(this);
 
             //Register platform specific services
             DependencyService.RegisterSingleton(new InstrumentService(new PlatformDeviceManager()));

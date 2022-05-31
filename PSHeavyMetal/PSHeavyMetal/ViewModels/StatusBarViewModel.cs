@@ -1,5 +1,8 @@
 ﻿using MvvmHelpers;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Views;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,13 +14,16 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class StatusBarViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
+        private IPopupNavigation _popupNavigation;
         private string _statusText;
 
         public StatusBarViewModel(IDeviceService deviceService)
         {
             _deviceService = deviceService;
+            _popupNavigation = PopupNavigation.Instance;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
 
+            OpenSettingsCommand = CommandFactory.Create(OpenSettings);
             OnViewAppearingCommand = CommandFactory.Create(OnViewAppearing, onException: ex =>
                             MainThread.BeginInvokeOnMainThread(() =>
                             {
@@ -28,10 +34,17 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ICommand OnViewAppearingCommand { get; }
 
+        public ICommand OpenSettingsCommand { get; }
+
         public string StatusText
         {
             get => _statusText;
             set => SetProperty(ref _statusText, value);
+        }
+
+        public async Task OpenSettings()
+        {
+            await _popupNavigation.PushAsync(new SettingsPopUp());
         }
 
         private void _deviceService_DeviceDiscovered(object sender, PalmSens.Core.Simplified.XF.Application.Models.PlatformDevice e)

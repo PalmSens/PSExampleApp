@@ -6,7 +6,6 @@
     xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     x:DataType="viewmodels:StatusBarViewModel"
-    Style="{StaticResource CustomPage}"
     Visual="Material">
 
     <ContentView.Behaviors>
@@ -34,6 +33,7 @@
                 <ImageButton
                     Margin="0,0,20,0"
                     BackgroundColor="Transparent"
+                    Command="{Binding OpenSettingsCommand}"
                     HeightRequest="30"
                     HorizontalOptions="EndAndExpand"
                     Source="cogwheel.png"

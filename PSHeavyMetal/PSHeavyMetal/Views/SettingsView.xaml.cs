@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Rg.Plugins.Popup.Pages;
 
 namespace PSHeavyMetal.Forms.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingsView : ContentPage
+    public partial class SettingsPopUp : PopupPage
     {
-        public SettingsView()
+        public SettingsPopUp()
         {
+            BackgroundColor = new Xamarin.Forms.Color(0, 0, 0, 0.8);
             InitializeComponent();
         }
     }

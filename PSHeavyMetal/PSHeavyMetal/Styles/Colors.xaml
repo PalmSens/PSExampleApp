@@ -7,7 +7,4 @@
     <!--  Colors  -->
     <Color x:Key="WhiteColor">#FFFFFF</Color>
     <Color x:Key="BlackColor">#000000</Color>
-    <Color x:Key="TextGrayColor">#888888</Color>
-    <Color x:Key="ProgressPinkColor">#DB1D8B</Color>
-    <Color x:Key="ProgressBlueColor">#5098CD</Color>
 </ResourceDictionary>

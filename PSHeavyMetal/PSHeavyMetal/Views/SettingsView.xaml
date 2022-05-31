@@ -1,14 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="PSHeavyMetal.Forms.Views.SettingsView"
+<pages:PopupPage
+    x:Class="PSHeavyMetal.Forms.Views.SettingsPopUp"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid>
-        <StackLayout>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="http://rotorgames.com"
+    Visual="Material">
+    <pages:PopupPage.Animation>
+        <pages:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <StackLayout
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand"
+        WidthRequest="300">
+        <Label
+            HorizontalOptions="Start"
+            Style="{StaticResource MediumTextStyle}"
+            Text="Settings" />
+        <BoxView HeightRequest="2" Color="White" />
+        <StackLayout Margin="0,10,0,30">
             <Label
-                HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" />
+                HorizontalOptions="Start"
+                Style="{StaticResource SmallTextStyle}"
+                Text="Language" />
+            <RadioButton
+                Content="English"
+                GroupName="Languages"
+                IsChecked="True"
+                TextColor="White" />
+            <RadioButton
+                Content="Nederlands"
+                GroupName="Languages"
+                TextColor="White" />
         </StackLayout>
-    </Grid>
-</ContentPage>
+        <BoxView HeightRequest="2" Color="White" />
+        <StackLayout Margin="0,10,0,0" Orientation="Horizontal">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource SmallTextStyle}"
+                Text="Admin mode" />
+            <Switch HorizontalOptions="EndAndExpand" />
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>
