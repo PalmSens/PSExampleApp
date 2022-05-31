@@ -41,6 +41,9 @@
     <Compile Update="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SettingsPopUp.xaml.cs">
+      <DependentUpon>SettingsPopUp.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +56,7 @@
     <EmbeddedResource Update="Styles\Generic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddUserView.xaml">
+    <EmbeddedResource Update="Views\AddUserPopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ConfigureMeasurementView.xaml">
@@ -83,7 +86,7 @@
     <EmbeddedResource Update="Views\SensorDetectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SettingsView.xaml">
+    <EmbeddedResource Update="Views\SettingsPopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\StatusBarView.xaml">

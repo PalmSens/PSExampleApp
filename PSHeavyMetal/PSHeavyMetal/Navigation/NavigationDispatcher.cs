@@ -8,7 +8,6 @@ namespace PSHeavyMetal.Forms.Navigation
     internal class NavigationDispatcher
     {
         private static NavigationDispatcher _instance;
-
         private INavigation _navigation;
 
         internal static NavigationDispatcher Instance =>
@@ -43,9 +42,6 @@ namespace PSHeavyMetal.Forms.Navigation
             {
                 case NavigationViewType.LoginView:
                     return new LoginView();
-
-                case NavigationViewType.AddUserView:
-                    return new AddUserView();
 
                 case NavigationViewType.PrepareMeasurementView:
                     return new PrepareMeasurementView();

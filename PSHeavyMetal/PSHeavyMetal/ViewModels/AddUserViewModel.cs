@@ -1,35 +1,32 @@
 ﻿using MvvmHelpers;
-using MvvmHelpers.Commands;
 using PSHeavyMetal.Core.Services;
-using PSHeavyMetal.Forms.Navigation;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSHeavyMetal.Forms.ViewModels
 {
     public class AddUserViewModel : BaseViewModel
     {
+        private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
 
         public AddUserViewModel(IUserService userService)
         {
+            _popupNavigation = PopupNavigation.Instance;
             _userService = userService;
-            AddUserCommand = new AsyncCommand(OnAddUserClicked);
-            CancelCommand = new AsyncCommand(OnCancelClicked);
+            AddUserCommand = CommandFactory.Create(OnAddUserClicked);
         }
 
-        public AsyncCommand AddUserCommand { get; }
-        public AsyncCommand CancelCommand { get; }
+        public ICommand AddUserCommand { get; }
         public string UserName { get; set; }
 
         public async Task OnAddUserClicked()
         {
             await _userService.SaveUserAsync(UserName);
-            await NavigationDispatcher.Pop();
-        }
-
-        public async Task OnCancelClicked()
-        {
-            await NavigationDispatcher.Pop();
+            await _popupNavigation.PopAsync();
         }
     }
 }

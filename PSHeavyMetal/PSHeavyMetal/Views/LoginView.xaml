@@ -44,7 +44,7 @@
                         HorizontalOptions="CenterAndExpand"
                         ItemDisplayBinding="{Binding Name}"
                         ItemsSource="{Binding Users}"
-                        SelectedItem="{Binding SelectedUser}"
+                        SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                         WidthRequest="200" />
                     <ImageButton
                         Grid.Row="0"
