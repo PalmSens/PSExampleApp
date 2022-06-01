@@ -99,13 +99,17 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task Continue()
         {
+            //The continue will trigger the save of the measurement. //TODO maybe add cancel in case user doesn't want to save
+            await _measurementService.SaveMeasurement(ActiveMeasurement);
+
             await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
         }
 
-        private void Curve_DetectedPeaks(object sender, EventArgs e)
+        private async void Curve_DetectedPeaks(object sender, EventArgs e)
         {
             _measurementService.CalculateConcentration();
 
+            //After the concentration is calculated we allow the user to press continue
             Progress = 1;
             ProgressPercentage = 100;
             MeasurementIsFinished = true;
@@ -124,7 +128,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
             _countdown.Ticked += OnCountdownTicked;
 
-            _measurementService.ActiveMeasurement.ConfiguredMeasurement = await _measurementService.StartMeasurement(method);
+            _measurementService.ActiveMeasurement.Measurement = await _measurementService.StartMeasurement(method);
         }
 
         private async Task RunPeakAnalysis()

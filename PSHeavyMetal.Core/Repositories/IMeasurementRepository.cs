@@ -1,6 +1,6 @@
 ﻿using PSHeavyMetal.Common.Models;
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Repositories
 {
@@ -11,20 +11,13 @@ namespace PSHeavyMetal.Core.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        HeavyMetalMeasurement LoadMeasurement(Guid id);
+        Task<SavedMeasurement> LoadMeasurement(Guid id);
 
         /// <summary>
         /// Saves a measurement
         /// </summary>
-        /// <param name="Measurementname"></param>
-        /// <param name="password"></param>
+        /// <param name="Measurement"></param>
         /// <returns></returns>
-        Guid SaveMeasurement(HeavyMetalMeasurement measurement);
-
-        /// <summary>
-        /// Get all saved measurements
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<HeavyMetalMeasurement> GetAllMeasurements();
+        Task SaveMeasurement(SavedMeasurement measurement);
     }
 }

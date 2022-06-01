@@ -38,6 +38,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Picker
+                        x:Name="UserPicker"
                         Title="Select user"
                         Grid.Row="0"
                         Grid.Column="1"

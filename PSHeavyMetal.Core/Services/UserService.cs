@@ -45,9 +45,15 @@ namespace PSHeavyMetal.Core.Services
             return loadedUser;
         }
 
+        public async Task SaveMeasurementInfo(HeavyMetalMeasurement measurement)
+        {
+            this.ActiveUser.Measurements.Add(new MeasurementInfo { Id = measurement.Id, Name = measurement.Name });
+            await _userRepository.UpdateUser(ActiveUser);
+        }
+
         public async Task SaveUserAsync(string username)
         {
-            var user = await _userRepository.SaveUser(username);
+            var user = await _userRepository.CreateUser(username);
             ActiveUser = user;
         }
 

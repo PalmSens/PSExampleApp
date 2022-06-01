@@ -8,6 +8,13 @@ namespace PSHeavyMetal.Core.Repositories
     public interface IUserRepository
     {
         /// <summary>
+        /// Saves a user based on username. Generates a id while saving
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        Task<User> CreateUser(string name);
+
+        /// <summary>
         /// Get all saved users
         /// </summary>
         /// <returns></returns>
@@ -34,10 +41,10 @@ namespace PSHeavyMetal.Core.Repositories
         Task<User> LoadUserByName(string name);
 
         /// <summary>
-        /// Saves a user based on username. Generates a id while saving
+        /// Updates the user saved in the database
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        Task<User> SaveUser(string name);
+        Task UpdateUser(User user);
     }
 }

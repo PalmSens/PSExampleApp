@@ -25,6 +25,7 @@ namespace PSHeavyMetal.Core.DataAccess
             using var db = new LiteDatabaseAsync(_connectionString);
 
             var collection = db.GetCollection<T>();
+
             return await collection.Query().ToListAsync();
         }
 

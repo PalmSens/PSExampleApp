@@ -53,7 +53,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async void _userService_ActiveUserChanged(object sender, User e)
         {
             await UpdateUsers();
+
             SelectedUser = e;
+            OnPropertyChanged(nameof(SelectedUser));
         }
 
         private async Task OnLoginClicked()
@@ -69,8 +71,6 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task UpdateUsers()
         {
-            SelectedUser = _userService.ActiveUser;
-
             foreach (var user in await _userService.GetAllUsersAsync())
             {
                 if (!Users.Any(x => x.Name == user.Name))

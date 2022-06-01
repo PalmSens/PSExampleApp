@@ -24,7 +24,15 @@ namespace PSHeavyMetal.Core.Services
 
         public HeavyMetalMeasurement CreateMeasurement(string name, string description);
 
+        /// <summary>
+        /// Loads a specific measurement with the measurement id
+        /// </summary>
+        /// <returns></returns>
+        public Task<HeavyMetalMeasurement> LoadMeasurement(Guid id);
+
         public Method LoadMethod(string filename);
+
+        public Task SaveMeasurement(HeavyMetalMeasurement measurement);
 
         public void SetCalculationMethod(MethodType method);
 

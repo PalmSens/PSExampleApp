@@ -1,24 +1,27 @@
 ﻿using PSHeavyMetal.Common.Models;
+using PSHeavyMetal.Core.DataAccess;
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Repositories
 {
     public class MeasurementRepository : IMeasurementRepository
     {
-        public IEnumerable<HeavyMetalMeasurement> GetAllMeasurements()
+        private readonly IDataOperations _dataOperations;
+
+        public MeasurementRepository(IDataOperations dataOperations)
         {
-            throw new NotImplementedException();
+            _dataOperations = dataOperations;
         }
 
-        public HeavyMetalMeasurement LoadMeasurement(Guid id)
+        public async Task<SavedMeasurement> LoadMeasurement(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dataOperations.LoadByIdAsync<SavedMeasurement>(id);
         }
 
-        public Guid SaveMeasurement(HeavyMetalMeasurement measurement)
+        public async Task SaveMeasurement(SavedMeasurement measurement)
         {
-            throw new NotImplementedException();
+            await _dataOperations.SaveAsync(measurement);
         }
     }
 }

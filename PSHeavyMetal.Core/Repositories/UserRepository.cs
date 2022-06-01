@@ -35,11 +35,16 @@ namespace PSHeavyMetal.Core.Repositories
             return _dataOperations.LoadByNameAsync<User>(name);
         }
 
-        public async Task<User> SaveUser(string name)
+        public async Task<User> CreateUser(string name)
         {
             var user = new User { Name = name, Password = "123", Id = Guid.NewGuid() };
             await _dataOperations.SaveAsync(user);
             return user;
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            await _dataOperations.SaveAsync(user);
         }
     }
 }

@@ -6,6 +6,8 @@ using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static PalmSens.Core.Simplified.PSCommSimple;
@@ -18,13 +20,20 @@ namespace PSHeavyMetal.Core.Services
         private readonly ILoadAssetsService _loadAssetsService;
         private readonly ILoadSavePlatformService _loadSavePlatformService;
         private readonly IMeasurementRepository _measurementRepository;
+        private readonly IUserService _userService;
 
-        public MeasurementService(IMeasurementRepository repository, InstrumentService instrumentService, ILoadSavePlatformService loadSavePlatformService, ILoadAssetsService loadAssetsService)
+        public MeasurementService(
+            IMeasurementRepository repository,
+            InstrumentService instrumentService,
+            ILoadSavePlatformService loadSavePlatformService,
+            ILoadAssetsService loadAssetsService,
+            IUserService userService)
         {
             _measurementRepository = repository;
             _instrumentService = instrumentService;
             _loadSavePlatformService = loadSavePlatformService;
             _loadAssetsService = loadAssetsService;
+            _userService = userService;
         }
 
         public event SimpleCurveStartReceivingDataHandler DataReceived
@@ -52,10 +61,10 @@ namespace PSHeavyMetal.Core.Services
             var peakList = new List<Peak>();
 
             //We assume that the result of the measurement will be in 1 curve
-            if (ActiveMeasurement.ConfiguredMeasurement.SimpleCurveCollection.Count > 1)
+            if (ActiveMeasurement.Measurement.SimpleCurveCollection.Count > 1)
                 throw new InvalidOperationException("The measurement has multiple curves");
 
-            var activeCurve = ActiveMeasurement.ConfiguredMeasurement.SimpleCurveCollection[0];
+            var activeCurve = ActiveMeasurement.Measurement.SimpleCurveCollection[0];
 
             for (int i = 0; i < activeCurve.Peaks.nPeaks; i++)
             {
@@ -65,22 +74,47 @@ namespace PSHeavyMetal.Core.Services
 
             //Here we filter based on the expected peak and the peakwidth. If the PeakX value falls within the width then the peak fill be used.
             //If we find multiple peaks then we select the one one with the highest peak value
-            var peakWidthLeft = ActiveMeasurement.ConcentrationMethod.ExpectedPeakOnXAxis - ActiveMeasurement.ConcentrationMethod.PeakWidth;
-            var peakWidthRight = ActiveMeasurement.ConcentrationMethod.ExpectedPeakOnXAxis + ActiveMeasurement.ConcentrationMethod.PeakWidth;
+            var peakWidthLeft = ActiveMeasurement.Configuration.ConcentrationMethod.ExpectedPeakOnXAxis - ActiveMeasurement.Configuration.ConcentrationMethod.PeakWidth;
+            var peakWidthRight = ActiveMeasurement.Configuration.ConcentrationMethod.ExpectedPeakOnXAxis + ActiveMeasurement.Configuration.ConcentrationMethod.PeakWidth;
             var filteredPeak = peakList.Where(x => x.PeakX >= peakWidthLeft && x.PeakX <= peakWidthRight).OrderByDescending(y => y.PeakValue).FirstOrDefault();
 
             //If we can't find any filtered peaks then we leave the concentration at 0
             if (filteredPeak == null)
                 return;
 
-            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.ConcentrationMethod.Constant);
+            ActiveMeasurement.Configuration.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Constant);
         }
 
         public HeavyMetalMeasurement CreateMeasurement(string name, string description)
         {
-            var measurement = new HeavyMetalMeasurement { Name = name, Description = description, Id = Guid.NewGuid() };
+            var measurement = new HeavyMetalMeasurement
+            {
+                Name = name,
+                Id = Guid.NewGuid(),
+                Configuration = new MeasurementConfiguration { Description = description ?? "" },
+            };
+
             this.ActiveMeasurement = measurement;
             return measurement;
+        }
+
+        public async Task<HeavyMetalMeasurement> LoadMeasurement(Guid id)
+        {
+            var savedMeasurement = await _measurementRepository.LoadMeasurement(id);
+
+            var heavyMetalMeasurement = new HeavyMetalMeasurement
+            {
+                Configuration = savedMeasurement.Configuration,
+                Id = id,
+                Name = savedMeasurement.Name,
+            };
+
+            using (var stream = new MemoryStream(savedMeasurement.SerializedMeasurement))
+            {
+                heavyMetalMeasurement.Measurement = await _loadSavePlatformService.LoadMeasurementAsync(stream);
+            }
+
+            return heavyMetalMeasurement;
         }
 
         public Method LoadMethod(string filename)
@@ -91,21 +125,51 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
+        public async Task SaveMeasurement(HeavyMetalMeasurement measurement)
+        {
+            byte[] array;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await _loadSavePlatformService.SaveMeasurementToStreamAsync(measurement.Measurement, memoryStream);
+                array = memoryStream.ToArray();
+            }
+
+            var savedMeasurement = new SavedMeasurement
+            {
+                SerializedMeasurement = array,
+                Configuration = measurement.Configuration,
+                Id = measurement.Id,
+                Name = measurement.Name,
+            };
+
+            try
+            {
+                await _measurementRepository.SaveMeasurement(savedMeasurement);
+                await _userService.SaveMeasurementInfo(measurement);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Saving of the measurment failed {ex}");
+                throw;
+            }
+        }
+
         public void SetCalculationMethod(MethodType method)
         {
             switch (method)
             {
                 case MethodType.Pb:
-                    this.ActiveMeasurement.ConcentrationMethod = new ConcentrationMethod
+                    this.ActiveMeasurement.Configuration.ConcentrationMethod = new ConcentrationMethod
                     {
                         Constant = 50,
                         Slope = 1000,
                         ExpectedPeakOnXAxis = -0.02,
                         PeakWidth = 0.2
                     };
-                    this.ActiveMeasurement.MethodType = method;
-                    this.ActiveMeasurement.ConcentrationUnit = ConcentrationUnit.ppm;
-                    this.ActiveMeasurement.AnalyteName = "Lead";
+                    this.ActiveMeasurement.Configuration.MethodType = method;
+                    this.ActiveMeasurement.Configuration.ConcentrationUnit = ConcentrationUnit.ppm;
+                    this.ActiveMeasurement.Configuration.AnalyteName = "Lead";
                     break;
 
                 default:

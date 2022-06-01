@@ -37,6 +37,12 @@ namespace PSHeavyMetal.Core.Services
         Task<User> LoadUserAsync(Guid id);
 
         /// <summary>
+        /// Saves the info of a measurement to the active user.
+        /// </summary>
+        /// <returns></returns>
+        Task SaveMeasurementInfo(HeavyMetalMeasurement measurement);
+
+        /// <summary>
         /// Saves a specific user
         /// </summary>
         /// <param name="username"></param>
