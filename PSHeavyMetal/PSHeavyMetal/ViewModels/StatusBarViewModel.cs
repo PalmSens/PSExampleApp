@@ -14,25 +14,39 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class StatusBarViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
+        private readonly IUserService _userService;
+        private bool _hasActiveUser;
         private IPopupNavigation _popupNavigation;
         private string _statusText;
 
-        public StatusBarViewModel(IDeviceService deviceService)
+        public StatusBarViewModel(IDeviceService deviceService, IUserService userService)
         {
             _deviceService = deviceService;
             _popupNavigation = PopupNavigation.Instance;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
 
             OpenSettingsCommand = CommandFactory.Create(OpenSettings);
+            OpenDataCommand = CommandFactory.Create(OpenData);
             OnViewAppearingCommand = CommandFactory.Create(OnViewAppearing, onException: ex =>
                             MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 //DisplayAlert();
                                 Console.WriteLine(ex.Message);
                             }), allowsMultipleExecutions: false);
+            _userService = userService;
+
+            _userService.ActiveUserChanged += _userService_ActiveUserChanged;
+        }
+
+        public bool HasActiveUser
+        {
+            get => _hasActiveUser;
+            set => SetProperty(ref _hasActiveUser, value);
         }
 
         public ICommand OnViewAppearingCommand { get; }
+
+        public ICommand OpenDataCommand { get; }
 
         public ICommand OpenSettingsCommand { get; }
 
@@ -40,6 +54,11 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             get => _statusText;
             set => SetProperty(ref _statusText, value);
+        }
+
+        public async Task OpenData()
+        {
+            await _popupNavigation.PushAsync(new SelectMeasurementPopup());
         }
 
         public async Task OpenSettings()
@@ -80,6 +99,14 @@ namespace PSHeavyMetal.Forms.ViewModels
                 default:
                     break;
             }
+        }
+
+        private void _userService_ActiveUserChanged(object sender, Common.Models.User e)
+        {
+            if (e != null)
+                HasActiveUser = true;
+            else
+                HasActiveUser = false;
         }
 
         private async Task DiscoverDevices()

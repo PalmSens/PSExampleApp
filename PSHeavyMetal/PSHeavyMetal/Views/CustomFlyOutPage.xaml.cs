@@ -13,7 +13,7 @@ namespace PSHeavyMetal.Forms.Views
 
         public override bool ShouldShowToolbarButton()
         {
-            return true;
+            return false;
         }
     }
 }

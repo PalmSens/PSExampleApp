@@ -17,27 +17,37 @@
             <Frame BackgroundColor="Black" Opacity="0.6" />
             <StackLayout HeightRequest="75" Orientation="Horizontal">
                 <StackLayout
-                    HorizontalOptions="CenterAndExpand"
+                    Padding="20,0,20,0"
+                    HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
-                    Spacing="20">
+                    Spacing="30">
                     <Image
                         BackgroundColor="Transparent"
                         HeightRequest="30"
+                        HorizontalOptions="Start"
                         Source="searching.png"
                         WidthRequest="30" />
                     <Label
+                        HorizontalOptions="StartAndExpand"
                         Style="{StaticResource MicroTextStyle}"
                         Text="{Binding StatusText}"
                         VerticalTextAlignment="Center" />
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding OpenDataCommand}"
+                        HeightRequest="30"
+                        HorizontalOptions="EndAndExpand"
+                        IsVisible="{Binding HasActiveUser}"
+                        Source="chart.png"
+                        WidthRequest="30" />
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding OpenSettingsCommand}"
+                        HeightRequest="30"
+                        HorizontalOptions="End"
+                        Source="cogwheel.png"
+                        WidthRequest="30" />
                 </StackLayout>
-                <ImageButton
-                    Margin="0,0,20,0"
-                    BackgroundColor="Transparent"
-                    Command="{Binding OpenSettingsCommand}"
-                    HeightRequest="30"
-                    HorizontalOptions="EndAndExpand"
-                    Source="cogwheel.png"
-                    WidthRequest="30" />
             </StackLayout>
         </Grid>
     </ContentView.Content>

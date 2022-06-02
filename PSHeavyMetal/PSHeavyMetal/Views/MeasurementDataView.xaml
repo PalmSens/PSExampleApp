@@ -2,10 +2,61 @@
 <ContentPage
     x:Class="PSHeavyMetal.Forms.Views.MeasurementDataView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ContentPage.Content>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views">
+    <Grid>
+
         <StackLayout>
-            <Label Text="MeasurementDATA" />
+            <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
+                <Label
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="RESULT FOR"
+                    VerticalOptions="Start" />
+                <!--<Label Style="{StaticResource SmallTextStyle}" Text="{Binding ActiveMeasurement.Name}" />-->
+
+                <Label
+                    Margin="0,30,0,0"
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="Found:"
+                    VerticalOptions="EndAndExpand" />
+                <!--<Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="ActiveMeasurement.Concentration" />
+                            <Binding Path="ActiveMeasurement.ConcentrationUnit" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>-->
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="10"
+                VerticalOptions="StartAndExpand">
+                <Button
+                    HorizontalOptions="Center"
+                    Text="ADD PHOTO(S)"
+                    WidthRequest="200" />
+                <Button
+                    HorizontalOptions="Center"
+                    Text="SAVE REPORT"
+                    WidthRequest="200" />
+                <Button
+                    HorizontalOptions="Center"
+                    Text="SHOW PLOT"
+                    WidthRequest="200" />
+                <Button
+                    HorizontalOptions="Center"
+                    Text="REPEAT"
+                    WidthRequest="200" />
+                <Button
+                    HorizontalOptions="Center"
+                    Text="HOME"
+                    WidthRequest="200" />
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
 </ContentPage>

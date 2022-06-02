@@ -24,7 +24,7 @@ namespace PSHeavyMetal.Forms
 
             MainPage = new CustomFlyOutPage()
             {
-                Flyout = new FlyoutMenuPage(),
+                Flyout = new MainMenuView(),
                 Detail = navigationPage,
                 BackgroundImageSource = "background.jpeg",
             };

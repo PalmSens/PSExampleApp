@@ -11,5 +11,6 @@
         DropDetectionView,
         RunMeasurementView,
         MeasurmentFinished,
+        MeasurementList,
     }
 }

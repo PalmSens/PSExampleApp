@@ -1,0 +1,92 @@
+﻿<pages:PopupPage
+    x:Class="PSHeavyMetal.Forms.Views.SelectMeasurementPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
+    xmlns:pages="http://rotorgames.com"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:SelectMeasurementViewModel"
+    Visual="Material">
+    <pages:PopupPage.Animation>
+        <pages:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <StackLayout
+        HorizontalOptions="Center"
+        Spacing="10"
+        VerticalOptions="Center">
+        <Label
+            HorizontalOptions="Start"
+            Style="{StaticResource MediumTextStyle}"
+            Text="Measurements" />
+        <BoxView
+            Margin="0,0,0,20"
+            HeightRequest="2"
+            Color="White" />
+        <ListView
+            HasUnevenRows="True"
+            HeightRequest="400"
+            ItemsSource="{Binding AvailableMeasurements}"
+            WidthRequest="200">
+            <ListView.Behaviors>
+                <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnMeasurementSelectedCommand}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:MeasurementInfo">
+                    <ViewCell>
+                        <StackLayout VerticalOptions="Start">
+                            <Frame
+                                Margin="7"
+                                Padding="5,2,5,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HeightRequest="60">
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="10">
+                                    <Image
+                                        HeightRequest="15"
+                                        Scale="0.8"
+                                        Source="chart.png"
+                                        WidthRequest="30" />
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Style="{StaticResource MicroTextStyle}"
+                                            Text="Sample:"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Style="{StaticResource MicroTextStyle}"
+                                            Text="{Binding Name}"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <Image
+                                        HeightRequest="15"
+                                        HorizontalOptions="EndAndExpand"
+                                        Scale="0.8"
+                                        Source="arrow_right.xml"
+                                        WidthRequest="30" />
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</pages:PopupPage>

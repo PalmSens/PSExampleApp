@@ -64,6 +64,9 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.MeasurmentFinished:
                     return new MeasurementFinishedView();
 
+                case NavigationViewType.MeasurementList:
+                    return new MeasurementDataView();
+
                 default:
                     throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }
