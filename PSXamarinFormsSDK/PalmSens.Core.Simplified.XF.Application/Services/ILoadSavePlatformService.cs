@@ -11,7 +11,7 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
         /// </summary>
         /// <param name="streamReader"></param>
         /// <returns></returns>
-        public Task<SimpleMeasurement> LoadMeasurementAsync(Stream stream);
+        public SimpleMeasurement LoadMeasurement(Stream stream);
 
         /// <summary>
         /// Loads a method from a file

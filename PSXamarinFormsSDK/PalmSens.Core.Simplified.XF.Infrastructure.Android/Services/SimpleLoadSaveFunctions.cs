@@ -19,13 +19,13 @@ namespace PalmSens.Core.Simplified.Android
         /// <returns></returns>
         /// <exception cref="System.ArgumentException">Stream reader cannot be null</exception>
         /// <exception cref="System.Exception">An error occured while loading, please make sure the file in the stream reader is valid</exception>
-        public async Task<SimpleMeasurement> LoadMeasurementAsync(Stream stream)
+        public SimpleMeasurement LoadMeasurement(Stream stream)
         {
             SessionManager session = new SessionManager();
 
             try
             {
-                await session.LoadAsync(stream, "", System.Threading.CancellationToken.None);
+                session.Load(stream, "");
             }
             catch (Exception ex)
             {

@@ -111,7 +111,7 @@ namespace PSHeavyMetal.Core.Services
 
             using (var stream = new MemoryStream(savedMeasurement.SerializedMeasurement))
             {
-                heavyMetalMeasurement.Measurement = await _loadSavePlatformService.LoadMeasurementAsync(stream);
+                heavyMetalMeasurement.Measurement = _loadSavePlatformService.LoadMeasurement(stream);
             }
 
             return heavyMetalMeasurement;
