@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     x:DataType="viewmodels:StatusBarViewModel"
     Visual="Material">
@@ -11,6 +12,12 @@
     <ContentView.Behaviors>
         <behaviors:OnViewAppearingBehavior OnAppearingCommand="{Binding OnViewAppearingCommand}" />
     </ContentView.Behaviors>
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:InverseBoolConverter x:Key="InverseBool" />
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <ContentView.Content>
         <Grid>
@@ -20,20 +27,38 @@
                     Padding="20,0,20,0"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
-                    Spacing="30">
+                    Spacing="15">
                     <Image
-                        BackgroundColor="Transparent"
+                        Margin="0,14,0,0"
                         HeightRequest="30"
                         HorizontalOptions="Start"
-                        Source="searching.png"
+                        IsAnimationPlaying="True"
+                        IsVisible="{Binding IsConnected, Converter={StaticResource InverseBool}}"
+                        Source="searchinganimation.gif"
+                        VerticalOptions="Start"
                         WidthRequest="30" />
-                    <Label
-                        HorizontalOptions="StartAndExpand"
-                        Style="{StaticResource MicroTextStyle}"
-                        Text="{Binding StatusText}"
-                        VerticalTextAlignment="Center" />
+                    <Image
+                        HeightRequest="30"
+                        HorizontalOptions="Start"
+                        IsVisible="{Binding IsConnected}"
+                        Source="bluetoothconnected.png"
+                        WidthRequest="30" />
+                    <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource MicroTextStyle}"
+                            Text="{Binding StatusText}"
+                            VerticalTextAlignment="Center" />
+                        <Image
+                            Margin="-5,0,0,10"
+                            HeightRequest="30"
+                            IsAnimationPlaying="True"
+                            IsVisible="{Binding IsConnected, Converter={StaticResource InverseBool}}"
+                            Source="dotsanimated.gif"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                    </StackLayout>
                     <ImageButton
-                        BackgroundColor="Transparent"
                         Command="{Binding OpenDataCommand}"
                         HeightRequest="30"
                         HorizontalOptions="EndAndExpand"
@@ -41,7 +66,6 @@
                         Source="chart.png"
                         WidthRequest="30" />
                     <ImageButton
-                        BackgroundColor="Transparent"
                         Command="{Binding OpenSettingsCommand}"
                         HeightRequest="30"
                         HorizontalOptions="End"

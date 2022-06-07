@@ -3,8 +3,8 @@
     x:Class="PSHeavyMetal.Forms.Styles.Generic"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views">
 
     <system:Double x:Key="DefaultControlWidth">240</system:Double>
     <system:Double x:Key="DefaultEntryHeight">60</system:Double>
@@ -21,6 +21,10 @@
 
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <Style TargetType="ImageButton">
+        <Setter Property="BackgroundColor" Value="Transparent" />
     </Style>
 
     <Style TargetType="Button">

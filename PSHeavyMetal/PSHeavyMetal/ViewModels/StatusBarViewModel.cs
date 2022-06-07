@@ -16,6 +16,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly IDeviceService _deviceService;
         private readonly IUserService _userService;
         private bool _hasActiveUser;
+        private bool _isConnected;
         private IPopupNavigation _popupNavigation;
         private string _statusText;
 
@@ -42,6 +43,12 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             get => _hasActiveUser;
             set => SetProperty(ref _hasActiveUser, value);
+        }
+
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set => SetProperty(ref _isConnected, value);
         }
 
         public ICommand OnViewAppearingCommand { get; }
@@ -81,19 +88,23 @@ namespace PSHeavyMetal.Forms.ViewModels
                 case Common.Models.DeviceState.Connected:
                     _deviceService.DeviceDiscovered -= _deviceService_DeviceDiscovered;
                     StatusText = $"Connected to {_deviceService.ConnectedDevice.Name}";
+                    IsConnected = true;
                     break;
 
                 case Common.Models.DeviceState.Disconnected:
                     StatusText = "Disconnected";
+                    IsConnected = false;
                     break;
 
                 case Common.Models.DeviceState.Detecting:
                     _deviceService.DeviceDiscovered += _deviceService_DeviceDiscovered;
-                    StatusText = "Searching...";
+                    StatusText = "Searching";
+                    IsConnected = false;
                     break;
 
                 case Common.Models.DeviceState.Connecting:
-                    StatusText = "Connecting...";
+                    StatusText = "Connecting";
+                    IsConnected = false;
                     break;
 
                 default:
