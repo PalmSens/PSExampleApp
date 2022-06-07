@@ -44,7 +44,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task Continue()
         {
             _measurementService.CreateMeasurement(SampleName, SampleNotes);
-            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
+            await NavigationDispatcher.Push(NavigationViewType.SensorDetectionView);
         }
     }
 }

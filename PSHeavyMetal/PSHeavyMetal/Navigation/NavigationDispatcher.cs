@@ -64,7 +64,7 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.MeasurmentFinished:
                     return new MeasurementFinishedView();
 
-                case NavigationViewType.MeasurementList:
+                case NavigationViewType.MeasurementDataView:
                     return new MeasurementDataView();
 
                 default:

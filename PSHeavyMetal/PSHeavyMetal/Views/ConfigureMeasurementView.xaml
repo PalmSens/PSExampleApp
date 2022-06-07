@@ -9,17 +9,10 @@
     Style="{StaticResource CustomPage}">
     <Grid>
         <StackLayout>
-            <StackLayout VerticalOptions="CenterAndExpand">
-                <Label
-                    Style="{StaticResource MediumTextStyle}"
-                    Text="Sample:"
-                    VerticalOptions="Start" />
-                <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
-            </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
                 Spacing="30"
-                VerticalOptions="StartAndExpand">
+                VerticalOptions="CenterAndExpand">
                 <Label Style="{StaticResource SmallTextStyle}" Text="Select analyte:" />
                 <StackLayout
                     HorizontalOptions="CenterAndExpand"

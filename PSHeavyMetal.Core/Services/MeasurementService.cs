@@ -114,6 +114,8 @@ namespace PSHeavyMetal.Core.Services
                 heavyMetalMeasurement.Measurement = _loadSavePlatformService.LoadMeasurement(stream);
             }
 
+            ActiveMeasurement = heavyMetalMeasurement;
+
             return heavyMetalMeasurement;
         }
 
@@ -123,6 +125,11 @@ namespace PSHeavyMetal.Core.Services
             {
                 return _loadSavePlatformService.LoadMethod(filestream);
             }
+        }
+
+        public void ResetMeasurement()
+        {
+            ActiveMeasurement = null;
         }
 
         public async Task SaveMeasurement(HeavyMetalMeasurement measurement)

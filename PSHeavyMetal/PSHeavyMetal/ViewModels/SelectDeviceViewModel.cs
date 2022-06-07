@@ -1,6 +1,5 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Models;
-using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using System;
@@ -16,13 +15,11 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class SelectDeviceViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
-        private readonly IPermissionService _permissionService;
         private bool _isConnecting;
 
-        public SelectDeviceViewModel(IDeviceService deviceService, IPermissionService permissionService)
+        public SelectDeviceViewModel(IDeviceService deviceService)
         {
             _deviceService = deviceService;
-            _permissionService = permissionService;
 
             AvailableDevices.CollectionChanged += AvailableDevices_CollectionChanged;
 
@@ -102,7 +99,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             await Task.Delay(100);
             await _deviceService.ConnectToDeviceAsync(device);
 
-            await NavigationDispatcher.Push(NavigationViewType.PrepareMeasurementView);
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
 
         private async Task OnPageAppearing()

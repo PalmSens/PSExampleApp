@@ -101,9 +101,6 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             //The continue will trigger the save of the measurement. //TODO maybe add cancel in case user doesn't want to save
             await _measurementService.SaveMeasurement(ActiveMeasurement);
-
-            var blah = await _measurementService.LoadMeasurement(ActiveMeasurement.Id);
-
             await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
         }
 

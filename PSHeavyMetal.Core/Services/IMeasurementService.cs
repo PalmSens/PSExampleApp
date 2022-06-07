@@ -22,15 +22,26 @@ namespace PSHeavyMetal.Core.Services
         /// </summary>
         public void CalculateConcentration();
 
+        /// <summary>
+        /// Creates a measurement and sets it as active
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public HeavyMetalMeasurement CreateMeasurement(string name, string description);
 
         /// <summary>
-        /// Loads a specific measurement with the measurement id
+        /// Loads a specific measurement with the measurement id and also sets this measurement as active measurement
         /// </summary>
         /// <returns></returns>
         public Task<HeavyMetalMeasurement> LoadMeasurement(Guid id);
 
         public Method LoadMethod(string filename);
+
+        /// <summary>
+        /// Resets the measurement this means setting the active measurement to null
+        /// </summary>
+        public void ResetMeasurement();
 
         public Task SaveMeasurement(HeavyMetalMeasurement measurement);
 

@@ -28,7 +28,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         public async Task SetPbConfiguration()
         {
             _measurementService.SetCalculationMethod(MethodType.Pb);
-            await NavigationDispatcher.Push(NavigationViewType.SensorDetectionView);
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
     }
 }

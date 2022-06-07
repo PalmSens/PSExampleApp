@@ -12,5 +12,6 @@
         RunMeasurementView,
         MeasurmentFinished,
         MeasurementList,
+        MeasurementDataView,
     }
 }

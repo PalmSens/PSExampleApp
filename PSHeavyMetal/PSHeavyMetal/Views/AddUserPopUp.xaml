@@ -1,9 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage
+﻿<pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.AddUserPopUp"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:pages="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="http://rotorgames.com"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     x:DataType="viewmodels:AddUserViewModel"
     Visual="Material">
