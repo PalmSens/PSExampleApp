@@ -2,11 +2,12 @@
 <pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.SettingsPopUp"
     xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="http://rotorgames.com"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     Visual="Material">
     <pages:PopupPage.Animation>
-        <pages:ScaleAnimation
+        <pagesanimation:ScaleAnimation
             DurationIn="400"
             DurationOut="300"
             EasingIn="SinOut"

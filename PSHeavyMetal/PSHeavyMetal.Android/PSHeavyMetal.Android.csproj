@@ -160,11 +160,5 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dotsanimated.gif" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\insertsensor.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\insertsensor2.gif" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

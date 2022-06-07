@@ -25,7 +25,6 @@
                 </StackLayout>
             </StackLayout>
         </StackLayout>
-
         <ContentView VerticalOptions="End">
             <views:StatusBarView />
         </ContentView>
