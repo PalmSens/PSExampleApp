@@ -2,6 +2,7 @@
 using PalmSens.Core.Simplified.Data;
 using PSHeavyMetal.Common.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static PalmSens.Core.Simplified.PSCommSimple;
 
@@ -25,16 +26,33 @@ namespace PSHeavyMetal.Core.Services
         /// <summary>
         /// Creates a measurement and sets it as active
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
         /// <returns></returns>
-        public HeavyMetalMeasurement CreateMeasurement(string name, string description);
+        public HeavyMetalMeasurement CreateMeasurement(MeasurementConfiguration configuration);
+
+        /// <summary>
+        /// When there are no configurations present in the database then it will initiliaze the default measurements.
+        /// /// </summary>
+        /// <returns></returns>
+        public Task InitializeMeasurementConfigurations();
+
+        /// <summary>
+        /// Loads all the measurement configurations in the database
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<MeasurementConfiguration>> LoadAllMeasurementConfigurationsAsync();
 
         /// <summary>
         /// Loads a specific measurement with the measurement id and also sets this measurement as active measurement
         /// </summary>
         /// <returns></returns>
         public Task<HeavyMetalMeasurement> LoadMeasurement(Guid id);
+
+        /// <summary>
+        /// Loads the measurement configuration from a json file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public Task<MeasurementConfiguration> LoadMeasurementConfigurationFromFile(string filename);
 
         public Method LoadMethod(string filename);
 
@@ -44,8 +62,6 @@ namespace PSHeavyMetal.Core.Services
         public void ResetMeasurement();
 
         public Task SaveMeasurement(HeavyMetalMeasurement measurement);
-
-        public void SetCalculationMethod(MethodType method);
 
         public Task<SimpleMeasurement> StartMeasurement(Method method);
     }

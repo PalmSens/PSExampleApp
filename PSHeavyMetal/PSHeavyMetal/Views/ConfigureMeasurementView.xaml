@@ -3,27 +3,60 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
     <Grid>
         <StackLayout>
-            <StackLayout
-                HorizontalOptions="CenterAndExpand"
-                Spacing="30"
-                VerticalOptions="CenterAndExpand">
-                <Label Style="{StaticResource SmallTextStyle}" Text="Select analyte:" />
-                <StackLayout
-                    HorizontalOptions="CenterAndExpand"
-                    Spacing="20"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="200">
-                    <Button Command="{Binding SetPbConfigurationCommand}" Text="Pb" />
-                    <Button IsEnabled="False" Text="Cu" />
-                    <Button IsEnabled="False" Text="Cd" />
-                </StackLayout>
-            </StackLayout>
+            <Label
+                Style="{StaticResource MediumTextStyle}"
+                Text="Please select an analyte"
+                VerticalOptions="CenterAndExpand" />
+            <ListView
+                HasUnevenRows="True"
+                HeightRequest="400"
+                HorizontalOptions="Center"
+                ItemsSource="{Binding MeasurementConfigurations}"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="200">
+                <ListView.Behaviors>
+                    <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnConfigSelected}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MeasurementConfiguration">
+                        <ViewCell>
+                            <!--<ScrollView>-->
+                            <StackLayout VerticalOptions="Start">
+                                <Frame
+                                    Margin="7"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    CornerRadius="0"
+                                    HasShadow="False"
+                                    HeightRequest="50"
+                                    WidthRequest="200">
+                                    <Label
+                                        Padding="0,0,0,3"
+                                        FontSize="20"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding AnalyteName}"
+                                        VerticalTextAlignment="Center" />
+                                </Frame>
+                            </StackLayout>
+                            <!--</ScrollView>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
         <ContentView VerticalOptions="End">
             <views:StatusBarView />

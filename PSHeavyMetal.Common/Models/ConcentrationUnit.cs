@@ -2,6 +2,7 @@
 {
     public enum ConcentrationUnit
     {
-        ppm
+        ppm,
+        blah
     }
 }

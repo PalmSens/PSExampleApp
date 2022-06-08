@@ -1,5 +1,4 @@
 ﻿using MvvmHelpers;
-using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Views;
@@ -13,11 +12,11 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        private readonly IMeasurementService _measurementService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
-        private User _user;
 
-        public HomeViewModel(IUserService userService)
+        public HomeViewModel(IUserService userService, IMeasurementService measurementService)
         {
             _popupNavigation = PopupNavigation.Instance;
 
@@ -25,6 +24,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             OpenMeasurementListCommand = CommandFactory.Create(OpenMeasurementList);
             OpenLoginPopupCommand = CommandFactory.Create(OpenLoginPopup);
             StartMeasurementCommand = CommandFactory.Create(StartMeasurement);
+            _measurementService = measurementService;
             _userService = userService;
         }
 
@@ -38,6 +38,8 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public async Task OnPageAppearing()
         {
+            await _measurementService.InitializeMeasurementConfigurations();
+
             if (_userService.ActiveUser == null)
                 await _popupNavigation.PushAsync(new LoginPopUp());
         }

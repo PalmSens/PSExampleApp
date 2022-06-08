@@ -25,7 +25,7 @@
                 <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="ActiveMeasurement.Configuration.Concentration" />
+                            <Binding Path="ActiveMeasurement.Concentration" />
                             <Binding Path="ActiveMeasurement.Configuration.ConcentrationUnit" />
                         </MultiBinding>
                     </Label.Text>

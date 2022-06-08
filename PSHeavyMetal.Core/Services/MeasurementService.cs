@@ -1,4 +1,5 @@
-﻿using PalmSens;
+﻿using Newtonsoft.Json;
+using PalmSens;
 using PalmSens.Analysis;
 using PalmSens.Core.Simplified.Data;
 using PalmSens.Core.Simplified.XF.Application.Services;
@@ -16,6 +17,8 @@ namespace PSHeavyMetal.Core.Services
 {
     public class MeasurementService : IMeasurementService
     {
+        private const string defaultPbConfiguration = "pbmethod";
+
         private readonly InstrumentService _instrumentService;
         private readonly ILoadAssetsService _loadAssetsService;
         private readonly ILoadSavePlatformService _loadSavePlatformService;
@@ -82,20 +85,36 @@ namespace PSHeavyMetal.Core.Services
             if (filteredPeak == null)
                 return;
 
-            ActiveMeasurement.Configuration.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Constant);
+            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Constant);
         }
 
-        public HeavyMetalMeasurement CreateMeasurement(string name, string description)
+        public HeavyMetalMeasurement CreateMeasurement(MeasurementConfiguration configuration)
         {
             var measurement = new HeavyMetalMeasurement
             {
-                Name = name,
                 Id = Guid.NewGuid(),
-                Configuration = new MeasurementConfiguration { Description = description ?? "" },
+                Configuration = configuration,
             };
 
             this.ActiveMeasurement = measurement;
             return measurement;
+        }
+
+        public async Task InitializeMeasurementConfigurations()
+        {
+            var existingConfigurations = await _measurementRepository.LoadAllConfigurations();
+
+            if (existingConfigurations != null && !existingConfigurations.Any())
+            {
+                var configuration = await LoadMeasurementConfigurationFromFile(defaultPbConfiguration);
+
+                await _measurementRepository.SaveMeasurementConfiguration(configuration);
+            }
+        }
+
+        public async Task<IEnumerable<MeasurementConfiguration>> LoadAllMeasurementConfigurationsAsync()
+        {
+            return await _measurementRepository.LoadAllConfigurations();
         }
 
         public async Task<HeavyMetalMeasurement> LoadMeasurement(Guid id)
@@ -117,6 +136,15 @@ namespace PSHeavyMetal.Core.Services
             ActiveMeasurement = heavyMetalMeasurement;
 
             return heavyMetalMeasurement;
+        }
+
+        public async Task<MeasurementConfiguration> LoadMeasurementConfigurationFromFile(string filename)
+        {
+            using (var filestream = _loadAssetsService.LoadFile($"{filename}.json"))
+            {
+                var jsonString = await filestream.ReadToEndAsync();
+                return JsonConvert.DeserializeObject<MeasurementConfiguration>(jsonString);
+            }
         }
 
         public Method LoadMethod(string filename)
@@ -159,28 +187,6 @@ namespace PSHeavyMetal.Core.Services
             {
                 Debug.WriteLine($"Saving of the measurment failed {ex}");
                 throw;
-            }
-        }
-
-        public void SetCalculationMethod(MethodType method)
-        {
-            switch (method)
-            {
-                case MethodType.Pb:
-                    this.ActiveMeasurement.Configuration.ConcentrationMethod = new ConcentrationMethod
-                    {
-                        Constant = 50,
-                        Slope = 1000,
-                        ExpectedPeakOnXAxis = -0.02,
-                        PeakWidth = 0.2
-                    };
-                    this.ActiveMeasurement.Configuration.MethodType = method;
-                    this.ActiveMeasurement.Configuration.ConcentrationUnit = ConcentrationUnit.ppm;
-                    this.ActiveMeasurement.Configuration.AnalyteName = "Lead";
-                    break;
-
-                default:
-                    throw new NotImplementedException("Method not implemented");
             }
         }
 

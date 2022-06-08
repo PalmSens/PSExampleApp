@@ -1,6 +1,7 @@
 ﻿using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.DataAccess;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Repositories
@@ -14,6 +15,11 @@ namespace PSHeavyMetal.Core.Repositories
             _dataOperations = dataOperations;
         }
 
+        public async Task<IEnumerable<MeasurementConfiguration>> LoadAllConfigurations()
+        {
+            return await _dataOperations.GetAllAsync<MeasurementConfiguration>();
+        }
+
         public async Task<SavedMeasurement> LoadMeasurement(Guid id)
         {
             return await _dataOperations.LoadByIdAsync<SavedMeasurement>(id);
@@ -22,6 +28,11 @@ namespace PSHeavyMetal.Core.Repositories
         public async Task SaveMeasurement(SavedMeasurement measurement)
         {
             await _dataOperations.SaveAsync(measurement);
+        }
+
+        public async Task SaveMeasurementConfiguration(MeasurementConfiguration configuration)
+        {
+            await _dataOperations.SaveAsync(configuration);
         }
     }
 }
