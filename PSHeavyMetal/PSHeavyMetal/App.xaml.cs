@@ -16,7 +16,7 @@ namespace PSHeavyMetal.Forms
             ServiceProvider = Startup.Init();
             InitializeComponent();
 
-            var navigationPage = new NavigationPage(new LoginView())
+            var navigationPage = new NavigationPage(new HomeView())
             {
                 BarBackgroundColor = Color.Transparent,
                 BackgroundColor = Color.Transparent,

@@ -6,6 +6,7 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:AddUserViewModel"
+    HasKeyboardOffset="False"
     Visual="Material">
     <pages:PopupPage.Animation>
         <pagesanimation:ScaleAnimation

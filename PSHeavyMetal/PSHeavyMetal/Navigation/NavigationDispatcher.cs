@@ -40,8 +40,8 @@ namespace PSHeavyMetal.Forms.Navigation
         {
             switch (navigationViewType)
             {
-                case NavigationViewType.LoginView:
-                    return new LoginView();
+                case NavigationViewType.HomeView:
+                    return new HomeView();
 
                 case NavigationViewType.PrepareMeasurementView:
                     return new PrepareMeasurementView();

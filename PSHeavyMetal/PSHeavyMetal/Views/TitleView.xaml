@@ -8,12 +8,6 @@
     Visual="Material">
     <ContentView.Content>
         <Grid>
-            <AbsoluteLayout
-                Margin="10,0,0,0"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
-                <Label Margin="-60,0,0,0" Text="PS Heavy Metal" />
-            </AbsoluteLayout>
             <StackLayout HorizontalOptions="End" Orientation="Horizontal">
                 <Image
                     HeightRequest="40"

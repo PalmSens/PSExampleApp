@@ -1,0 +1,95 @@
+﻿<pages:PopupPage
+    x:Class="PSHeavyMetal.Forms.Views.LoginPopUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pagesanimation="http://rotorgames.com"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:LoginViewModel"
+    CloseWhenBackgroundIsClicked="False"
+    Visual="Material">
+    <pages:PopupPage.Animation>
+        <pagesanimation:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Behaviors>
+        <behaviors:OnPopupAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </pages:PopupPage.Behaviors>
+
+    <StackLayout Spacing="40" VerticalOptions="CenterAndExpand">
+        <Label Style="{StaticResource TitleStyle}" Text="WELCOME" />
+        <Label
+            Style="{StaticResource MediumTextStyle}"
+            Text="Please select a user to continue"
+            WidthRequest="250" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Picker
+                x:Name="UserPicker"
+                Title="Select user"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="CenterAndExpand"
+                ItemDisplayBinding="{Binding Name}"
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                WidthRequest="200" />
+            <ImageButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Aspect="Fill"
+                BackgroundColor="Transparent"
+                Command="{Binding OpenAddUserViewCommand}"
+                HeightRequest="60"
+                HorizontalOptions="Start"
+                Source="plusicon.png"
+                VerticalOptions="Center"
+                WidthRequest="60" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                Command="{Binding LoginCommand}"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
+                Text="Continue"
+                VerticalOptions="End"
+                WidthRequest="200" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                Command="{Binding CancelCommand}"
+                HorizontalOptions="CenterAndExpand"
+                Text="Cancel"
+                VerticalOptions="End"
+                WidthRequest="200" />
+        </Grid>
+    </StackLayout>
+</pages:PopupPage>

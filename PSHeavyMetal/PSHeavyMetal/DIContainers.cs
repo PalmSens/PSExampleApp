@@ -25,8 +25,9 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<MeasurementFinishedViewModel>();
             services.AddTransient<RunMeasurementViewModel>();
             services.AddTransient<ConfigureMeasurementViewModel>();
-            services.AddTransient<LoginViewModel>();
+            services.AddTransient<HomeViewModel>();
             services.AddTransient<AddUserViewModel>();
+            services.AddTransient<LoginViewModel>();
             services.AddTransient<SelectDeviceViewModel>();
             services.AddTransient<PrepareMeasurementViewModel>();
             services.AddTransient<SettingsViewModel>();

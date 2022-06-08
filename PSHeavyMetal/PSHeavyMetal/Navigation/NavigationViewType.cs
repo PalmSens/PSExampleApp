@@ -2,7 +2,7 @@
 {
     internal enum NavigationViewType
     {
-        LoginView,
+        HomeView,
         AddUserView,
         PrepareMeasurementView,
         SelectDeviceView,

@@ -26,7 +26,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         public async Task OnAddUserClicked()
         {
             await _userService.SaveUserAsync(UserName);
-            await _popupNavigation.PopAsync();
+            await _popupNavigation.PopAllAsync();
         }
     }
 }

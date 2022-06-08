@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.HomeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:HomeViewModel"
+    Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <StackLayout WidthRequest="200">
+            <StackLayout Spacing="30" VerticalOptions="CenterAndExpand">
+                <Label Style="{StaticResource TitleStyle}" Text="PS Heavy Metal" />
+                <Label
+                    Style="{StaticResource MediumTextStyle}"
+                    Text="Please turn on the reader to start a measurement"
+                    WidthRequest="250" />
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="25"
+                VerticalOptions="StartAndExpand">
+                <Button Command="{Binding OpenMeasurementListCommand}" Text="Measurement History" />
+                <Button Command="{Binding StartMeasurementCommand}" Text="Run Measurement" />
+                <Button Command="{Binding OpenLoginPopupCommand}" Text="Change user" />
+            </StackLayout>
+        </StackLayout>
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
+</ContentPage>

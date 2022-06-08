@@ -1,7 +1,6 @@
 ﻿using MvvmHelpers;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
-using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -17,38 +16,43 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
-        private User _user;
+        private User _activeUser;
+        private User _selectedUser;
 
         public LoginViewModel(IUserService userService)
         {
+            _userService = userService;
             _popupNavigation = PopupNavigation.Instance;
 
             LoginCommand = CommandFactory.Create(OnLoginClicked);
-            OpenAddUserViewCommand = CommandFactory.Create(OpenAddUserClicked);
-            OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
+            OpenAddUserViewCommand = CommandFactory.Create(async () => await _popupNavigation.PushAsync(new AddUserPopUp()));
+            OnPageAppearingCommand = CommandFactory.Create(async () => await UpdateUsers());
+            CancelCommand = CommandFactory.Create(async () => await _popupNavigation.PopAsync());
 
-            _userService = userService;
             _userService.ActiveUserChanged += _userService_ActiveUserChanged;
+
+            ActiveUser = _userService.ActiveUser;
         }
 
-        public ICommand LoginCommand { get; }
+        public User ActiveUser
+        {
+            get => _activeUser;
+            set => SetProperty(ref _activeUser, value);
+        }
 
+        public ICommand CancelCommand { get; }
+        public ICommand LoginCommand { get; }
         public ICommand OnPageAppearingCommand { get; set; }
 
         public ICommand OpenAddUserViewCommand { get; }
 
         public User SelectedUser
         {
-            get => _user;
-            set => SetProperty(ref _user, value);
+            get => _selectedUser;
+            set => SetProperty(ref _selectedUser, value);
         }
 
         public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
-
-        public async Task OnPageAppearing()
-        {
-            await UpdateUsers();
-        }
 
         private async void _userService_ActiveUserChanged(object sender, User e)
         {
@@ -61,12 +65,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task OnLoginClicked()
         {
             _userService.SetActiveUser(SelectedUser);
-            await NavigationDispatcher.Push(NavigationViewType.SelectDeviceView);
-        }
-
-        private async Task OpenAddUserClicked()
-        {
-            await _popupNavigation.PushAsync(new AddUserPopUp());
+            await _popupNavigation.PopAsync();
         }
 
         private async Task UpdateUsers()
