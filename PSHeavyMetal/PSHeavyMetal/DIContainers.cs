@@ -21,6 +21,7 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitializeViewModels(this IServiceCollection services)
         {
+            services.AddTransient<MeasurementPlotViewModel>();
             services.AddTransient<SelectMeasurementViewModel>();
             services.AddTransient<MeasurementFinishedViewModel>();
             services.AddTransient<RunMeasurementViewModel>();

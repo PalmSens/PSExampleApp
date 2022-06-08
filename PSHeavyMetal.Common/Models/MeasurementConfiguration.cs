@@ -28,10 +28,5 @@ namespace PSHeavyMetal.Common.Models
         /// Gets or sets the descriptions which is based on the input of the user
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the methodtype which is used to determine the concentration method and unit
-        /// </summary>
-        public MethodType MethodType { get; set; }
     }
 }
