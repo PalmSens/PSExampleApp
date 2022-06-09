@@ -24,12 +24,10 @@ namespace PSHeavyMetal.Forms.ViewModels
             _userService = userService;
             _popupNavigation = PopupNavigation.Instance;
 
-            LoginCommand = CommandFactory.Create(OnLoginClicked);
             OpenAddUserViewCommand = CommandFactory.Create(async () => await _popupNavigation.PushAsync(new AddUserPopUp()));
             OnPageAppearingCommand = CommandFactory.Create(async () => await UpdateUsers());
             CancelCommand = CommandFactory.Create(async () => await _popupNavigation.PopAsync());
-
-            _userService.ActiveUserChanged += _userService_ActiveUserChanged;
+            SelectionChangedCommand = CommandFactory.Create(SelectionChangedEvent);
 
             ActiveUser = _userService.ActiveUser;
         }
@@ -41,9 +39,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         }
 
         public ICommand CancelCommand { get; }
-        public ICommand LoginCommand { get; }
         public ICommand OnPageAppearingCommand { get; set; }
-
         public ICommand OpenAddUserViewCommand { get; }
 
         public User SelectedUser
@@ -52,17 +48,11 @@ namespace PSHeavyMetal.Forms.ViewModels
             set => SetProperty(ref _selectedUser, value);
         }
 
+        public ICommand SelectionChangedCommand { get; }
+
         public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
 
-        private async void _userService_ActiveUserChanged(object sender, User e)
-        {
-            await UpdateUsers();
-
-            SelectedUser = e;
-            OnPropertyChanged(nameof(SelectedUser));
-        }
-
-        private async Task OnLoginClicked()
+        private async Task SelectionChangedEvent()
         {
             _userService.SetActiveUser(SelectedUser);
             await _popupNavigation.PopAsync();

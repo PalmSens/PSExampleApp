@@ -23,7 +23,6 @@
     <Grid>
         <StackLayout WidthRequest="200">
             <StackLayout Spacing="30" VerticalOptions="CenterAndExpand">
-                <Label Style="{StaticResource TitleStyle}" Text="PS Heavy Metal" />
                 <Label
                     Style="{StaticResource MediumTextStyle}"
                     Text="Please turn on the reader to start a measurement"
@@ -33,8 +32,8 @@
                 HorizontalOptions="CenterAndExpand"
                 Spacing="25"
                 VerticalOptions="StartAndExpand">
-                <Button Command="{Binding OpenMeasurementListCommand}" Text="Measurement History" />
                 <Button Command="{Binding StartMeasurementCommand}" Text="Run Measurement" />
+                <Button Command="{Binding OpenMeasurementListCommand}" Text="Measurement History" />
                 <Button Command="{Binding OpenLoginPopupCommand}" Text="Change user" />
             </StackLayout>
         </StackLayout>

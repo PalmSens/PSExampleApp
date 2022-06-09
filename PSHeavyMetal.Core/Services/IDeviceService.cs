@@ -39,5 +39,12 @@ namespace PSHeavyMetal.Core.Services
         /// </summary>
         /// <returns></returns>
         public Task DetectDevicesAsync();
+
+        /// <summary>
+        /// Disconnects to a device. This starts the discovery process again
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public Task DisconnectDevice();
     }
 }

@@ -22,6 +22,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             _deviceService = deviceService;
 
             AvailableDevices.CollectionChanged += AvailableDevices_CollectionChanged;
+            _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
 
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing, onException: ex =>
                             MainThread.BeginInvokeOnMainThread(() =>
@@ -32,11 +33,19 @@ namespace PSHeavyMetal.Forms.ViewModels
             OnPageDisappearingCommand = CommandFactory.Create(OnPageDisappearing);
             OnInstrumentSelected = CommandFactory.Create(async pd => await ConnectToInstrument(pd as PlatformDevice));
             CancelCommand = CommandFactory.Create(async () => await NavigationDispatcher.Pop());
+            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
+            DisconnectCommand = CommandFactory.Create(Disconnect);
         }
 
         public ObservableCollection<PlatformDevice> AvailableDevices { get; } = new ObservableCollection<PlatformDevice>();
 
         public ICommand CancelCommand { get; }
+
+        public ICommand ContinueCommand { get; }
+
+        public ICommand DisconnectCommand { get; }
+
+        public bool IsConnected => _deviceService.ConnectedDevice != null;
 
         public bool IsConnecting
         {
@@ -76,6 +85,11 @@ namespace PSHeavyMetal.Forms.ViewModels
                 AvailableDevices.Remove(deviceToBeRemoved);
         }
 
+        private void _deviceService_DeviceStateChanged(object sender, Common.Models.DeviceState e)
+        {
+            OnPropertyChanged(nameof(IsConnected));
+        }
+
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)
         {
             if (!AvailableDevices.Contains(e))
@@ -102,6 +116,11 @@ namespace PSHeavyMetal.Forms.ViewModels
             await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
 
+        private async Task Disconnect()
+        {
+            await _deviceService.DisconnectDevice();
+        }
+
         private async Task OnPageAppearing()
         {
             IsConnecting = false;
@@ -116,6 +135,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task OnPageDisappearing()
         {
             AvailableDevices.CollectionChanged -= AvailableDevices_CollectionChanged;
+            _deviceService.DeviceStateChanged -= _deviceService_DeviceStateChanged;
             AbortDeviceDiscovery();
         }
     }

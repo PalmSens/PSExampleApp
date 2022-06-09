@@ -3,11 +3,11 @@
     x:Class="PSHeavyMetal.Forms.Views.SelectDeviceView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
-    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:SelectDeviceViewModel"
     Style="{StaticResource CustomPage}">
 
@@ -19,6 +19,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:InverseBoolConverter x:Key="InverseBool" />
+            <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+            <local:NullToInVisibilityConverter x:Key="nullToInvisibility" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -48,6 +50,7 @@
                     HasUnevenRows="True"
                     HeightRequest="400"
                     HorizontalOptions="Center"
+                    IsVisible="{Binding IsConnected, Converter={StaticResource InverseBool}}"
                     ItemsSource="{Binding AvailableDevices}">
                     <ListView.Behaviors>
                         <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnInstrumentSelected}" />
@@ -85,6 +88,18 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Button
+                    Command="{Binding ContinueCommand}"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsConnected}"
+                    Text="Continue"
+                    WidthRequest="190" />
+                <Button
+                    Command="{Binding DisconnectCommand}"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsConnected}"
+                    Text="Disconnect"
+                    WidthRequest="190" />
                 <Button
                     Margin="0,0,0,50"
                     Command="{Binding CancelCommand}"

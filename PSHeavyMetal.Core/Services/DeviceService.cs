@@ -68,7 +68,14 @@ namespace PSHeavyMetal.Core.Services
 
             _cancellationTokenSource = new CancellationTokenSource();
             IsDetecting = true;
+
             await _instrumentService.GetConnectedDevices(_cancellationTokenSource.Token).ConfigureAwait(false);
+        }
+
+        public async Task DisconnectDevice()
+        {
+            await _instrumentService.DisconnectAsync();
+            this.ConnectedDevice = null;
         }
 
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)

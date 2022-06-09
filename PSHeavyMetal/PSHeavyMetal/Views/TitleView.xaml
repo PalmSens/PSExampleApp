@@ -11,18 +11,19 @@
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
                 <Label
                     Margin="0,0,20,0"
-                    FontSize="26"
+                    FontSize="22"
+                    LineBreakMode="NoWrap"
                     Text="PS Heavy Metal" />
                 <Image
-                    HeightRequest="40"
+                    HeightRequest="30"
                     Source="usericon.png"
-                    WidthRequest="40" />
+                    WidthRequest="30" />
                 <Label
                     Margin="0,0,20,0"
                     LineBreakMode="TailTruncation"
                     Text="{Binding ActiveUserName}"
                     VerticalTextAlignment="Center"
-                    WidthRequest="50" />
+                    WidthRequest="40" />
             </StackLayout>
         </Grid>
     </ContentView.Content>

@@ -1,12 +1,13 @@
 ﻿<pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.LoginPopUp"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
-    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:pagesanimation="http://rotorgames.com"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors1="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:LoginViewModel"
     CloseWhenBackgroundIsClicked="False"
     Visual="Material">
@@ -26,6 +27,7 @@
     <pages:PopupPage.Resources>
         <ResourceDictionary>
             <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+            <local:NullToInVisibilityConverter x:Key="nullToInvisibility" />
         </ResourceDictionary>
     </pages:PopupPage.Resources>
 
@@ -34,8 +36,12 @@
     </pages:PopupPage.Behaviors>
 
     <StackLayout Spacing="40" VerticalOptions="CenterAndExpand">
-        <Label Style="{StaticResource TitleStyle}" Text="WELCOME" />
         <Label
+            IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
+            Style="{StaticResource TitleStyle}"
+            Text="WELCOME" />
+        <Label
+            IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
             Style="{StaticResource MediumTextStyle}"
             Text="Please select a user to continue"
             WidthRequest="250" />
@@ -59,7 +65,11 @@
                 ItemDisplayBinding="{Binding Name}"
                 ItemsSource="{Binding Users}"
                 SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
-                WidthRequest="200" />
+                WidthRequest="200">
+                <Picker.Behaviors>
+                    <behaviors1:EventToCommandBehavior Command="{Binding SelectionChangedCommand}" EventName="SelectedIndexChanged" />
+                </Picker.Behaviors>
+            </Picker>
             <ImageButton
                 Grid.Row="0"
                 Grid.Column="2"
@@ -72,21 +82,12 @@
                 VerticalOptions="Center"
                 WidthRequest="60" />
             <Button
-                Grid.Row="1"
-                Grid.Column="1"
-                BackgroundColor="Transparent"
-                Command="{Binding LoginCommand}"
-                HorizontalOptions="CenterAndExpand"
-                IsVisible="{Binding SelectedUser, Converter={StaticResource nullToVisibility}}"
-                Text="Continue"
-                VerticalOptions="End"
-                WidthRequest="200" />
-            <Button
                 Grid.Row="2"
                 Grid.Column="1"
                 BackgroundColor="Transparent"
                 Command="{Binding CancelCommand}"
                 HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding ActiveUser, Converter={StaticResource nullToVisibility}}"
                 Text="Cancel"
                 VerticalOptions="End"
                 WidthRequest="200" />
