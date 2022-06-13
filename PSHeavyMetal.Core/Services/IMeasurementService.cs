@@ -12,6 +12,11 @@ namespace PSHeavyMetal.Core.Services
     {
         public event SimpleCurveStartReceivingDataHandler DataReceived;
 
+        /// <summary>
+        /// Triggers when the active measurement is changed
+        /// </summary>
+        public event EventHandler<HeavyMetalMeasurement> MeasurementChanged;
+
         public event EventHandler MeasurementEnded;
 
         public event EventHandler MeasurementStarted;

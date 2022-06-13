@@ -15,19 +15,23 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class StatusBarViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
+        private readonly IMeasurementService _measurementService;
         private readonly IUserService _userService;
+        private bool _hasActiveMeasurement;
         private bool _hasActiveUser;
         private bool _isConnected;
         private IPermissionService _permissionService;
         private IPopupNavigation _popupNavigation;
         private string _statusText;
 
-        public StatusBarViewModel(IDeviceService deviceService, IUserService userService, IPermissionService permissionService)
+        public StatusBarViewModel(IDeviceService deviceService, IUserService userService, IPermissionService permissionService, IMeasurementService measurementService)
         {
+            _measurementService = measurementService;
             _permissionService = permissionService;
             _deviceService = deviceService;
             _popupNavigation = PopupNavigation.Instance;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
+            _measurementService.MeasurementChanged += _measurementService_MeasurementReset;
 
             OpenSettingsCommand = CommandFactory.Create(OpenSettings);
             OpenDataCommand = CommandFactory.Create(OpenData);
@@ -38,14 +42,12 @@ namespace PSHeavyMetal.Forms.ViewModels
                                 Console.WriteLine(ex.Message);
                             }), allowsMultipleExecutions: false);
             _userService = userService;
-
-            _userService.ActiveUserChanged += _userService_ActiveUserChanged;
         }
 
-        public bool HasActiveUser
+        public bool HasActiveMeasurement
         {
-            get => _hasActiveUser;
-            set => SetProperty(ref _hasActiveUser, value);
+            get => _hasActiveMeasurement;
+            set => SetProperty(ref _hasActiveMeasurement, value);
         }
 
         public bool IsConnected
@@ -115,12 +117,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             }
         }
 
-        private void _userService_ActiveUserChanged(object sender, Common.Models.User e)
+        private void _measurementService_MeasurementReset(object sender, Common.Models.HeavyMetalMeasurement e)
         {
             if (e != null)
-                HasActiveUser = true;
+                HasActiveMeasurement = true;
             else
-                HasActiveUser = false;
+                HasActiveMeasurement = false;
         }
 
         private async Task DiscoverDevices()

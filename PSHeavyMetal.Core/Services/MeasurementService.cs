@@ -24,6 +24,7 @@ namespace PSHeavyMetal.Core.Services
         private readonly ILoadSavePlatformService _loadSavePlatformService;
         private readonly IMeasurementRepository _measurementRepository;
         private readonly IUserService _userService;
+        private HeavyMetalMeasurement _activeMeasurement;
 
         public MeasurementService(
             IMeasurementRepository repository,
@@ -45,6 +46,8 @@ namespace PSHeavyMetal.Core.Services
             remove => _instrumentService.SimpleCurveStartReceivingData -= value;
         }
 
+        public event EventHandler<HeavyMetalMeasurement> MeasurementChanged;
+
         public event EventHandler MeasurementEnded
         {
             add => _instrumentService.MeasurementEnded += value;
@@ -57,7 +60,15 @@ namespace PSHeavyMetal.Core.Services
             remove => _instrumentService.MeasurementStarted -= value;
         }
 
-        public HeavyMetalMeasurement ActiveMeasurement { get; private set; }
+        public HeavyMetalMeasurement ActiveMeasurement
+        {
+            get => _activeMeasurement;
+            private set
+            {
+                _activeMeasurement = value;
+                MeasurementChanged?.Invoke(this, value);
+            }
+        }
 
         public void CalculateConcentration()
         {
