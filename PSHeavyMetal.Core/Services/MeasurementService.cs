@@ -85,7 +85,7 @@ namespace PSHeavyMetal.Core.Services
             if (filteredPeak == null)
                 return;
 
-            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Background);
+            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Offset);
         }
 
         public HeavyMetalMeasurement CreateMeasurement(MeasurementConfiguration configuration)
@@ -123,6 +123,7 @@ namespace PSHeavyMetal.Core.Services
 
             var heavyMetalMeasurement = new HeavyMetalMeasurement
             {
+                Concentration = savedMeasurement.Concentration,
                 Configuration = savedMeasurement.Configuration,
                 Id = id,
                 Name = savedMeasurement.Name,
@@ -172,6 +173,7 @@ namespace PSHeavyMetal.Core.Services
 
             var savedMeasurement = new SavedMeasurement
             {
+                Concentration = measurement.Concentration,
                 SerializedMeasurement = array,
                 Configuration = measurement.Configuration,
                 Id = measurement.Id,

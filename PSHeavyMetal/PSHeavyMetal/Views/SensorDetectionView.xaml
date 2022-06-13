@@ -24,19 +24,14 @@
                 <Label
                     Margin="0,50,0,0"
                     Style="{StaticResource SmallTextStyle}"
-                    Text="Insert sensor and wait for indicator to turn BLUE" />
-                <StackLayout Margin="50" Orientation="Horizontal">
-                    <Frame
-                        BackgroundColor="Transparent"
-                        BorderColor="White"
-                        CornerRadius="5"
-                        HeightRequest="50"
-                        WidthRequest="100" />
-                    <Image
-                        Margin="20"
-                        Source="sensor.png"
-                        WidthRequest="120" />
-                </StackLayout>
+                    Text="Insert sensor and wait for indicator to turn BLUE"
+                    WidthRequest="300" />
+                <Image
+                    Margin="30"
+                    HeightRequest="200"
+                    IsAnimationPlaying="True"
+                    Source="insertsensor.gif"
+                    WidthRequest="200" />
                 <Button
                     Command="{Binding ContinueCommand}"
                     HorizontalOptions="Center"

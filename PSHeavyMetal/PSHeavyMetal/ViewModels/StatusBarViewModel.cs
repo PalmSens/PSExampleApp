@@ -1,4 +1,5 @@
 ﻿using MvvmHelpers;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
@@ -17,11 +18,13 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly IUserService _userService;
         private bool _hasActiveUser;
         private bool _isConnected;
+        private IPermissionService _permissionService;
         private IPopupNavigation _popupNavigation;
         private string _statusText;
 
-        public StatusBarViewModel(IDeviceService deviceService, IUserService userService)
+        public StatusBarViewModel(IDeviceService deviceService, IUserService userService, IPermissionService permissionService)
         {
+            _permissionService = permissionService;
             _deviceService = deviceService;
             _popupNavigation = PopupNavigation.Instance;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
@@ -130,7 +133,10 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             //We only want to start detecting devices when it's not yet
             if (!_deviceService.IsDetecting && !_deviceService.IsConnected)
+            {
+                await _permissionService.RequestBluetoothPermission();
                 await DiscoverDevices();
+            }
         }
     }
 }

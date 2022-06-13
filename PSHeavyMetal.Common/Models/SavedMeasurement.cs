@@ -6,6 +6,11 @@
     public class SavedMeasurement : DataObject
     {
         /// <summary>
+        /// The concentration amount which is calculated based on the found peaks and the concentration method
+        /// </summary>
+        public double Concentration { get; set; }
+
+        /// <summary>
         /// Gets or sets the configuretion which are set by the heavy metal application
         /// </summary>
         public MeasurementConfiguration Configuration { get; set; }

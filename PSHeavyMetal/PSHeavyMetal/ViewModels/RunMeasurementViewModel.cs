@@ -104,7 +104,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
         }
 
-        private async void Curve_DetectedPeaks(object sender, EventArgs e)
+        private void Curve_DetectedPeaks(object sender, EventArgs e)
         {
             _measurementService.CalculateConcentration();
 
@@ -133,7 +133,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task RunPeakAnalysis()
         {
             _activeCurve.DetectedPeaks += Curve_DetectedPeaks;
-            await _activeCurve.DetectPeaksAsync(0.05, 0.005);
+            await _activeCurve.DetectPeaksAsync();
         }
     }
 }

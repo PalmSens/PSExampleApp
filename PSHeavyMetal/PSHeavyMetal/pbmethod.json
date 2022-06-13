@@ -1,7 +1,7 @@
 {
   "analyteName": "pb default",
   "concentrationMethod": {
-    "constant": 5,
+    "offset": 50,
     "expectedPeakOnXAxis": 0.2,
     "peakWidth": 0.2,
     "slope": 1000.0

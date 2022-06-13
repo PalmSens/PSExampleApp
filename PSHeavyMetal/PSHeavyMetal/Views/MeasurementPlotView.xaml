@@ -3,19 +3,32 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementPlotView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
-    x:DataType="viewmodels:MeasurementPlotViewModel">
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:MeasurementPlotViewModel"
+    Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" />
-            <oxy:PlotView
-                AbsoluteLayout.LayoutBounds="20,0,.9,.9"
-                AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                Model="{Binding PlotModel}" />
-        </StackLayout>
+        <Grid>
+            <AbsoluteLayout>
+                <oxy:PlotView
+                    AbsoluteLayout.LayoutBounds="20,0,.95,.90"
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+                    BackgroundColor="White"
+                    Model="{Binding PlotModel}"
+                    Opacity="0.9"
+                    VerticalOptions="Center" />
+            </AbsoluteLayout>
+
+            <ContentView VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

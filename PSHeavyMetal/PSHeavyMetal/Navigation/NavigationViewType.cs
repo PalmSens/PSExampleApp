@@ -13,5 +13,6 @@
         MeasurmentFinished,
         MeasurementList,
         MeasurementDataView,
+        MeasurementPlotView,
     }
 }

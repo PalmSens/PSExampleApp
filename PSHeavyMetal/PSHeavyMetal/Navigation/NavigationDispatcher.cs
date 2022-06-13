@@ -67,6 +67,9 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.MeasurementDataView:
                     return new MeasurementDataView();
 
+                case NavigationViewType.MeasurementPlotView:
+                    return new MeasurementPlotView();
+
                 default:
                     throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }
