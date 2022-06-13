@@ -9,7 +9,6 @@ using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -77,7 +76,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             PlotModel.Series.Add(peakLines);
         }
 
-        private async Task OnPageAppearing()
+        private void OnPageAppearing()
         {
             ActiveMeasurement = _measurementService.ActiveMeasurement;
 
@@ -114,8 +113,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             PlotModel.Axes.Add(yAxis);
             PlotModel.Series.Add(_lineSeries);
 
-            //TODO try fix peaks
-
+            //TODO try fix peaks polish point
             //InitPeakPlotData(_lineSeries, _simpleCurve.Peaks[0]);
             PlotModel.InvalidatePlot(true);
         }

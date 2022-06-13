@@ -44,6 +44,7 @@
                     Text="SAVE REPORT"
                     WidthRequest="200" />
                 <Button
+                    Command="{Binding ShowPlotCommand}"
                     HorizontalOptions="Center"
                     Text="SHOW PLOT"
                     WidthRequest="200" />
