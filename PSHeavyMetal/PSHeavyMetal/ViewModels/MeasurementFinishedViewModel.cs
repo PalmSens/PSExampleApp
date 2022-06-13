@@ -17,10 +17,14 @@ namespace PSHeavyMetal.Forms.ViewModels
             ActiveMeasurement = _measurementService.ActiveMeasurement;
 
             ShowPlotCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.MeasurementPlotView));
+            NavigateToHomeCommand = CommandFactory.Create(async () => await NavigationDispatcher.PopToRoot());
+            RepeatMeasurementCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
         }
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
 
+        public ICommand NavigateToHomeCommand { get; }
+        public ICommand RepeatMeasurementCommand { get; }
         public ICommand ShowPlotCommand { get; }
     }
 }

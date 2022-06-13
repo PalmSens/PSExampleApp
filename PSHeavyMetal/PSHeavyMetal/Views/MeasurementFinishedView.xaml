@@ -6,6 +6,7 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:MeasurementFinishedViewModel"
+    NavigationPage.HasBackButton="False"
     Style="{StaticResource CustomPage}">
     <Grid>
 
@@ -41,7 +42,7 @@
                     WidthRequest="200" />
                 <Button
                     HorizontalOptions="Center"
-                    Text="SAVE REPORT"
+                    Text="SHARE REPORT"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding ShowPlotCommand}"
@@ -49,10 +50,12 @@
                     Text="SHOW PLOT"
                     WidthRequest="200" />
                 <Button
+                    Command="{Binding RepeatMeasurementCommand}"
                     HorizontalOptions="Center"
                     Text="REPEAT"
                     WidthRequest="200" />
                 <Button
+                    Command="{Binding NavigateToHomeCommand}"
                     HorizontalOptions="Center"
                     Text="HOME"
                     WidthRequest="200" />

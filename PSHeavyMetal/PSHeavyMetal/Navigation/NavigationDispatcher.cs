@@ -22,6 +22,16 @@ namespace PSHeavyMetal.Forms.Navigation
         }
 
         /// <summary>
+        /// Pops pages until the root is reached (the home screen)
+        /// </summary>
+        /// <param name="NavigationViewType"></param>
+        /// <returns></returns>
+        internal static async Task PopToRoot()
+        {
+            await _instance.Navigation.PopToRootAsync();
+        }
+
+        /// <summary>
         /// Uses the navigation view type to navigate to the page. This makes sure that the view model doesn't have to know about the page
         /// </summary>
         /// <param name="NavigationViewType"></param>

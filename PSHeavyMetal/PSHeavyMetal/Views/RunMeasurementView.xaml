@@ -8,6 +8,7 @@
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:RunMeasurementViewModel"
+    NavigationPage.HasBackButton="False"
     Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
