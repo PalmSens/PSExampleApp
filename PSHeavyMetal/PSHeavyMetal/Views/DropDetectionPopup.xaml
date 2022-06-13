@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="PSHeavyMetal.Forms.Views.DropDetectionPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    x:DataType="viewmodels:DropDetectionViewModel">
+
+    <StackLayout>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            Spacing="30"
+            VerticalOptions="CenterAndExpand">
+            <Label
+                Margin="0,50,0,0"
+                Style="{StaticResource SmallTextStyle}"
+                Text="Mix sample with buffer and add droplet"
+                WidthRequest="300" />
+            <extensions:MediaElement
+                x:Name="Droplet"
+                AutoPlay="True"
+                BackgroundColor="Transparent"
+                HeightRequest="250"
+                IsLooping="True"
+                ShowsPlaybackControls="False"
+                Source="ms-appx:///AddDroplet.mp4"
+                WidthRequest="250" />
+            <Button
+                Command="{Binding ContinueCommand}"
+                HorizontalOptions="Center"
+                Text="Continue"
+                WidthRequest="200" />
+            <Button
+                Command="{Binding CancelCommand}"
+                HorizontalOptions="Center"
+                Text="Cancel"
+                WidthRequest="200" />
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

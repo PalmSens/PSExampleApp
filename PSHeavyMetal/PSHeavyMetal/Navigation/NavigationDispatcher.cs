@@ -63,10 +63,10 @@ namespace PSHeavyMetal.Forms.Navigation
                     return new ConfigureMeasurementView();
 
                 case NavigationViewType.SensorDetectionView:
-                    return new SensorDetectionView();
+                    return new SensorDetectionPopup();
 
                 case NavigationViewType.DropDetectionView:
-                    return new DropDetectionView();
+                    return new DropDetectionPopup();
 
                 case NavigationViewType.RunMeasurementView:
                     return new RunMeasurementView();

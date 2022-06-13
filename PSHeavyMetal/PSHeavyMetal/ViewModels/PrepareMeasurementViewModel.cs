@@ -1,7 +1,9 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Models;
 using PSHeavyMetal.Core.Services;
-using PSHeavyMetal.Forms.Navigation;
+using PSHeavyMetal.Forms.Views;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -10,6 +12,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class PrepareMeasurementViewModel : BaseViewModel
     {
+        private readonly IPopupNavigation _popupNavigation;
         private IMeasurementService _measurementService;
         private PlatformDevice _platformDevice;
         private string _sampleName;
@@ -18,6 +21,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         public PrepareMeasurementViewModel(IMeasurementService measurementService)
         {
             _measurementService = measurementService;
+            _popupNavigation = PopupNavigation.Instance;
             ContinueCommand = CommandFactory.Create(async () => await Continue());
         }
 
@@ -45,7 +49,8 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             _measurementService.ActiveMeasurement.Name = SampleName;
             _measurementService.ActiveMeasurement.Configuration.Description = SampleNotes;
-            await NavigationDispatcher.Push(NavigationViewType.SensorDetectionView);
+
+            await _popupNavigation.PushAsync(new SensorDetectionPopup());
         }
     }
 }

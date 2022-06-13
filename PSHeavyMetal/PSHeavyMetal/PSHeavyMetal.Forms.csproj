@@ -39,8 +39,14 @@
     <Compile Update="Styles\Generic.xaml.cs">
       <DependentUpon>Generic.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\DropDetectionPopup.xaml.cs">
+      <DependentUpon>DropDetectionPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SensorDetectionPopup.xaml.cs">
+      <DependentUpon>SensorDetectionPopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SettingsPopUp.xaml.cs">
       <DependentUpon>SettingsPopUp.xaml</DependentUpon>
@@ -66,7 +72,7 @@
     <EmbeddedResource Update="Views\CustomFlyOutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\DropDetectionView.xaml">
+    <EmbeddedResource Update="Views\DropDetectionPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HomeView.xaml">
@@ -96,7 +102,7 @@
     <EmbeddedResource Update="Views\SelectMeasurementPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SensorDetectionView.xaml">
+    <EmbeddedResource Update="Views\SensorDetectionPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPopUp.xaml">
