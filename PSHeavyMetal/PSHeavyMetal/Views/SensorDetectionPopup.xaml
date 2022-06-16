@@ -4,8 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:SensorDetectionViewModel">
 
     <StackLayout
@@ -29,11 +29,11 @@
             Command="{Binding ContinueCommand}"
             HorizontalOptions="Center"
             Text="Continue"
-            WidthRequest="200" />
+            WidthRequest="150" />
         <Button
             Command="{Binding CancelCommand}"
             HorizontalOptions="Center"
             Text="Cancel"
-            WidthRequest="200" />
+            WidthRequest="150" />
     </StackLayout>
 </pages:PopupPage>

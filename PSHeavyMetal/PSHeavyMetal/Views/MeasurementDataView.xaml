@@ -35,9 +35,38 @@
                 Spacing="10"
                 VerticalOptions="StartAndExpand">
                 <Button
+                    Command="{Binding TakePhotoCommand}"
                     HorizontalOptions="Center"
                     Text="ADD PHOTO(S)"
                     WidthRequest="200" />
+                <!--<Grid
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200">-->
+                <CollectionView
+                    HeightRequest="75"
+                    HorizontalOptions="Start"
+                    ItemsLayout="HorizontalList"
+                    ItemsSource="{Binding MeasurementPhotos}"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ImageButton
+                                    Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
+                                    CommandParameter="{Binding}"
+                                    HeightRequest="50"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="{Binding}"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="50" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!--</Grid>-->
                 <Button
                     HorizontalOptions="Center"
                     Text="SAVE REPORT"
