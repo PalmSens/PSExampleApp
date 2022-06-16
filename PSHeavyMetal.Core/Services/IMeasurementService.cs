@@ -66,7 +66,18 @@ namespace PSHeavyMetal.Core.Services
         /// </summary>
         public void ResetMeasurement();
 
+        /// <summary>
+        /// Saves the measurement
+        /// </summary>
+        /// <param name="measurement"></param>
+        /// <returns></returns>
         public Task SaveMeasurement(HeavyMetalMeasurement measurement);
+
+        /// <summary>
+        /// Saves a photo as byte array
+        /// </summary>
+        /// <returns></returns>
+        public Task SavePhoto(byte[] photo);
 
         public Task<SimpleMeasurement> StartMeasurement(Method method);
     }

@@ -3,9 +3,22 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementDataView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:MeasurementDataViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
     <Grid>
 
         <StackLayout>
@@ -44,7 +57,18 @@
                     HorizontalOptions="Center"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="200">-->
-                <CollectionView
+                <Grid>
+                    <ImageButton
+                        CommandParameter="{Binding MeasurementPhotos[0]}"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        Source="{Binding MeasurementPhotos[0], Converter={StaticResource ByteArrayToImage}}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50" />
+                </Grid>
+
+                <!--<CollectionView
+                    Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
                     HeightRequest="75"
                     HorizontalOptions="Start"
                     ItemsLayout="HorizontalList"
@@ -55,17 +79,19 @@
                         <DataTemplate>
                             <Grid>
                                 <ImageButton
+                                    Aspect="AspectFill"
                                     Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
                                     CommandParameter="{Binding}"
                                     HeightRequest="50"
                                     HorizontalOptions="CenterAndExpand"
-                                    Source="{Binding}"
+                                    Source="{Binding , Converter={StaticResource ByteArrayToImage}}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="50" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                -->
                 <!--</Grid>-->
                 <Button
                     HorizontalOptions="Center"

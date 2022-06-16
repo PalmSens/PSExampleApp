@@ -1,4 +1,5 @@
 ﻿using PalmSens.Core.Simplified.Data;
+using System.Collections.Generic;
 
 namespace PSHeavyMetal.Common.Models
 {
@@ -18,5 +19,10 @@ namespace PSHeavyMetal.Common.Models
         /// Gets or sets the measurement which is configured in the simplified core
         /// </summary>
         public SimpleMeasurement Measurement { get; set; }
+
+        /// <summary>
+        /// Serialized measurement images
+        /// </summary>
+        public List<byte[]> MeasurementImages { get; set; } = new List<byte[]>();
     }
 }

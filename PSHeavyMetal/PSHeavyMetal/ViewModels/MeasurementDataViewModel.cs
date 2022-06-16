@@ -5,7 +5,9 @@ using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -26,6 +28,8 @@ namespace PSHeavyMetal.Forms.ViewModels
             LoadedMeasurement = _measurementService.ActiveMeasurement;
             _popupNavigation = PopupNavigation.Instance;
 
+            OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
+
             ShowPlotCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.MeasurementPlotView));
             OnPhotoSelected = CommandFactory.Create(async photo => await OpenPhoto(photo as ImageSource));
             //OnPhotoSelected = CommandFactory.Create(OpenPhoto);
@@ -38,12 +42,27 @@ namespace PSHeavyMetal.Forms.ViewModels
             set => SetProperty(ref _loadedMeasurement, value);
         }
 
-        public ObservableCollection<ImageSource> MeasurementPhotos { get; } = new ObservableCollection<ImageSource>();
+        public ObservableCollection<byte[]> MeasurementPhotos { get; } = new ObservableCollection<byte[]>();
+
+        public ICommand OnPageAppearingCommand { get; }
 
         public ICommand OnPhotoSelected { get; }
 
         public ICommand ShowPlotCommand { get; }
+
         public ICommand TakePhotoCommand { get; }
+
+        private void OnPageAppearing()
+        {
+            if (LoadedMeasurement.MeasurementImages == null)
+                LoadedMeasurement.MeasurementImages = new List<byte[]>();
+
+            foreach (var image in LoadedMeasurement.MeasurementImages)
+            {
+                MeasurementPhotos.Add(image);
+                
+            }
+        }
 
         private async Task OpenPhoto(ImageSource photo)
         {
@@ -58,9 +77,16 @@ namespace PSHeavyMetal.Forms.ViewModels
             {
                 var stream = await result.OpenReadAsync();
 
-                var image = ImageSource.FromStream(() => stream);
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
 
-                MeasurementPhotos.Add(image);
+                    var byteArray = memoryStream.ToArray();
+                    await _measurementService.SavePhoto(byteArray);
+
+                    //var image = ImageSource.FromStream(() => memoryStream);
+                    //MeasurementPhotos.Add(image);
+                }
             }
         }
     }

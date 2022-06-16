@@ -136,6 +136,7 @@ namespace PSHeavyMetal.Core.Services
             {
                 Concentration = savedMeasurement.Concentration,
                 Configuration = savedMeasurement.Configuration,
+                MeasurementImages = savedMeasurement.SaveImages,
                 Id = id,
                 Name = savedMeasurement.Name,
             };
@@ -186,6 +187,7 @@ namespace PSHeavyMetal.Core.Services
             {
                 Concentration = measurement.Concentration,
                 SerializedMeasurement = array,
+                SaveImages = measurement.MeasurementImages,
                 Configuration = measurement.Configuration,
                 Id = measurement.Id,
                 Name = measurement.Name,
@@ -201,6 +203,12 @@ namespace PSHeavyMetal.Core.Services
                 Debug.WriteLine($"Saving of the measurment failed {ex}");
                 throw;
             }
+        }
+
+        public async Task SavePhoto(byte[] photo)
+        {
+            ActiveMeasurement.MeasurementImages.Add(photo);
+            await SaveMeasurement(ActiveMeasurement);
         }
 
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
