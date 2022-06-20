@@ -3,10 +3,10 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}">
 
@@ -15,17 +15,29 @@
     </ContentPage.Behaviors>
 
     <Grid>
-        <StackLayout>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            Spacing="20"
+            VerticalOptions="EndAndExpand">
             <Label
                 Style="{StaticResource MediumTextStyle}"
-                Text="Please select an analyte"
+                Text="Please select or import an analyte"
                 VerticalOptions="CenterAndExpand" />
+            <Button
+                Command="{Binding ImportAnalyteCommand}"
+                HorizontalOptions="Center"
+                Text="Import Analyte"
+                WidthRequest="200" />
+            <Label
+                Margin="0,50,0,0"
+                Style="{StaticResource SmallTextStyle}"
+                Text="Known analytes:" />
             <ListView
                 HasUnevenRows="True"
                 HeightRequest="400"
                 HorizontalOptions="Center"
                 ItemsSource="{Binding MeasurementConfigurations}"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="EndAndExpand"
                 WidthRequest="200">
                 <ListView.Behaviors>
                     <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnConfigSelected}" />

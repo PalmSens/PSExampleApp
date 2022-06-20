@@ -74,6 +74,13 @@ namespace PSHeavyMetal.Core.Services
         public Task SaveMeasurement(HeavyMetalMeasurement measurement);
 
         /// <summary>
+        /// Saves the measurement configuration. This can be from a filepicker
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public Task SaveMeasurementConfiguration(MeasurementConfiguration configuration);
+
+        /// <summary>
         /// Saves a photo as byte array
         /// </summary>
         /// <returns></returns>

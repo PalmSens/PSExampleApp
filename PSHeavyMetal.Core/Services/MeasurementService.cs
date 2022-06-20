@@ -205,6 +205,11 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
+        public async Task SaveMeasurementConfiguration(MeasurementConfiguration configuration)
+        {
+            await _measurementRepository.SaveMeasurementConfiguration(configuration);
+        }
+
         public async Task SavePhoto(byte[] photo)
         {
             ActiveMeasurement.MeasurementImages.Add(photo);

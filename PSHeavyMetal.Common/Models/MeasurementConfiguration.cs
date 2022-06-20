@@ -28,5 +28,10 @@ namespace PSHeavyMetal.Common.Models
         /// Gets or sets the descriptions which is based on the input of the user
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the measurement configuration is default or not. If its default it cannot be deleted.
+        /// </summary>
+        public bool IsDefault { get; set; }
     }
 }
