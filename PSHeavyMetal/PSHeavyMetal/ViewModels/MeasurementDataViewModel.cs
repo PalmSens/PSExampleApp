@@ -42,7 +42,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             set => SetProperty(ref _loadedMeasurement, value);
         }
 
-        public ObservableCollection<byte[]> MeasurementPhotos { get; } = new ObservableCollection<byte[]>();
+        public ObservableCollection<ImageSource> MeasurementPhotos { get; } = new ObservableCollection<ImageSource>();
 
         public ICommand OnPageAppearingCommand { get; }
 
@@ -59,8 +59,11 @@ namespace PSHeavyMetal.Forms.ViewModels
 
             foreach (var image in LoadedMeasurement.MeasurementImages)
             {
-                MeasurementPhotos.Add(image);
-                
+                //MeasurementPhotos.Add(ImageSource.FromStream(() => new MemoryStream(image)));
+                MeasurementPhotos.Add(ImageSource.FromStream(() =>
+                {
+                    return new MemoryStream(image);
+                }));
             }
         }
 
@@ -84,8 +87,8 @@ namespace PSHeavyMetal.Forms.ViewModels
                     var byteArray = memoryStream.ToArray();
                     await _measurementService.SavePhoto(byteArray);
 
-                    //var image = ImageSource.FromStream(() => memoryStream);
-                    //MeasurementPhotos.Add(image);
+                    var image = ImageSource.FromStream(() => memoryStream);
+                    MeasurementPhotos.Add(image);
                 }
             }
         }

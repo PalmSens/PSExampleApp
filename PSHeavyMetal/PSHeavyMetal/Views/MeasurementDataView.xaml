@@ -52,25 +52,9 @@
                     HorizontalOptions="Center"
                     Text="ADD PHOTO(S)"
                     WidthRequest="200" />
-                <!--<Grid
-                    HeightRequest="50"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="200">-->
-                <Grid>
-                    <ImageButton
-                        CommandParameter="{Binding MeasurementPhotos[0]}"
-                        HeightRequest="50"
-                        HorizontalOptions="Start"
-                        Source="{Binding MeasurementPhotos[0], Converter={StaticResource ByteArrayToImage}}"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="50" />
-                </Grid>
-
-                <!--<CollectionView
-                    Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
+                <CollectionView
                     HeightRequest="75"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="Center"
                     ItemsLayout="HorizontalList"
                     ItemsSource="{Binding MeasurementPhotos}"
                     VerticalOptions="CenterAndExpand"
@@ -79,20 +63,17 @@
                         <DataTemplate>
                             <Grid>
                                 <ImageButton
-                                    Aspect="AspectFill"
+                                    Margin="5"
                                     Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
                                     CommandParameter="{Binding}"
                                     HeightRequest="50"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="{Binding , Converter={StaticResource ByteArrayToImage}}"
-                                    VerticalOptions="CenterAndExpand"
+                                    Source="{Binding}"
                                     WidthRequest="50" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                -->
-                <!--</Grid>-->
+
                 <Button
                     HorizontalOptions="Center"
                     Text="SAVE REPORT"
