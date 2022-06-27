@@ -65,9 +65,6 @@ namespace PSHeavyMetal.Forms.Navigation
                 case NavigationViewType.SensorDetectionView:
                     return new SensorDetectionPopup();
 
-                case NavigationViewType.DropDetectionView:
-                    return new DropDetectionPopup();
-
                 case NavigationViewType.RunMeasurementView:
                     return new RunMeasurementView();
 

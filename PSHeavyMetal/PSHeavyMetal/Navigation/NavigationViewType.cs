@@ -8,7 +8,6 @@
         SelectDeviceView,
         ConfigureMeasurementView,
         SensorDetectionView,
-        DropDetectionView,
         RunMeasurementView,
         MeasurmentFinished,
         MeasurementList,

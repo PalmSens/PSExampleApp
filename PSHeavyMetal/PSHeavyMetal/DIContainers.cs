@@ -33,7 +33,6 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<PrepareMeasurementViewModel>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SensorDetectionViewModel>();
-            services.AddTransient<DropDetectionViewModel>();
             services.AddTransient<MeasurementDataViewModel>();
             //The next view models are added as scoped since they are used more persistant in the application.
             services.AddScoped<TitleViewModel>();
