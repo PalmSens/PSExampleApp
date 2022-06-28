@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace PSSDKXamarinFormsTemplateApp.Behaviors
+namespace PSHeavyMetal.Forms.Behaviors
 {
     public class OnDisappearingBehavior : Behavior<ContentPage>
     {
@@ -29,7 +29,7 @@ namespace PSSDKXamarinFormsTemplateApp.Behaviors
 
         private void Bindable_Disappearing(object sender, System.EventArgs e)
         {
-            if(OnDisappearingCommand == null) return;
+            if (OnDisappearingCommand == null) return;
 
             OnDisappearingCommand.Execute(e);
         }

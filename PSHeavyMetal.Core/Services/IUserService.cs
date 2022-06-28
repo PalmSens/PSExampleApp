@@ -18,6 +18,13 @@ namespace PSHeavyMetal.Core.Services
         User ActiveUser { get; }
 
         /// <summary>
+        /// Deletes a measurement from the measurementinfo list
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task DeleteMeasurementInfo(Guid id);
+
+        /// <summary>
         /// Retrieves all users
         /// </summary>
         /// <returns></returns>

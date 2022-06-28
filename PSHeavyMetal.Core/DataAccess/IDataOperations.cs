@@ -8,6 +8,14 @@ namespace PSHeavyMetal.Core.DataAccess
     public interface IDataOperations
     {
         /// <summary>
+        /// Deletes a entity from the collection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task DeleteByIdAsync<T>(Guid id) where T : DataObject;
+
+        /// <summary>
         /// Loads all entities from the collection
         /// </summary>
         /// <typeparam name="T">Type of collection</typeparam>

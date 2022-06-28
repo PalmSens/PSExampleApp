@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace PSSDKXamarinFormsTemplateApp.Behaviors
+namespace PSHeavyMetal.Forms.Behaviors
 {
     public class OnListViewItemTapped : Behavior<ListView>
     {

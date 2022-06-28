@@ -8,6 +8,13 @@ namespace PSHeavyMetal.Core.Repositories
     public interface IMeasurementRepository
     {
         /// <summary>
+        /// Deletes the measurement
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteMeasurement(Guid id);
+
+        /// <summary>
         /// Loads all measurement configurations
         /// </summary>
         /// <returns></returns>

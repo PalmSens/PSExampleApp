@@ -2,6 +2,7 @@
 using PSHeavyMetal.Core.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSHeavyMetal.Core.Services
@@ -28,6 +29,17 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
+        public async Task DeleteMeasurementInfo(Guid id)
+        {
+            var infoToDelete = this.ActiveUser.Measurements.FirstOrDefault(x => x.Id == id);
+
+            if (infoToDelete == null)
+                return;
+
+            this.ActiveUser.Measurements.Remove(infoToDelete);
+            await _userRepository.UpdateUser(ActiveUser);
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _userRepository.GetAllUsers();
@@ -47,7 +59,7 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task SaveMeasurementInfo(HeavyMetalMeasurement measurement)
         {
-            this.ActiveUser.Measurements.Add(new MeasurementInfo { Id = measurement.Id, Name = measurement.Name });
+            this.ActiveUser.Measurements.Add(new MeasurementInfo { Id = measurement.Id, Name = measurement.Name, MeasurementDate = DateTime.Now });
             await _userRepository.UpdateUser(ActiveUser);
         }
 

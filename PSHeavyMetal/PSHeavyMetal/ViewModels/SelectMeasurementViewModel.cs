@@ -20,6 +20,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         public SelectMeasurementViewModel(IUserService userService, IMeasurementService measurementService)
         {
             OnMeasurementSelectedCommand = CommandFactory.Create(async info => await MeasurementSelected(info as MeasurementInfo));
+            DeleteCommand = CommandFactory.Create(async info => await DeleteMeasurement(info as MeasurementInfo));
 
             _popupNavigation = PopupNavigation.Instance;
             _userService = userService;
@@ -29,12 +30,20 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ObservableCollection<MeasurementInfo> AvailableMeasurements { get; } = new ObservableCollection<MeasurementInfo>();
 
+        public ICommand DeleteCommand { get; }
+
         public ICommand OnMeasurementSelectedCommand { get; }
 
         private void AddMeasurements()
         {
             foreach (var measurement in _userService.ActiveUser.Measurements)
                 AvailableMeasurements.Add(measurement);
+        }
+
+        private async Task DeleteMeasurement(MeasurementInfo info)
+        {
+            AvailableMeasurements.Remove(info);
+            await _measurementService.DeleteMeasurement(info.Id);
         }
 
         private async Task MeasurementSelected(MeasurementInfo info)

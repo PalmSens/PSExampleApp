@@ -35,6 +35,13 @@ namespace PSHeavyMetal.Core.Services
         public HeavyMetalMeasurement CreateMeasurement(MeasurementConfiguration configuration);
 
         /// <summary>
+        /// Deletes a measurement from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task DeleteMeasurement(Guid id);
+
+        /// <summary>
         /// When there are no configurations present in the database then it will initiliaze the default measurements.
         /// /// </summary>
         /// <returns></returns>

@@ -12,6 +12,15 @@ namespace PSHeavyMetal.Core.DataAccess
     {
         private readonly string _connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XamarinLiteDB.db");
 
+        public async Task DeleteByIdAsync<T>(Guid id) where T : DataObject
+        {
+            using (var db = new LiteDatabaseAsync(_connectionString))
+            {
+                var collection = db.GetCollection<T>();
+                await collection.DeleteAsync(id);
+            }
+        }
+
         public IEnumerable<T> GetAll<T>() where T : DataObject
         {
             using var db = new LiteDatabase(_connectionString);
@@ -47,10 +56,11 @@ namespace PSHeavyMetal.Core.DataAccess
 
         public async Task SaveAsync<T>(T entity) where T : DataObject
         {
-            using var db = new LiteDatabaseAsync(_connectionString);
-
-            var collection = db.GetCollection<T>();
-            await collection.UpsertAsync(entity);
+            using (var db = new LiteDatabaseAsync(_connectionString))
+            {
+                var collection = db.GetCollection<T>();
+                await collection.UpsertAsync(entity);
+            }
         }
     }
 }

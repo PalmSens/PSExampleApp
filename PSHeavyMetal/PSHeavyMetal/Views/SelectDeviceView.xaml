@@ -4,10 +4,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
+    xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:SelectDeviceViewModel"
     Style="{StaticResource CustomPage}">
 
@@ -58,7 +58,6 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:PlatformDevice">
                             <ViewCell>
-                                <!--<ScrollView>-->
                                 <StackLayout VerticalOptions="Start">
                                     <Frame
                                         Margin="7"
@@ -83,7 +82,6 @@
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>
-                                <!--</ScrollView>-->
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace PSSDKXamarinFormsTemplateApp.Behaviors
+namespace PSHeavyMetal.Forms.Behaviors
 {
     /// <summary>
     /// On view appearing command uses the layoutchanged command to trigger. This redraws the view and we are able to use it as a hook.
@@ -9,7 +9,7 @@ namespace PSSDKXamarinFormsTemplateApp.Behaviors
     public class OnViewAppearingBehavior : Behavior<ContentView>
     {
         public static readonly BindableProperty OnAppearingCommandProperty =
-            BindableProperty.Create(nameof(OnAppearingCommand), typeof(ICommand), typeof(OnAppearingBehavior));
+            BindableProperty.Create(nameof(OnAppearingCommand), typeof(ICommand), typeof(OnViewAppearingBehavior));
 
         public ICommand OnAppearingCommand
         {

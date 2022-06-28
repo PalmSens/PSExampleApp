@@ -100,6 +100,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task Continue()
         {
             //The continue will trigger the save of the measurement. //TODO maybe add cancel in case user doesn't want to save
+            ActiveMeasurement.MeasurementDate = DateTime.Now.Date;
             await _measurementService.SaveMeasurement(ActiveMeasurement);
             await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
         }

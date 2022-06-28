@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:behaviors="clr-namespace:PSSDKXamarinFormsTemplateApp.Behaviors"
     x:DataType="viewmodels:MeasurementFinishedViewModel"
     NavigationPage.HasBackButton="False"
     Style="{StaticResource CustomPage}">
@@ -42,30 +41,27 @@
                     HorizontalOptions="Center"
                     Text="ADD PHOTO(S)"
                     WidthRequest="200" />
-                <ListView
-                    HorizontalOptions="CenterAndExpand"
+                <CollectionView
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    ItemsLayout="HorizontalList"
                     ItemsSource="{Binding MeasurementPhotos}"
-                    VerticalOptions="CenterAndExpand">
-                    <ListView.Behaviors>
-                        <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnPhotoSelected}" />
-                    </ListView.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="ImageSource">
-                            <ViewCell>
-                                <!--<ScrollView>-->
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Start">
-                                    <ImageButton
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Aqua"
-                                        BorderWidth="1"
-                                        HeightRequest="30"
-                                        WidthRequest="30" />
-                                </StackLayout>
-                                <!--</ScrollView>-->
-                            </ViewCell>
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ImageButton
+                                    Margin="5"
+                                    Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
+                                    CommandParameter="{Binding}"
+                                    HeightRequest="50"
+                                    Source="{Binding}"
+                                    WidthRequest="50" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button
                     HorizontalOptions="Center"
                     Text="SHARE REPORT"

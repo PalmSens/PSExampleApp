@@ -111,6 +111,12 @@ namespace PSHeavyMetal.Core.Services
             return measurement;
         }
 
+        public async Task DeleteMeasurement(Guid id)
+        {
+            await _measurementRepository.DeleteMeasurement(id);
+            await _userService.DeleteMeasurementInfo(id);
+        }
+
         public async Task InitializeMeasurementConfigurations()
         {
             var existingConfigurations = await _measurementRepository.LoadAllConfigurations();
