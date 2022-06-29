@@ -210,8 +210,17 @@
   <data name="SampleName" xml:space="preserve">
     <value>Sample name</value>
   </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching</value>
+  </data>
   <data name="SelectDeviceHeader" xml:space="preserve">
     <value />
+  </data>
+  <data name="SelectPageMultipleReaders" xml:space="preserve">
+    <value>{0} readers found, please select:</value>
+  </data>
+  <data name="SelectPageReaderFound" xml:space="preserve">
+    <value>1 reader found,  please select:</value>
   </data>
   <data name="SelectUser" xml:space="preserve">
     <value>Select user</value>
@@ -227,6 +236,21 @@
   </data>
   <data name="ShowPlot" xml:space="preserve">
     <value>Show plot</value>
+  </data>
+  <data name="StatusBarConnected" xml:space="preserve">
+    <value>Connected to {0}</value>
+  </data>
+  <data name="StatusBarConnecting" xml:space="preserve">
+    <value>Connecting</value>
+  </data>
+  <data name="StatusBarDisconnected" xml:space="preserve">
+    <value>Disconnected</value>
+  </data>
+  <data name="StatusBarMultipleReaders" xml:space="preserve">
+    <value>{0} readers found</value>
+  </data>
+  <data name="StatusBarReaderFound" xml:space="preserve">
+    <value>1 reader found</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>WELCOME</value>

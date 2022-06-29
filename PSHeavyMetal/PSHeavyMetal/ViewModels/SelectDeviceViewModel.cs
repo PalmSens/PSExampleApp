@@ -2,6 +2,7 @@
 using PalmSens.Core.Simplified.XF.Application.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
+using PSHeavyMetal.Forms.Resx;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -66,13 +67,13 @@ namespace PSHeavyMetal.Forms.ViewModels
                 switch (AvailableDevices.Count)
                 {
                     case 0:
-                        return "Searching";
+                        return AppResources.Searching;
 
                     case 1:
-                        return "1 reader found,\n please select:";
+                        return AppResources.SelectPageReaderFound;
 
                     default:
-                        return $"{AvailableDevices.Count} readers found,\n please select:";
+                        return string.Format(AppResources.SelectPageMultipleReaders, AvailableDevices.Count);
                 }
             }
         }

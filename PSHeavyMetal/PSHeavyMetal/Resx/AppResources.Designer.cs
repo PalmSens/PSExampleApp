@@ -340,11 +340,38 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching.
+        /// </summary>
+        public static string Searching {
+            get {
+                return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string SelectDeviceHeader {
             get {
                 return ResourceManager.GetString("SelectDeviceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} readers found, please select:.
+        /// </summary>
+        public static string SelectPageMultipleReaders {
+            get {
+                return ResourceManager.GetString("SelectPageMultipleReaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 reader found,  please select:.
+        /// </summary>
+        public static string SelectPageReaderFound {
+            get {
+                return ResourceManager.GetString("SelectPageReaderFound", resourceCulture);
             }
         }
         
@@ -390,6 +417,51 @@ namespace PSHeavyMetal.Forms.Resx {
         public static string ShowPlot {
             get {
                 return ResourceManager.GetString("ShowPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        public static string StatusBarConnected {
+            get {
+                return ResourceManager.GetString("StatusBarConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connecting.
+        /// </summary>
+        public static string StatusBarConnecting {
+            get {
+                return ResourceManager.GetString("StatusBarConnecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnected.
+        /// </summary>
+        public static string StatusBarDisconnected {
+            get {
+                return ResourceManager.GetString("StatusBarDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} readers found.
+        /// </summary>
+        public static string StatusBarMultipleReaders {
+            get {
+                return ResourceManager.GetString("StatusBarMultipleReaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 reader found.
+        /// </summary>
+        public static string StatusBarReaderFound {
+            get {
+                return ResourceManager.GetString("StatusBarReaderFound", resourceCulture);
             }
         }
         

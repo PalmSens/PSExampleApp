@@ -1,6 +1,7 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Resx;
 using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -81,9 +82,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         private void _deviceService_DeviceDiscovered(object sender, PalmSens.Core.Simplified.XF.Application.Models.PlatformDevice e)
         {
             if (_deviceService.AvailableDevices.Count == 1)
-                StatusText = "1 reader found";
+                StatusText = AppResources.StatusBarReaderFound;
             else
-                StatusText = $"{_deviceService.AvailableDevices.Count} readers found";
+                StatusText = string.Format(AppResources.StatusBarMultipleReaders, _deviceService.AvailableDevices.Count);
         }
 
         private void _deviceService_DeviceStateChanged(object sender, Common.Models.DeviceState e)
@@ -92,23 +93,23 @@ namespace PSHeavyMetal.Forms.ViewModels
             {
                 case Common.Models.DeviceState.Connected:
                     _deviceService.DeviceDiscovered -= _deviceService_DeviceDiscovered;
-                    StatusText = $"Connected to {_deviceService.ConnectedDevice.Name}";
+                    StatusText = string.Format(AppResources.StatusBarConnected, _deviceService.ConnectedDevice.Name);
                     IsConnected = true;
                     break;
 
                 case Common.Models.DeviceState.Disconnected:
-                    StatusText = "Disconnected";
+                    StatusText = AppResources.StatusBarDisconnected;
                     IsConnected = false;
                     break;
 
                 case Common.Models.DeviceState.Detecting:
                     _deviceService.DeviceDiscovered += _deviceService_DeviceDiscovered;
-                    StatusText = "Searching";
+                    StatusText = AppResources.Searching;
                     IsConnected = false;
                     break;
 
                 case Common.Models.DeviceState.Connecting:
-                    StatusText = "Connecting";
+                    StatusText = AppResources.StatusBarConnecting;
                     IsConnected = false;
                     break;
 
