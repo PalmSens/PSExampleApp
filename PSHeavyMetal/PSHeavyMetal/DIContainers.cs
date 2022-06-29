@@ -42,6 +42,7 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
+            services.AddSingleton<IShareService, ShareService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton(DependencyService.Resolve<IPermissionService>());
             services.AddSingleton(DependencyService.Resolve<ILoadAssetsService>());

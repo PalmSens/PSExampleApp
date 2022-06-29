@@ -20,16 +20,19 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private readonly IMeasurementService _measurementService;
         private readonly IPopupNavigation _popupNavigation;
+        private readonly IShareService _shareService;
         private HeavyMetalMeasurement _loadedMeasurement;
 
-        public MeasurementDataViewModel(IMeasurementService measurementService)
+        public MeasurementDataViewModel(IMeasurementService measurementService, IShareService shareService)
         {
             _measurementService = measurementService;
+            _shareService = shareService;
             LoadedMeasurement = _measurementService.ActiveMeasurement;
             _popupNavigation = PopupNavigation.Instance;
 
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
 
+            ShareMeasurementCommand = CommandFactory.Create(ShareMeasurement);
             ShowPlotCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.MeasurementPlotView));
             OnPhotoSelected = CommandFactory.Create(async photo => await OpenPhoto(photo as ImageSource));
             //OnPhotoSelected = CommandFactory.Create(OpenPhoto);
@@ -48,9 +51,24 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ICommand OnPhotoSelected { get; }
 
+        public ICommand ShareMeasurementCommand { get; }
+
         public ICommand ShowPlotCommand { get; }
 
         public ICommand TakePhotoCommand { get; }
+
+        public async Task ShareMeasurement()
+        {
+            var cacheFile = Path.Combine(FileSystem.CacheDirectory, "test.pdf");
+
+            _shareService.CreatePdfFile(LoadedMeasurement, cacheFile);
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Sharing is Caring",
+                File = new ShareFile(cacheFile)
+            });
+        }
 
         private void OnPageAppearing()
         {

@@ -74,6 +74,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Button
+                    Command="{Binding ShareMeasurementCommand}"
                     HorizontalOptions="Center"
                     Text="SAVE REPORT"
                     WidthRequest="200" />
