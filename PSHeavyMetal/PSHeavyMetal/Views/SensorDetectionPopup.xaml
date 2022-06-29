@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:SensorDetectionViewModel">
@@ -23,13 +24,13 @@
             Margin="0,50,0,0"
             IsVisible="{Binding IsSensorInserted, Converter={StaticResource InverseBool}}"
             Style="{StaticResource SmallTextStyle}"
-            Text="Insert sensor and wait for indicator to turn BLUE"
+            Text="{x:Static resources:AppResources.InsertSensorHeader}"
             WidthRequest="300" />
         <Label
             Margin="0,50,0,0"
             IsVisible="{Binding IsSensorInserted}"
             Style="{StaticResource SmallTextStyle}"
-            Text="Mix sample with buffer and add droplet"
+            Text="{x:Static resources:AppResources.DropSenseHeader}"
             WidthRequest="300" />
         <extensions:MediaElement
             AutoPlay="True"
@@ -42,18 +43,18 @@
             Command="{Binding ConfirmSensorCommand}"
             HorizontalOptions="Center"
             IsVisible="{Binding IsSensorInserted, Converter={StaticResource InverseBool}}"
-            Text="Confirm"
+            Text="{x:Static resources:AppResources.Confirm}"
             WidthRequest="150" />
         <Button
             Command="{Binding ContinueCommand}"
             HorizontalOptions="Center"
             IsVisible="{Binding IsSensorInserted}"
-            Text="Continue"
+            Text="{x:Static resources:AppResources.Continue}"
             WidthRequest="150" />
         <Button
             Command="{Binding CancelCommand}"
             HorizontalOptions="Center"
-            Text="Cancel"
+            Text="{x:Static resources:AppResources.Cancel}"
             WidthRequest="150" />
     </StackLayout>
 </pages:PopupPage>

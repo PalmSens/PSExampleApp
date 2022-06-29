@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:MeasurementDataViewModel">
@@ -25,14 +26,14 @@
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label
                     Style="{StaticResource SmallTextStyle}"
-                    Text="RESULT FOR"
+                    Text="{x:Static resources:AppResources.ResultFor}"
                     VerticalOptions="Start" />
                 <Label Style="{StaticResource SmallTextStyle}" Text="{Binding LoadedMeasurement.Name}" />
 
                 <Label
                     Margin="0,30,0,0"
                     Style="{StaticResource SmallTextStyle}"
-                    Text="Found:"
+                    Text="{x:Static resources:AppResources.Found}"
                     VerticalOptions="EndAndExpand" />
                 <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
                     <Label.Text>
@@ -50,7 +51,7 @@
                 <Button
                     Command="{Binding TakePhotoCommand}"
                     HorizontalOptions="Center"
-                    Text="ADD PHOTO(S)"
+                    Text="{x:Static resources:AppResources.AddPhoto}"
                     WidthRequest="200" />
                 <CollectionView
                     HeightRequest="75"
@@ -76,16 +77,16 @@
                 <Button
                     Command="{Binding ShareMeasurementCommand}"
                     HorizontalOptions="Center"
-                    Text="SAVE REPORT"
+                    Text="{x:Static resources:AppResources.ShareReport}"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding ShowPlotCommand}"
                     HorizontalOptions="Center"
-                    Text="SHOW PLOT"
+                    Text="{x:Static resources:AppResources.ShowPlot}"
                     WidthRequest="200" />
                 <Button
                     HorizontalOptions="Center"
-                    Text="BACK"
+                    Text="{x:Static resources:AppResources.Back}"
                     WidthRequest="200" />
             </StackLayout>
         </StackLayout>

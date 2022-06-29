@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:HomeViewModel"
@@ -25,16 +26,16 @@
             <StackLayout Spacing="30" VerticalOptions="CenterAndExpand">
                 <Label
                     Style="{StaticResource MediumTextStyle}"
-                    Text="Please turn on the reader to start a measurement"
+                    Text="{x:Static resources:AppResources.HomePageHeader}"
                     WidthRequest="250" />
             </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"
                 Spacing="25"
                 VerticalOptions="StartAndExpand">
-                <Button Command="{Binding StartMeasurementCommand}" Text="Run Measurement" />
-                <Button Command="{Binding OpenMeasurementListCommand}" Text="Measurement History" />
-                <Button Command="{Binding OpenLoginPopupCommand}" Text="Change user" />
+                <Button Command="{Binding StartMeasurementCommand}" Text="{x:Static resources:AppResources.RunMeasurement}" />
+                <Button Command="{Binding OpenMeasurementListCommand}" Text="{x:Static resources:AppResources.MeasurementHistory}" />
+                <Button Command="{Binding OpenLoginPopupCommand}" Text="{x:Static resources:AppResources.ChangeUser}" />
             </StackLayout>
         </StackLayout>
         <ContentView VerticalOptions="End">

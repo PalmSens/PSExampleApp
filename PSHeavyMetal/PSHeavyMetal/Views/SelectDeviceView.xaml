@@ -6,6 +6,7 @@
     xmlns:model="clr-namespace:PalmSens.Core.Simplified.XF.Application.Models;assembly=PalmSens.Core.Simplified.XF.Application"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:SelectDeviceViewModel"
@@ -30,7 +31,7 @@
             IsVisible="{Binding IsConnecting}"
             Spacing="50"
             VerticalOptions="CenterAndExpand">
-            <Label Style="{StaticResource MediumTextStyle}" Text="Connecting..." />
+            <Label Style="{StaticResource MediumTextStyle}" Text="{x:Static resources:AppResources.Connecting}" />
             <ActivityIndicator
                 HeightRequest="100"
                 IsRunning="True"
@@ -90,19 +91,19 @@
                     Command="{Binding ContinueCommand}"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsConnected}"
-                    Text="Continue"
+                    Text="{x:Static resources:AppResources.Continue}"
                     WidthRequest="190" />
                 <Button
                     Command="{Binding DisconnectCommand}"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsConnected}"
-                    Text="Disconnect"
+                    Text="{x:Static resources:AppResources.Disconnect}"
                     WidthRequest="190" />
                 <Button
                     Margin="0,0,0,50"
                     Command="{Binding CancelCommand}"
                     HorizontalOptions="CenterAndExpand"
-                    Text="Cancel"
+                    Text="{x:Static resources:AppResources.Cancel}"
                     WidthRequest="190" />
             </StackLayout>
             <ContentView VerticalOptions="End">

@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     Visual="Material">
     <pages:PopupPage.Animation>
@@ -25,20 +26,20 @@
         <Label
             HorizontalOptions="Start"
             Style="{StaticResource MediumTextStyle}"
-            Text="Settings" />
+            Text="{x:Static resources:AppResources.Settings}" />
         <BoxView HeightRequest="2" Color="White" />
         <StackLayout Margin="0,10,0,30">
             <Label
                 HorizontalOptions="Start"
                 Style="{StaticResource SmallTextStyle}"
-                Text="Language" />
+                Text="{x:Static resources:AppResources.Language}" />
             <RadioButton
-                Content="English"
+                Content="{x:Static resources:AppResources.English}"
                 GroupName="Languages"
                 IsChecked="True"
                 TextColor="White" />
             <RadioButton
-                Content="Nederlands"
+                Content="{x:Static resources:AppResources.Nederlands}"
                 GroupName="Languages"
                 TextColor="White" />
         </StackLayout>
@@ -47,7 +48,7 @@
             <Label
                 HorizontalOptions="StartAndExpand"
                 Style="{StaticResource SmallTextStyle}"
-                Text="Admin mode" />
+                Text="{x:Static resources:AppResources.AdminMode}" />
             <Switch HorizontalOptions="EndAndExpand" />
         </StackLayout>
     </StackLayout>

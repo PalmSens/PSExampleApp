@@ -6,6 +6,7 @@
     xmlns:behaviors1="http://xamarin.com/schemas/2020/toolkit"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:LoginViewModel"
@@ -39,11 +40,11 @@
         <Label
             IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
             Style="{StaticResource TitleStyle}"
-            Text="WELCOME" />
+            Text="{x:Static resources:AppResources.Welcome}" />
         <Label
             IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
             Style="{StaticResource MediumTextStyle}"
-            Text="Please select a user to continue"
+            Text="{x:Static resources:AppResources.SelectUserHeader}"
             WidthRequest="250" />
         <Grid>
             <Grid.RowDefinitions>
@@ -58,7 +59,7 @@
             </Grid.ColumnDefinitions>
             <Picker
                 x:Name="UserPicker"
-                Title="Select user"
+                Title="{x:Static resources:AppResources.SelectUser}"
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="CenterAndExpand"
@@ -88,7 +89,7 @@
                 Command="{Binding CancelCommand}"
                 HorizontalOptions="CenterAndExpand"
                 IsVisible="{Binding ActiveUser, Converter={StaticResource nullToVisibility}}"
-                Text="Cancel"
+                Text="{x:Static resources:AppResources.Cancel}"
                 VerticalOptions="End"
                 WidthRequest="200" />
         </Grid>

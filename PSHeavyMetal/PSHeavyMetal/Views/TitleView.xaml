@@ -3,6 +3,7 @@
     x:Class="PSHeavyMetal.Forms.Views.TitleView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     x:DataType="viewmodels:TitleViewModel"
     Visual="Material">
@@ -13,7 +14,7 @@
                     Margin="0,0,20,0"
                     FontSize="22"
                     LineBreakMode="NoWrap"
-                    Text="PS Heavy Metal" />
+                    Text="{x:Static resources:AppResources.HeavyMetalTitle}" />
                 <Image
                     HeightRequest="30"
                     Source="usericon.png"

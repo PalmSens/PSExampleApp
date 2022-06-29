@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:AddUserViewModel"
@@ -30,7 +31,7 @@
             VerticalOptions="CenterAndExpand">
             <Entry
                 x:Name="UserNameEntry"
-                Placeholder="Enter a user name"
+                Placeholder="{x:Static resources:AppResources.EnterUser}"
                 ReturnCommand="{Binding AddUserCommand}"
                 ReturnType="Done"
                 Text="{Binding UserName}" />
@@ -40,7 +41,7 @@
             HorizontalOptions="CenterAndExpand"
             Spacing="20"
             VerticalOptions="EndAndExpand">
-            <Button Command="{Binding AddUserCommand}" Text="Add user" />
+            <Button Command="{Binding AddUserCommand}" Text="{x:Static resources:AppResources.AddUser}" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

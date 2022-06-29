@@ -3,6 +3,7 @@
     x:Class="PSHeavyMetal.Forms.Views.PrepareMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:PrepareMeasurementViewModel"
@@ -15,19 +16,19 @@
             VerticalOptions="CenterAndExpand">
             <Entry
                 Margin="0,0,0,20"
-                Placeholder="Sample name"
+                Placeholder="{x:Static resources:AppResources.SampleName}"
                 Text="{Binding SampleName}" />
             <Editor
                 AutoSize="Disabled"
                 HeightRequest="150"
                 MaxLength="300"
                 MinimumHeightRequest="150"
-                Placeholder="Notes"
+                Placeholder="{x:Static resources:AppResources.Notes}"
                 Text="{Binding SampleNotes}" />
             <Button
                 Margin="0,20,0,0"
                 Command="{Binding ContinueCommand}"
-                Text="Continue" />
+                Text="{x:Static resources:AppResources.Continue}" />
         </StackLayout>
 
         <ContentView VerticalOptions="End">
