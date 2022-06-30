@@ -25,6 +25,12 @@ namespace PSHeavyMetal.Core.Services
         public Task DeleteMeasurementInfo(Guid id);
 
         /// <summary>
+        /// Gets the ISO language code from user
+        /// </summary>
+        /// <returns></returns>
+        string GetActiveUserLanguageCode(Language language);
+
+        /// <summary>
         /// Retrieves all users
         /// </summary>
         /// <returns></returns>
@@ -61,5 +67,11 @@ namespace PSHeavyMetal.Core.Services
         /// </summary>
         /// <param name="user"></param>
         void SetActiveUser(User user);
+
+        /// <summary>
+        /// Update the settings of a user. For now this is only the language
+        /// </summary>
+        /// <returns></returns>
+        Task UpdateUserSettings(Language language);
     }
 }

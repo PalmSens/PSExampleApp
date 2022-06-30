@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MvvmHelpers;
 using PSHeavyMetal.Forms.Navigation;
+using PSHeavyMetal.Forms.Resx;
 using PSHeavyMetal.Forms.Views;
 using System;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace PSHeavyMetal.Forms
@@ -15,6 +17,9 @@ namespace PSHeavyMetal.Forms
         {
             ServiceProvider = Startup.Init();
             InitializeComponent();
+
+            LocalizationResourceManager.Current.PropertyChanged += Current_PropertyChanged;
+            LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
 
             var navigationPage = new NavigationPage(new HomeView())
             {
@@ -44,6 +49,11 @@ namespace PSHeavyMetal.Forms
 
         protected override void OnStart()
         {
+        }
+
+        private void Current_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            AppResources.Culture = LocalizationResourceManager.Current.CurrentCulture;
         }
     }
 }

@@ -5,9 +5,11 @@ using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSHeavyMetal.Forms.ViewModels
@@ -55,6 +57,10 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task SelectionChangedEvent()
         {
             _userService.SetActiveUser(SelectedUser);
+
+            var code = _userService.GetActiveUserLanguageCode(SelectedUser.Language);
+            LocalizationResourceManager.Current.CurrentCulture = code == null ? CultureInfo.CurrentCulture : new CultureInfo(code);
+
             await _popupNavigation.PopAsync();
         }
 

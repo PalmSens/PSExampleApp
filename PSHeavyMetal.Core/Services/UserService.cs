@@ -40,6 +40,21 @@ namespace PSHeavyMetal.Core.Services
             await _userRepository.UpdateUser(ActiveUser);
         }
 
+        public string GetActiveUserLanguageCode(Language language)
+        {
+            switch (language)
+            {
+                case Language.English:
+                    return "en";
+
+                case Language.Dutch:
+                    return "nl";
+
+                default:
+                    return "en";
+            }
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _userRepository.GetAllUsers();
@@ -72,6 +87,12 @@ namespace PSHeavyMetal.Core.Services
         public void SetActiveUser(User user)
         {
             ActiveUser = user;
+        }
+
+        public async Task UpdateUserSettings(Language language)
+        {
+            ActiveUser.Language = language;
+            await _userRepository.UpdateUser(ActiveUser);
         }
     }
 }

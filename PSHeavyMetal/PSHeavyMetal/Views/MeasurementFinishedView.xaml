@@ -3,7 +3,7 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementFinishedView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:MeasurementFinishedViewModel"
@@ -15,14 +15,14 @@
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label
                     Style="{StaticResource SmallTextStyle}"
-                    Text="{x:Static resources:AppResources.ResultFor}"
+                    Text="{xct:Translate ResultFor}"
                     VerticalOptions="Start" />
                 <Label Style="{StaticResource SmallTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
 
                 <Label
                     Margin="0,30,0,0"
                     Style="{StaticResource SmallTextStyle}"
-                    Text="{x:Static resources:AppResources.Found}"
+                    Text="{xct:Translate Found}"
                     VerticalOptions="EndAndExpand" />
                 <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
                     <Label.Text>
@@ -40,7 +40,7 @@
                 <Button
                     Command="{Binding TakePhotoCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.AddPhoto}"
+                    Text="{xct:Translate AddPhoto}"
                     WidthRequest="200" />
                 <CollectionView
                     HeightRequest="75"
@@ -65,22 +65,22 @@
                 </CollectionView>
                 <Button
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.ShareReport}"
+                    Text="{xct:Translate ShareReport}"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding ShowPlotCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.ShowPlot}"
+                    Text="{xct:Translate ShowPlot}"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding RepeatMeasurementCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.Repeat}"
+                    Text="{xct:Translate Repeat}"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding NavigateToHomeCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.Home}"
+                    Text="{xct:Translate Home}"
                     WidthRequest="200" />
             </StackLayout>
         </StackLayout>

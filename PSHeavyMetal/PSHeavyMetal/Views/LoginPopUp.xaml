@@ -3,10 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors1="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:LoginViewModel"
@@ -40,11 +39,11 @@
         <Label
             IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
             Style="{StaticResource TitleStyle}"
-            Text="{x:Static resources:AppResources.Welcome}" />
+            Text="{xct:Translate Welcome}" />
         <Label
             IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
             Style="{StaticResource MediumTextStyle}"
-            Text="{x:Static resources:AppResources.SelectUserHeader}"
+            Text="{xct:Translate SelectUserHeader}"
             WidthRequest="250" />
         <Grid>
             <Grid.RowDefinitions>
@@ -59,7 +58,7 @@
             </Grid.ColumnDefinitions>
             <Picker
                 x:Name="UserPicker"
-                Title="{x:Static resources:AppResources.SelectUser}"
+                Title="{xct:Translate SelectUser}"
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="CenterAndExpand"
@@ -68,7 +67,7 @@
                 SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                 WidthRequest="200">
                 <Picker.Behaviors>
-                    <behaviors1:EventToCommandBehavior Command="{Binding SelectionChangedCommand}" EventName="SelectedIndexChanged" />
+                    <xct:EventToCommandBehavior Command="{Binding SelectionChangedCommand}" EventName="SelectedIndexChanged" />
                 </Picker.Behaviors>
             </Picker>
             <ImageButton
@@ -89,7 +88,7 @@
                 Command="{Binding CancelCommand}"
                 HorizontalOptions="CenterAndExpand"
                 IsVisible="{Binding ActiveUser, Converter={StaticResource nullToVisibility}}"
-                Text="{x:Static resources:AppResources.Cancel}"
+                Text="{xct:Translate Cancel}"
                 VerticalOptions="End"
                 WidthRequest="200" />
         </Grid>

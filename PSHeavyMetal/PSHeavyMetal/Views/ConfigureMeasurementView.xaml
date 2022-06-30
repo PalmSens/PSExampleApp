@@ -3,9 +3,9 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
@@ -22,17 +22,17 @@
             VerticalOptions="EndAndExpand">
             <Label
                 Style="{StaticResource MediumTextStyle}"
-                Text="{x:Static resources:AppResources.ConfigureMeasurementHeader}"
+                Text="{xct:Translate ConfigureMeasurementHeader}"
                 VerticalOptions="CenterAndExpand" />
             <Button
                 Command="{Binding ImportAnalyteCommand}"
                 HorizontalOptions="Center"
-                Text="{x:Static resources:AppResources.ImportAnalyte}"
+                Text="{xct:Translate ImportAnalyte}"
                 WidthRequest="200" />
             <Label
                 Margin="0,50,0,0"
                 Style="{StaticResource SmallTextStyle}"
-                Text="{x:Static resources:AppResources.KnownAnalytes}" />
+                Text="{xct:Translate KnownAnalytes}" />
             <ListView
                 HasUnevenRows="True"
                 HeightRequest="400"

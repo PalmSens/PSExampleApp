@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using PSHeavyMetal.Forms.ViewModels;
+using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms.Xaml;
 
 namespace PSHeavyMetal.Forms.Views
@@ -9,6 +10,7 @@ namespace PSHeavyMetal.Forms.Views
         public SettingsPopUp()
         {
             BackgroundColor = new Xamarin.Forms.Color(0, 0, 0, 0.8);
+            BindingContext = App.GetViewModel<SettingsViewModel>();
             InitializeComponent();
         }
     }

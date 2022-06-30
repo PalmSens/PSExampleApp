@@ -3,9 +3,9 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementDataView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:MeasurementDataViewModel">
@@ -26,14 +26,14 @@
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label
                     Style="{StaticResource SmallTextStyle}"
-                    Text="{x:Static resources:AppResources.ResultFor}"
+                    Text="{xct:Translate ResultFor}"
                     VerticalOptions="Start" />
                 <Label Style="{StaticResource SmallTextStyle}" Text="{Binding LoadedMeasurement.Name}" />
 
                 <Label
                     Margin="0,30,0,0"
                     Style="{StaticResource SmallTextStyle}"
-                    Text="{x:Static resources:AppResources.Found}"
+                    Text="{xct:Translate Found}"
                     VerticalOptions="EndAndExpand" />
                 <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
                     <Label.Text>
@@ -51,7 +51,7 @@
                 <Button
                     Command="{Binding TakePhotoCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.AddPhoto}"
+                    Text="{xct:Translate AddPhoto}"
                     WidthRequest="200" />
                 <CollectionView
                     HeightRequest="75"
@@ -77,16 +77,16 @@
                 <Button
                     Command="{Binding ShareMeasurementCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.ShareReport}"
+                    Text="{xct:Translate ShareReport}"
                     WidthRequest="200" />
                 <Button
                     Command="{Binding ShowPlotCommand}"
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.ShowPlot}"
+                    Text="{xct:Translate ShowPlot}"
                     WidthRequest="200" />
                 <Button
                     HorizontalOptions="Center"
-                    Text="{x:Static resources:AppResources.Back}"
+                    Text="{xct:Translate Back}"
                     WidthRequest="200" />
             </StackLayout>
         </StackLayout>

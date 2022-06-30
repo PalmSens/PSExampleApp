@@ -15,6 +15,13 @@ namespace PSHeavyMetal.Core.Repositories
             _dataOperations = dataOperations;
         }
 
+        public async Task<User> CreateUser(string name)
+        {
+            var user = new User { Name = name, Password = "123", Id = Guid.NewGuid(), Language = Language.English };
+            await _dataOperations.SaveAsync(user);
+            return user;
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _dataOperations.GetAll<User>();
@@ -33,13 +40,6 @@ namespace PSHeavyMetal.Core.Repositories
         public Task<User> LoadUserByName(string name)
         {
             return _dataOperations.LoadByNameAsync<User>(name);
-        }
-
-        public async Task<User> CreateUser(string name)
-        {
-            var user = new User { Name = name, Password = "123", Id = Guid.NewGuid() };
-            await _dataOperations.SaveAsync(user);
-            return user;
         }
 
         public async Task UpdateUser(User user)

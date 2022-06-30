@@ -3,9 +3,9 @@
     x:Class="PSHeavyMetal.Forms.Views.RunMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
     x:DataType="viewmodels:RunMeasurementViewModel"
@@ -23,7 +23,7 @@
             VerticalOptions="CenterAndExpand">
             <Label
                 Style="{StaticResource SmallTextStyle}"
-                Text="{x:Static resources:AppResources.Analyzing_Sample}"
+                Text="{xct:Translate Analyzing_Sample}"
                 VerticalOptions="Start" />
             <Label Style="{StaticResource SmallSubTextStyle}" Text="{Binding ActiveMeasurement.Name}" />
             <Grid
@@ -50,7 +50,7 @@
                 Command="{Binding ContinueCommand}"
                 HorizontalOptions="Center"
                 IsVisible="{Binding MeasurementIsFinished}"
-                Text="{x:Static resources:AppResources.Continue}"
+                Text="{xct:Translate Continue}"
                 WidthRequest="200" />
         </StackLayout>
 

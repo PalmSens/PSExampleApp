@@ -4,8 +4,13 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
+    xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:DataType="viewmodels:SettingsViewModel"
     Visual="Material">
     <pages:PopupPage.Animation>
         <pagesanimation:ScaleAnimation
@@ -19,6 +24,17 @@
             ScaleIn="1.2"
             ScaleOut="0.8" />
     </pages:PopupPage.Animation>
+
+    <pages:PopupPage.Behaviors>
+        <behaviors:OnPopupDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
+    </pages:PopupPage.Behaviors>
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <local:EnumBooleanConverter x:Key="enumToBooleanConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
     <StackLayout
         HorizontalOptions="CenterAndExpand"
         VerticalOptions="CenterAndExpand"
@@ -26,21 +42,22 @@
         <Label
             HorizontalOptions="Start"
             Style="{StaticResource MediumTextStyle}"
-            Text="{x:Static resources:AppResources.Settings}" />
+            Text="{xct:Translate Settings}" />
         <BoxView HeightRequest="2" Color="White" />
         <StackLayout Margin="0,10,0,30">
             <Label
                 HorizontalOptions="Start"
                 Style="{StaticResource SmallTextStyle}"
-                Text="{x:Static resources:AppResources.Language}" />
+                Text="{xct:Translate Language}" />
             <RadioButton
-                Content="{x:Static resources:AppResources.English}"
+                Content="{xct:Translate English}"
                 GroupName="Languages"
-                IsChecked="True"
+                IsChecked="{Binding Path=Language, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static model:Language.English}}"
                 TextColor="White" />
             <RadioButton
-                Content="{x:Static resources:AppResources.Nederlands}"
+                Content="{xct:Translate Nederlands}"
                 GroupName="Languages"
+                IsChecked="{Binding Path=Language, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static model:Language.Dutch}}"
                 TextColor="White" />
         </StackLayout>
         <BoxView HeightRequest="2" Color="White" />
@@ -48,7 +65,7 @@
             <Label
                 HorizontalOptions="StartAndExpand"
                 Style="{StaticResource SmallTextStyle}"
-                Text="{x:Static resources:AppResources.AdminMode}" />
+                Text="{xct:Translate AdminMode}" />
             <Switch HorizontalOptions="EndAndExpand" />
         </StackLayout>
     </StackLayout>

@@ -3,9 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
-    xmlns:resources="clr-namespace:PSHeavyMetal.Forms.Resx"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:DataType="viewmodels:SelectMeasurementViewModel"
@@ -29,7 +29,7 @@
         <Label
             HorizontalOptions="Start"
             Style="{StaticResource MediumTextStyle}"
-            Text="{x:Static resources:AppResources.Measurements}" />
+            Text="{xct:Translate Measurements}" />
         <BoxView
             Margin="0,0,0,20"
             HeightRequest="2"
