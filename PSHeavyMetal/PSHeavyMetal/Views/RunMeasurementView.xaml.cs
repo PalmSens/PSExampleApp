@@ -1,5 +1,5 @@
 ﻿using PSHeavyMetal.Forms.ViewModels;
-
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +11,16 @@ namespace PSHeavyMetal.Forms.Views
         public RunMeasurementView()
         {
             BindingContext = App.GetViewModel<RunMeasurementViewModel>();
-            InitializeComponent();
+
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
     }
 }

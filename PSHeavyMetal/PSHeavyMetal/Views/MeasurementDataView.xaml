@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImage" />
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -21,8 +22,19 @@
     </ContentPage.Behaviors>
 
     <Grid>
-
-        <StackLayout>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding IsCreatingReport}"
+            Spacing="50"
+            VerticalOptions="CenterAndExpand">
+            <Label Style="{StaticResource MediumTextStyle}" Text="{xct:Translate CreatingReport}" />
+            <ActivityIndicator
+                HeightRequest="100"
+                IsRunning="True"
+                WidthRequest="100"
+                Color="White" />
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsCreatingReport, Converter={StaticResource InverseBoolConverter}}">
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label
                     Style="{StaticResource SmallTextStyle}"

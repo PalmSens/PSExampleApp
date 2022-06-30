@@ -90,9 +90,9 @@ namespace PSHeavyMetal.Forms.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ANALYZING SAMPLE.
         /// </summary>
-        public static string Analyzing_Sample {
+        public static string AnalyzingSample {
             get {
-                return ResourceManager.GetString("Analyzing Sample", resourceCulture);
+                return ResourceManager.GetString("AnalyzingSample", resourceCulture);
             }
         }
         
@@ -156,6 +156,15 @@ namespace PSHeavyMetal.Forms.Resx {
         public static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating Report...
+        /// </summary>
+        public static string CreatingReport {
+            get {
+                return ResourceManager.GetString("CreatingReport", resourceCulture);
             }
         }
         

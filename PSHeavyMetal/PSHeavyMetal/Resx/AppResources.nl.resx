@@ -126,7 +126,7 @@
   <data name="AdminMode" xml:space="preserve">
     <value>Admin mode</value>
   </data>
-  <data name="Analyzing Sample" xml:space="preserve">
+  <data name="AnalyzingSample" xml:space="preserve">
     <value>MONSTER ANALYSEREN</value>
   </data>
   <data name="Back" xml:space="preserve">
@@ -149,6 +149,9 @@
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Vervolgen</value>
+  </data>
+  <data name="CreatingReport" xml:space="preserve">
+    <value>Rapport maken..</value>
   </data>
   <data name="Disconnect" xml:space="preserve">
     <value>Verbinding verbreken</value>

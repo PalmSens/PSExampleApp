@@ -21,6 +21,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly IMeasurementService _measurementService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IShareService _shareService;
+        private bool _isCreatingReport;
         private HeavyMetalMeasurement _loadedMeasurement;
 
         public MeasurementDataViewModel(IMeasurementService measurementService, IShareService shareService)
@@ -39,6 +40,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             TakePhotoCommand = CommandFactory.Create(TakePhoto);
         }
 
+        public bool IsCreatingReport
+        {
+            get => _isCreatingReport;
+            set => SetProperty(ref _isCreatingReport, value);
+        }
+
         public HeavyMetalMeasurement LoadedMeasurement
         {
             get => _loadedMeasurement;
@@ -46,7 +53,6 @@ namespace PSHeavyMetal.Forms.ViewModels
         }
 
         public ObservableCollection<ImageSource> MeasurementPhotos { get; } = new ObservableCollection<ImageSource>();
-
         public ICommand OnPageAppearingCommand { get; }
 
         public ICommand OnPhotoSelected { get; }
@@ -57,19 +63,6 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ICommand TakePhotoCommand { get; }
 
-        public async Task ShareMeasurement()
-        {
-            var cacheFile = Path.Combine(FileSystem.CacheDirectory, "test.pdf");
-
-            _shareService.CreatePdfFile(LoadedMeasurement, cacheFile);
-
-            await Share.RequestAsync(new ShareFileRequest
-            {
-                Title = "Sharing is Caring",
-                File = new ShareFile(cacheFile)
-            });
-        }
-
         private void OnPageAppearing()
         {
             if (LoadedMeasurement.MeasurementImages == null)
@@ -77,7 +70,6 @@ namespace PSHeavyMetal.Forms.ViewModels
 
             foreach (var image in LoadedMeasurement.MeasurementImages)
             {
-                //MeasurementPhotos.Add(ImageSource.FromStream(() => new MemoryStream(image)));
                 MeasurementPhotos.Add(ImageSource.FromStream(() =>
                 {
                     return new MemoryStream(image);
@@ -88,6 +80,23 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task OpenPhoto(ImageSource photo)
         {
             await _popupNavigation.PushAsync(new MeasurementPhotoPopup(photo));
+        }
+
+        private async Task ShareMeasurement()
+        {
+            var cacheFile = Path.Combine(FileSystem.CacheDirectory, $"Report{LoadedMeasurement.Name}");
+            IsCreatingReport = true;
+
+            //CreatePDFfile is a long running proces that isn't async by itself.
+            await Task.Run(() => _shareService.CreatePdfFile(LoadedMeasurement, cacheFile));
+
+            IsCreatingReport = false;
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Sharing is Caring",
+                File = new ShareFile(cacheFile)
+            });
         }
 
         private async Task TakePhoto()
