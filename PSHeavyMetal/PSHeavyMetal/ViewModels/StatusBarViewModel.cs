@@ -17,16 +17,16 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private readonly IDeviceService _deviceService;
         private readonly IMeasurementService _measurementService;
-        private readonly IUserService _userService;
+        private readonly IMessageService _messageService;
         private bool _hasActiveMeasurement;
-        private bool _hasActiveUser;
         private bool _isConnected;
         private IPermissionService _permissionService;
         private IPopupNavigation _popupNavigation;
         private string _statusText;
 
-        public StatusBarViewModel(IDeviceService deviceService, IUserService userService, IPermissionService permissionService, IMeasurementService measurementService)
+        public StatusBarViewModel(IDeviceService deviceService, IPermissionService permissionService, IMeasurementService measurementService, IMessageService messageService)
         {
+            _messageService = messageService;
             _measurementService = measurementService;
             _permissionService = permissionService;
             _deviceService = deviceService;
@@ -42,7 +42,6 @@ namespace PSHeavyMetal.Forms.ViewModels
                                 //DisplayAlert();
                                 Console.WriteLine(ex.Message);
                             }), allowsMultipleExecutions: false);
-            _userService = userService;
         }
 
         public bool HasActiveMeasurement
@@ -129,7 +128,22 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task DiscoverDevices()
         {
             _deviceService.DeviceDiscovered += _deviceService_DeviceDiscovered;
-            await _deviceService.DetectDevicesAsync();
+
+            try
+            {
+                await _deviceService.DetectDevicesAsync();
+            }
+            catch (PermissionException)
+            {
+                _messageService.ShortAlert("Please allow bluetooth persmission to start scanning");
+                await _permissionService.RequestBluetoothPermission();
+                await DiscoverDevices();
+            }
+            catch (Exception ex)
+            {
+                _messageService.LongAlert($"Discovering devices failed. Retrying to start the scanner. {ex}");
+                await DiscoverDevices();
+            }
         }
 
         private async Task OnViewAppearing()

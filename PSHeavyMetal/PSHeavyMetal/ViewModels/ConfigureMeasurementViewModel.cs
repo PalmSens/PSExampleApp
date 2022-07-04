@@ -1,11 +1,12 @@
 ﻿using MvvmHelpers;
 using Newtonsoft.Json;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,16 +17,21 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class ConfigureMeasurementViewModel : BaseViewModel
     {
-        private IMeasurementService _measurementService;
+        private readonly IMeasurementService _measurementService;
+        private readonly IMessageService _messageService;
 
-        public ConfigureMeasurementViewModel(IMeasurementService measurementService)
+        public ConfigureMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService)
         {
-            _measurementService = measurementService;
-            OnConfigSelected = CommandFactory.Create(async conf => await SetConfiguration(conf as MeasurementConfiguration));
-            OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
-            ImportAnalyteCommand = CommandFactory.Create(ImportAnalyte);
+            this._measurementService = measurementService;
+            this._messageService = messageService;
+            this.OnConfigSelected = CommandFactory.Create(async conf => await SetConfiguration(conf as MeasurementConfiguration));
+            this.OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
+            this.ImportAnalyteCommand = CommandFactory.Create(ImportAnalyte);
         }
 
+        /// <summary>
+        /// Gets the import analyte command where the user can select a analyte to use for measurements
+        /// </summary>
         public ICommand ImportAnalyteCommand { get; }
 
         public ObservableCollection<MeasurementConfiguration> MeasurementConfigurations { get; } = new ObservableCollection<MeasurementConfiguration>();
@@ -59,36 +65,36 @@ namespace PSHeavyMetal.Forms.ViewModels
                     var jsonString = await streamReader.ReadToEndAsync();
                     var configuration = JsonConvert.DeserializeObject<MeasurementConfiguration>(jsonString);
 
-                    await _measurementService.SaveMeasurementConfiguration(configuration);
+                    await this._measurementService.SaveMeasurementConfiguration(configuration);
 
-                    MeasurementConfigurations.Add(configuration);
+                    this.MeasurementConfigurations.Add(configuration);
                 }
             }
-            catch (JsonException ex)
+            catch (PermissionException)
             {
-                Debug.WriteLine("Exception occured deserializing the selected json file");
+                _messageService.LongAlert("Failed to import file. Permissions not set");
             }
-            catch(IOException ex)
+            catch (Exception)
             {
-                Debug.WriteLine("exception occured with loading the selected file");
-            }            
+                _messageService.LongAlert("Failed importing analyte. Please check if the json file has the correct format");
+            }
         }
 
         private async Task OnPageAppearing()
         {
-            //If page reappears with configurations we don't want to reload them. This happens when a user returns with file picker
-            if (MeasurementConfigurations.Count != 0)
+            // If page reappears with configurations we don't want to reload them. This happens when a user returns with file picker
+            if (this.MeasurementConfigurations.Count != 0)
                 return;
 
-            var configurations = await _measurementService.LoadAllMeasurementConfigurationsAsync();
+            var configurations = await this._measurementService.LoadAllMeasurementConfigurationsAsync();
 
             foreach (var config in configurations)
-                MeasurementConfigurations.Add(config);
+                this.MeasurementConfigurations.Add(config);
         }
 
         private async Task SetConfiguration(MeasurementConfiguration configuration)
         {
-            _measurementService.CreateMeasurement(configuration);
+            this._measurementService.CreateMeasurement(configuration);
 
             await NavigationDispatcher.Push(NavigationViewType.PrepareMeasurementView);
         }

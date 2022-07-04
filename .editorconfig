@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = none

@@ -20,6 +20,8 @@ namespace PSHeavyMetal.Core.Services
             _instrumentService = instrumentService;
         }
 
+        public event EventHandler<PlatformDevice> DeviceDisconnected;
+
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
         public event EventHandler<PlatformDevice> DeviceRemoved;
@@ -55,7 +57,7 @@ namespace PSHeavyMetal.Core.Services
             catch (Exception ex)
             {
                 Debug.WriteLine($"Connection failed {ex}");
-                await DetectDevicesAsync();
+                throw;
             }
         }
 
@@ -69,13 +71,37 @@ namespace PSHeavyMetal.Core.Services
             _cancellationTokenSource = new CancellationTokenSource();
             IsDetecting = true;
 
-            await _instrumentService.GetConnectedDevices(_cancellationTokenSource.Token).ConfigureAwait(false);
+            try
+            {
+                await _instrumentService.GetConnectedDevices(_cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
 
+        /// <summary>
+        /// Disconnect the device and restarts device discovery
+        /// </summary>
+        /// <returns></returns>
         public async Task DisconnectDevice()
         {
-            await _instrumentService.DisconnectAsync();
-            this.ConnectedDevice = null;
+            try
+            {
+                await _instrumentService.DisconnectAsync();
+                this.ConnectedDevice = null;
+            }
+            catch (NullReferenceException ex)
+            {
+                // With a null exception it means its allready disconnected. We don't want to do anything except log the exception and force invokethe disconnected event.
+                Debug.WriteLine(ex);
+                this.DeviceDisconnected.Invoke(this, ConnectedDevice);
+                this.ConnectedDevice = null;
+            }
+
+            await this.DetectDevicesAsync();
         }
 
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)

@@ -220,10 +220,12 @@
     <value />
   </data>
   <data name="SelectPageMultipleReaders" xml:space="preserve">
-    <value>{0} readers found, please select:</value>
+    <value>{0} readers found, 
+please select:</value>
   </data>
   <data name="SelectPageReaderFound" xml:space="preserve">
-    <value>1 reader found,  please select:</value>
+    <value>1 reader found,  
+please select:</value>
   </data>
   <data name="SelectUser" xml:space="preserve">
     <value>Select user</value>

@@ -8,6 +8,11 @@ namespace PSHeavyMetal.Core.Services
 {
     public interface IDeviceService
     {
+        /// <summary>
+        /// The device disconnected is a separate event
+        /// </summary>
+        public event EventHandler<PlatformDevice> DeviceDisconnected;
+
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
         public event EventHandler<PlatformDevice> DeviceRemoved;

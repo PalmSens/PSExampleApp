@@ -1,5 +1,6 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Models;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Resx;
@@ -16,21 +17,20 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class SelectDeviceViewModel : BaseViewModel
     {
         private readonly IDeviceService _deviceService;
+        private readonly IMessageService _messageService;
+        private readonly IPermissionService _permissionService;
         private bool _isConnecting;
 
-        public SelectDeviceViewModel(IDeviceService deviceService)
+        public SelectDeviceViewModel(IDeviceService deviceService, IMessageService messageService, IPermissionService permissionService)
         {
             _deviceService = deviceService;
+            _messageService = messageService;
+            _permissionService = permissionService;
 
             AvailableDevices.CollectionChanged += AvailableDevices_CollectionChanged;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
 
-            OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing, onException: ex =>
-                            MainThread.BeginInvokeOnMainThread(() =>
-                            {
-                                //DisplayAlert();
-                                Console.WriteLine(ex.Message);
-                            }), allowsMultipleExecutions: false);
+            OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
             OnPageDisappearingCommand = CommandFactory.Create(OnPageDisappearing);
             OnInstrumentSelected = CommandFactory.Create(async pd => await ConnectToInstrument(pd as PlatformDevice));
             CancelCommand = CommandFactory.Create(async () => await NavigationDispatcher.Pop());
@@ -112,7 +112,16 @@ namespace PSHeavyMetal.Forms.ViewModels
             IsConnecting = true;
             AbortDeviceDiscovery();
             await Task.Delay(100);
-            await _deviceService.ConnectToDeviceAsync(device);
+
+            try
+            {
+                await _deviceService.ConnectToDeviceAsync(device);
+            }
+            catch (Exception)
+            {
+                _messageService.LongAlert("Connection to device failed. Please try again");
+                await ResetDeviceDiscovery();
+            }
 
             await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
         }
@@ -122,22 +131,48 @@ namespace PSHeavyMetal.Forms.ViewModels
             await _deviceService.DisconnectDevice();
         }
 
-        private async Task OnPageAppearing()
+        private void OnPageAppearing()
         {
-            IsConnecting = false;
+            this.IsConnecting = false;
 
-            foreach (var device in _deviceService.AvailableDevices)
-                AvailableDevices.Add(device);
+            foreach (var device in this._deviceService.AvailableDevices)
+                this.AvailableDevices.Add(device);
 
-            _deviceService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
-            _deviceService.DeviceRemoved += _deviceService_DeviceRemoved;
+            this._deviceService.DeviceDiscovered += this._instrumentService_DeviceDiscovered;
+            this._deviceService.DeviceRemoved += this._deviceService_DeviceRemoved;
         }
 
-        private async Task OnPageDisappearing()
+        private void OnPageDisappearing()
         {
             AvailableDevices.CollectionChanged -= AvailableDevices_CollectionChanged;
             _deviceService.DeviceStateChanged -= _deviceService_DeviceStateChanged;
             AbortDeviceDiscovery();
+        }
+
+        /// <summary>
+        /// This methods resets the available devices and tries to discover devices again
+        /// </summary>
+        /// <returns></returns>
+        private async Task ResetDeviceDiscovery()
+        {
+            IsConnecting = false;
+            AvailableDevices.Clear();
+            _deviceService.DeviceDiscovered += _instrumentService_DeviceDiscovered;
+            try
+            {
+                await _deviceService.DetectDevicesAsync();
+            }
+            catch (PermissionException)
+            {
+                _messageService.ShortAlert("Please allow bluetooth persmission to start scanning");
+                await _permissionService.RequestBluetoothPermission();
+                await _deviceService.DetectDevicesAsync();
+            }
+            catch (Exception ex)
+            {
+                _messageService.LongAlert($"Discovering devices failed. Retrying to start the scanner. {ex}");
+                await _deviceService.DetectDevicesAsync();
+            }
         }
     }
 }

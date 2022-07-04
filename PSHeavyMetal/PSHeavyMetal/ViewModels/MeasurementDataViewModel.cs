@@ -1,4 +1,5 @@
 ﻿using MvvmHelpers;
+using Plugin.Media;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
@@ -101,11 +102,15 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task TakePhoto()
         {
-            var result = await MediaPicker.CapturePhotoAsync();
+            var mediaOptions = new MediaPickerOptions();
+
+            //var result = await MediaPicker.CapturePhotoAsync();
+
+            var result = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions { CompressionQuality = 20, MaxWidthHeight = 200 }).ConfigureAwait(false);
 
             if (result != null)
             {
-                var stream = await result.OpenReadAsync();
+                var stream = result.GetStream();
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -115,6 +120,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                     await _measurementService.SavePhoto(byteArray);
 
                     var image = ImageSource.FromStream(() => memoryStream);
+
                     MeasurementPhotos.Add(image);
                 }
             }

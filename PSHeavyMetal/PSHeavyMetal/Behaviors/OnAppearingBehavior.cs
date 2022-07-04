@@ -17,7 +17,7 @@ namespace PSHeavyMetal.Forms.Behaviors
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
-            this.BindingContext = bindable.BindingContext; //necessary due to design choice in XF, https://github.com/xamarin/Xamarin.Forms/issues/2581
+            this.BindingContext = bindable.BindingContext; // necessary due to design choice in XF, https://github.com/xamarin/Xamarin.Forms/issues/2581
             bindable.Appearing += Bindable_Appearing;
         }
 
@@ -29,9 +29,10 @@ namespace PSHeavyMetal.Forms.Behaviors
 
         private void Bindable_Appearing(object sender, System.EventArgs e)
         {
-            if (OnAppearingCommand == null) return;
+            if (this.OnAppearingCommand == null)
+                return;
 
-            OnAppearingCommand.Execute(e);
+            this.OnAppearingCommand.Execute(e);
         }
     }
 }

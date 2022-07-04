@@ -1,18 +1,18 @@
-﻿using PSHeavyMetal.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace PSHeavyMetal.Core.DataAccess
+﻿namespace PSHeavyMetal.Core.DataAccess
 {
+    using PSHeavyMetal.Common.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IDataOperations
     {
         /// <summary>
-        /// Deletes a entity from the collection
+        /// Delete a
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public Task DeleteByIdAsync<T>(Guid id) where T : DataObject;
 
         /// <summary>

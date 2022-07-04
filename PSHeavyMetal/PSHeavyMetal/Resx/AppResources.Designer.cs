@@ -367,7 +367,8 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} readers found, please select:.
+        ///   Looks up a localized string similar to {0} readers found, 
+        ///please select:.
         /// </summary>
         public static string SelectPageMultipleReaders {
             get {
@@ -376,7 +377,8 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1 reader found,  please select:.
+        ///   Looks up a localized string similar to 1 reader found,  
+        ///please select:.
         /// </summary>
         public static string SelectPageReaderFound {
             get {

@@ -34,7 +34,8 @@ namespace PSHeavyMetal.Forms
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SensorDetectionViewModel>();
             services.AddTransient<MeasurementDataViewModel>();
-            //The next view models are added as scoped since they are used more persistant in the application.
+
+            // The next view models are added as scoped since they are used more persistant in the application.
             services.AddScoped<TitleViewModel>();
             services.AddScoped<StatusBarViewModel>();
             return services;
@@ -45,6 +46,7 @@ namespace PSHeavyMetal.Forms
             services.AddSingleton<IShareService, ShareService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton(DependencyService.Resolve<IPermissionService>());
+            services.AddSingleton(DependencyService.Resolve<IMessageService>());
             services.AddSingleton(DependencyService.Resolve<ILoadAssetsService>());
             services.AddSingleton(DependencyService.Resolve<InstrumentService>());
             services.AddSingleton(DependencyService.Resolve<ILoadSavePlatformService>());

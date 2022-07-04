@@ -39,6 +39,7 @@ namespace PSHeavyMetal.Droid
             //Register platform specific services
             DependencyService.RegisterSingleton(new InstrumentService(new PlatformDeviceManager()));
             DependencyService.RegisterSingleton<IPermissionService>(new PermissionService());
+            DependencyService.RegisterSingleton<IMessageService>(new MessageAndroid());
 
             DependencyService.RegisterSingleton<ILoadAssetsService>(new LoadAssetsService());
             DependencyService.RegisterSingleton<ILoadSavePlatformService>(new SimpleLoadSaveFunctions());

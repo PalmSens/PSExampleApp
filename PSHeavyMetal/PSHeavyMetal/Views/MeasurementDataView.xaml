@@ -3,11 +3,11 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementDataView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:MeasurementDataViewModel">
 
     <ContentPage.Resources>
@@ -74,9 +74,15 @@
                     WidthRequest="200">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
+                            <!--<ffimageloading:CachedImage
+                                Margin="5"
+                                HeightRequest="50"
+                                Source="{Binding}"
+                                WidthRequest="50" />-->
                             <Grid>
                                 <ImageButton
                                     Margin="5"
+                                    BackgroundColor="Purple"
                                     Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
                                     CommandParameter="{Binding}"
                                     HeightRequest="50"

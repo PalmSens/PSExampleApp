@@ -1,5 +1,7 @@
 ﻿using MvvmHelpers;
+using PalmSens;
 using PalmSens.Core.Simplified.Data;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Common.Models;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
@@ -15,7 +17,9 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class RunMeasurementViewModel : BaseViewModel
     {
+        private readonly IDeviceService _deviceService;
         private readonly IMeasurementService _measurementService;
+        private readonly IMessageService _messageService;
         private SimpleCurve _activeCurve;
         private Countdown _countdown = new Countdown();
 
@@ -23,9 +27,11 @@ namespace PSHeavyMetal.Forms.ViewModels
         private double _progress;
         private int _progressPercentage;
 
-        public RunMeasurementViewModel(IMeasurementService measurementService)
+        public RunMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IDeviceService deviceService)
         {
             Progress = 0;
+            _deviceService = deviceService;
+            _messageService = messageService;
             _measurementService = measurementService;
             _measurementService.DataReceived += _measurementService_DataReceived;
             _measurementService.MeasurementEnded += _measurementService_MeasurementEnded;
@@ -115,6 +121,20 @@ namespace PSHeavyMetal.Forms.ViewModels
             MeasurementIsFinished = true;
         }
 
+        private Method LoadDiffPulseMethod()
+        {
+            try
+            {
+                return _measurementService.LoadMethod("PSDiffPulse.psmethod");
+            }
+            catch (Exception)
+            {
+                // When the method file cannot be found it means that it's manually removed. In this case the app needs to be reinstalled
+                MainThread.BeginInvokeOnMainThread(() => _messageService.ShortAlert("Not able to load the method. Please reinstall the heavy metal app"));
+                throw;
+            }
+        }
+
         private void OnCountdownTicked()
         {
             Progress = _countdown.ElapsedTime / _countdown.TotalTimeInMilliSeconds;
@@ -123,12 +143,39 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OnPageAppearing()
         {
-            var method = _measurementService.LoadMethod("PSDiffPulse.psmethod");
+            var method = LoadDiffPulseMethod();
 
-            _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
-            _countdown.Ticked += OnCountdownTicked;
+            try
+            {
+                _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
+                _countdown.Ticked += OnCountdownTicked;
 
-            _measurementService.ActiveMeasurement.Measurement = await _measurementService.StartMeasurement(method);
+                _measurementService.ActiveMeasurement.Measurement = await _measurementService.StartMeasurement(method);
+            }
+            catch (NullReferenceException)
+            {
+                // Nullreference is thrown when device is not connected anymore. In this case we pop back to homescreen. The user can then try to reconnect again
+                _messageService.ShortAlert("Not connected to a device, please try reconnecting to a device again");
+                this._measurementService.ResetMeasurement();
+                await _deviceService.DisconnectDevice();
+                await NavigationDispatcher.PopToRoot();
+            }
+            catch (ArgumentException)
+            {
+                // Argument exception is thrown when method is incompatible with the connected device.
+                _messageService.ShortAlert("Device incompatible. Please select a different device");
+                this._measurementService.ResetMeasurement();
+                await _deviceService.DisconnectDevice();
+                await NavigationDispatcher.PopToRoot();
+            }
+            catch (Exception ex)
+            {
+                _messageService.LongAlert("Something went wrong with starting a measurement please restart the device and try again");
+                Debug.WriteLine(ex);
+                this._measurementService.ResetMeasurement();
+                await _deviceService.DisconnectDevice();
+                await NavigationDispatcher.PopToRoot();
+            }
         }
 
         private async Task RunPeakAnalysis()
