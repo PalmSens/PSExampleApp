@@ -35,6 +35,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         public ObservableCollection<MeasurementInfo> AvailableMeasurements { get; } = new ObservableCollection<MeasurementInfo>();
 
         public ICommand DeleteCommand { get; }
+
+        public ICommand MeasurementSelectedCommand { get; }
+
         public ICommand OnMeasurementSelectedCommand { get; }
 
         private void AddMeasurements()
