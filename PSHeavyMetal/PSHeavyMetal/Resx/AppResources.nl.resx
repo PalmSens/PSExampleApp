@@ -144,6 +144,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>Bevestig</value>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Verbonden met instrument</value>
+  </data>
   <data name="Connecting" xml:space="preserve">
     <value>Verbinden..</value>
   </data>

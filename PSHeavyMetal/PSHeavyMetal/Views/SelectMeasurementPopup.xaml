@@ -47,7 +47,7 @@
                 <DataTemplate x:DataType="model:MeasurementInfo">
                     <ViewCell>
                         <StackLayout VerticalOptions="Start">
-                            <!--<SwipeView BackgroundColor="Transparent">
+                            <SwipeView BackgroundColor="Transparent">
                                 <SwipeView.LeftItems>
                                     <SwipeItems>
                                         <SwipeItemView
@@ -63,42 +63,42 @@
                                                 Source="delete.png" />
                                         </SwipeItemView>
                                     </SwipeItems>
-                                </SwipeView.LeftItems>-->
-                            <Frame
-                                Margin="7"
-                                Padding="5,2,5,2"
-                                BackgroundColor="Transparent"
-                                BorderColor="White"
-                                CornerRadius="0"
-                                HasShadow="False"
-                                HeightRequest="60">
-                                <StackLayout
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="10">
-                                    <Image
-                                        HeightRequest="15"
-                                        Scale="0.8"
-                                        Source="chart.png"
-                                        WidthRequest="30" />
-                                    <StackLayout Spacing="0">
-                                        <Label
-                                            FontSize="18"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            Style="{StaticResource MicroTextStyle}"
-                                            Text="{Binding MeasurementDate, StringFormat='{}{0:MM/dd/yyyy}'}"
-                                            VerticalTextAlignment="Center" />
-                                        <Label
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            Style="{StaticResource MicroTextStyle}"
-                                            Text="{Binding Name}"
-                                            VerticalTextAlignment="Center" />
+                                </SwipeView.LeftItems>
+                                <Frame
+                                    Margin="7"
+                                    Padding="5,2,5,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    CornerRadius="0"
+                                    HasShadow="False"
+                                    HeightRequest="60">
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <Image
+                                            HeightRequest="15"
+                                            Scale="0.8"
+                                            Source="chart.png"
+                                            WidthRequest="30" />
+                                        <StackLayout Spacing="0">
+                                            <Label
+                                                FontSize="18"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                Style="{StaticResource MicroTextStyle}"
+                                                Text="{Binding MeasurementDate, StringFormat='{}{0:MM/dd/yyyy}'}"
+                                                VerticalTextAlignment="Center" />
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                Style="{StaticResource MicroTextStyle}"
+                                                Text="{Binding Name}"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                            <!--</SwipeView>-->
+                                </Frame>
+                            </SwipeView>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

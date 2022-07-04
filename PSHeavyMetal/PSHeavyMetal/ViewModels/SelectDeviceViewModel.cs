@@ -105,6 +105,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private void AvailableDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged(nameof(ReaderResult));
+            OnPropertyChanged(nameof(IsConnected));
         }
 
         private async Task ConnectToInstrument(PlatformDevice device)
@@ -128,12 +129,16 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task Disconnect()
         {
+            AvailableDevices.Clear();
             await _deviceService.DisconnectDevice();
+            OnPropertyChanged(nameof(IsConnected));
         }
 
         private void OnPageAppearing()
         {
             this.IsConnecting = false;
+            this.AvailableDevices.Clear();
+            AvailableDevices.CollectionChanged += AvailableDevices_CollectionChanged;
 
             foreach (var device in this._deviceService.AvailableDevices)
                 this.AvailableDevices.Add(device);

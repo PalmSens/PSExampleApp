@@ -11,7 +11,7 @@ namespace PSHeavyMetal.Core.Services
         /// <summary>
         /// The device disconnected is a separate event
         /// </summary>
-        public event EventHandler<PlatformDevice> DeviceDisconnected;
+        public event EventHandler<Exception> DeviceDisconnected;
 
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 

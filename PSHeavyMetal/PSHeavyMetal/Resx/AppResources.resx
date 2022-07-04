@@ -144,6 +144,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Connected to device</value>
+  </data>
   <data name="Connecting" xml:space="preserve">
     <value>Connecting..</value>
   </data>

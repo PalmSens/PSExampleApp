@@ -20,7 +20,7 @@ namespace PSHeavyMetal.Core.Services
             _instrumentService = instrumentService;
         }
 
-        public event EventHandler<PlatformDevice> DeviceDisconnected;
+        public event EventHandler<Exception> DeviceDisconnected;
 
         public event EventHandler<PlatformDevice> DeviceDiscovered;
 
@@ -53,6 +53,7 @@ namespace PSHeavyMetal.Core.Services
                 await _instrumentService.ConnectAsync(device.Device).ConfigureAwait(false);
                 ConnectedDevice = device;
                 DeviceStateChanged.Invoke(this, DeviceState.Connected);
+                _instrumentService.Disconnected += _instrumentService_Disconnected;
             }
             catch (Exception ex)
             {
@@ -92,12 +93,13 @@ namespace PSHeavyMetal.Core.Services
             {
                 await _instrumentService.DisconnectAsync();
                 this.ConnectedDevice = null;
+                this._instrumentService.Disconnected -= _instrumentService_Disconnected;
             }
             catch (NullReferenceException ex)
             {
                 // With a null exception it means its allready disconnected. We don't want to do anything except log the exception and force invokethe disconnected event.
                 Debug.WriteLine(ex);
-                this.DeviceDisconnected.Invoke(this, ConnectedDevice);
+                this.DeviceDisconnected?.Invoke(this, ex);
                 this.ConnectedDevice = null;
             }
 
@@ -128,6 +130,12 @@ namespace PSHeavyMetal.Core.Services
                 ConnectedDevice = null;
                 DeviceStateChanged?.Invoke(this, DeviceState.Disconnected);
             }
+        }
+
+        private void _instrumentService_Disconnected(object sender, Exception CommErrorException)
+        {
+            this.DeviceDisconnected?.Invoke(this, CommErrorException);
+            this.DeviceStateChanged?.Invoke(this, DeviceState.Disconnected);
         }
     }
 }

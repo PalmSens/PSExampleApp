@@ -40,7 +40,14 @@
         </StackLayout>
         <StackLayout IsVisible="{Binding IsConnecting, Converter={StaticResource InverseBool}}">
             <StackLayout VerticalOptions="CenterAndExpand">
-                <Label Style="{StaticResource MediumTextStyle}" Text="{Binding ReaderResult}" />
+                <Label
+                    IsVisible="{Binding IsConnected, Converter={StaticResource InverseBool}}"
+                    Style="{StaticResource MediumTextStyle}"
+                    Text="{Binding ReaderResult}" />
+                <Label
+                    IsVisible="{Binding IsConnected}"
+                    Style="{StaticResource MediumTextStyle}"
+                    Text="{xct:Translate Connected}" />
             </StackLayout>
             <StackLayout
                 HorizontalOptions="CenterAndExpand"

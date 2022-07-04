@@ -142,6 +142,15 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connected to device.
+        /// </summary>
+        public static string Connected {
+            get {
+                return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting...
         /// </summary>
         public static string Connecting {
