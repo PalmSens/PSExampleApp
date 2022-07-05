@@ -74,7 +74,9 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task SaveMeasurementInfo(HeavyMetalMeasurement measurement)
         {
-            this.ActiveUser.Measurements.Add(new MeasurementInfo { Id = measurement.Id, Name = measurement.Name, MeasurementDate = DateTime.Now });
+            if (!this.ActiveUser.Measurements.Any(x => x.Name == measurement.Name))
+                this.ActiveUser.Measurements.Add(new MeasurementInfo { Id = measurement.Id, Name = measurement.Name, MeasurementDate = DateTime.Now });
+
             await _userRepository.UpdateUser(ActiveUser);
         }
 

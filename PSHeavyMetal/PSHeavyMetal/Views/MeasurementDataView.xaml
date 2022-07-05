@@ -3,11 +3,12 @@
     x:Class="PSHeavyMetal.Forms.Views.MeasurementDataView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:models="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:MeasurementDataViewModel">
 
     <ContentPage.Resources>
@@ -19,6 +20,7 @@
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
     <Grid>
@@ -61,37 +63,46 @@
                 Spacing="10"
                 VerticalOptions="StartAndExpand">
                 <Button
+                    x:Name="button"
                     Command="{Binding TakePhotoCommand}"
                     HorizontalOptions="Center"
+                    IsVisible="{Binding HasMaxPhotos, Converter={StaticResource InverseBoolConverter}}"
                     Text="{xct:Translate AddPhoto}"
                     WidthRequest="200" />
-                <CollectionView
+                <Frame
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
                     HeightRequest="75"
-                    HorizontalOptions="Center"
-                    ItemsLayout="HorizontalList"
-                    ItemsSource="{Binding MeasurementPhotos}"
-                    VerticalOptions="CenterAndExpand"
                     WidthRequest="200">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <!--<ffimageloading:CachedImage
-                                Margin="5"
-                                HeightRequest="50"
-                                Source="{Binding}"
-                                WidthRequest="50" />-->
-                            <Grid>
-                                <ImageButton
-                                    Margin="5"
-                                    BackgroundColor="Purple"
-                                    Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelected}"
-                                    CommandParameter="{Binding}"
-                                    HeightRequest="50"
-                                    Source="{Binding}"
-                                    WidthRequest="50" />
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    <CollectionView
+                        HeightRequest="75"
+                        HorizontalOptions="StartAndExpand"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding MeasurementPhotos}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:MeasurementPhotoPresenter">
+                                <Grid>
+                                    <StackLayout
+                                        HeightRequest="50"
+                                        Orientation="Horizontal"
+                                        WidthRequest="70">
+                                        <ImageButton
+                                            Margin="5"
+                                            Aspect="AspectFill"
+                                            Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelectedCommand}"
+                                            CommandParameter="{Binding Photo}"
+                                            HeightRequest="50"
+                                            Source="{Binding Photo}"
+                                            WidthRequest="50" />
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
                 <Button
                     Command="{Binding ShareMeasurementCommand}"
                     HorizontalOptions="Center"

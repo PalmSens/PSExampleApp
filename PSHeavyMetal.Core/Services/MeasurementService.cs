@@ -216,12 +216,6 @@ namespace PSHeavyMetal.Core.Services
             await _measurementRepository.SaveMeasurementConfiguration(configuration);
         }
 
-        public async Task SavePhoto(byte[] photo)
-        {
-            ActiveMeasurement.MeasurementImages.Add(photo);
-            await SaveMeasurement(ActiveMeasurement);
-        }
-
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
         {
             return await _instrumentService.MeasureAsync(method);

@@ -9,6 +9,9 @@
         HorizontalOptions="Center"
         VerticalOptions="Center"
         WidthRequest="300">
-        <Image x:Name="ImageDisplay" />
+        <Image
+            x:Name="ImageDisplay"
+            HeightRequest="300"
+            WidthRequest="300" />
     </Grid>
 </pages:PopupPage>

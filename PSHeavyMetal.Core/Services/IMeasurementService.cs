@@ -87,12 +87,6 @@ namespace PSHeavyMetal.Core.Services
         /// <returns></returns>
         public Task SaveMeasurementConfiguration(MeasurementConfiguration configuration);
 
-        /// <summary>
-        /// Saves a photo as byte array
-        /// </summary>
-        /// <returns></returns>
-        public Task SavePhoto(byte[] photo);
-
         public Task<SimpleMeasurement> StartMeasurement(Method method);
     }
 }
