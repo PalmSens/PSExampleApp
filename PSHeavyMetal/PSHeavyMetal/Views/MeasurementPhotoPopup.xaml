@@ -2,8 +2,21 @@
 <pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.MeasurementPhotoPopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Animation>
+        <pagesanimation:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
     <Grid
         HeightRequest="300"
         HorizontalOptions="Center"
@@ -11,7 +24,7 @@
         WidthRequest="300">
         <Image
             x:Name="ImageDisplay"
-            HeightRequest="300"
-            WidthRequest="300" />
+            HeightRequest="350"
+            WidthRequest="350" />
     </Grid>
 </pages:PopupPage>

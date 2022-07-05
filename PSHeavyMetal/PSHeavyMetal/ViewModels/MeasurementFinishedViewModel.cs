@@ -118,7 +118,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task ShareMeasurement()
         {
-            var cacheFile = Path.Combine(FileSystem.CacheDirectory, $"Report{ActiveMeasurement.Name}");
+            var cacheFile = Path.Combine(FileSystem.CacheDirectory, $"Report-{ActiveMeasurement.Name}");
             IsCreatingReport = true;
 
             //CreatePDFfile is a long running proces that isn't async by itself.

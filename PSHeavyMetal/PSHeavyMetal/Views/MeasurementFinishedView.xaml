@@ -93,7 +93,7 @@
                                         <ImageButton
                                             Margin="5"
                                             Aspect="AspectFill"
-                                            Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelectedCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementFinishedViewModel}}, Path=OnPhotoSelectedCommand}"
                                             CommandParameter="{Binding Photo}"
                                             HeightRequest="50"
                                             Source="{Binding Photo}"
