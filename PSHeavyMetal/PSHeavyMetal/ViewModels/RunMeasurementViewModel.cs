@@ -3,6 +3,7 @@ using PalmSens;
 using PalmSens.Core.Simplified.Data;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Common.Models;
+using PSHeavyMetal.Core.Extentions;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using System;
@@ -80,12 +81,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             activeSimpleCurve.NewDataAdded += ActiveSimpleCurve_NewDataAdded;
         }
 
-        private async void _measurementService_MeasurementEnded(object sender, EventArgs e)
+        private void _measurementService_MeasurementEnded(object sender, EventArgs e)
         {
             _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
             _countdown.Ticked -= OnCountdownTicked;
 
-            await RunPeakAnalysis();
+            RunPeakAnalysis().WithCallback();
         }
 
         private void ActiveSimpleCurve_NewDataAdded(object sender, PalmSens.Data.ArrayDataAddedEventArgs e)

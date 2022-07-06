@@ -1,6 +1,7 @@
 ﻿using PalmSens.Core.Simplified.XF.Application.Models;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Common.Models;
+using PSHeavyMetal.Core.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace PSHeavyMetal.Core.Services
     {
         private readonly InstrumentService _instrumentService;
         private CancellationTokenSource _cancellationTokenSource;
+
+        private System.Timers.Timer _timer;
 
         public DeviceService(InstrumentService instrumentService)
         {
@@ -71,6 +74,14 @@ namespace PSHeavyMetal.Core.Services
 
             _cancellationTokenSource = new CancellationTokenSource();
             IsDetecting = true;
+
+            _timer = new System.Timers.Timer
+            {
+                Enabled = true,
+                Interval = 5000,
+            };
+
+            _timer.Elapsed += _timer_Elapsed;
 
             try
             {
@@ -136,6 +147,26 @@ namespace PSHeavyMetal.Core.Services
         {
             this.DeviceDisconnected?.Invoke(this, CommErrorException);
             this.DeviceStateChanged?.Invoke(this, DeviceState.Disconnected);
+        }
+
+        private void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //If the timing is triggered and no instruments are found then the application should restart the scanning.
+            if (AvailableDevices.Count == 0)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+                _timer = null;
+
+                _cancellationTokenSource.Cancel();
+                Task.Delay(10);
+                _cancellationTokenSource.Dispose();
+
+                _instrumentService.DeviceDiscovered -= _instrumentService_DeviceDiscovered;
+                _instrumentService.DeviceRemoved -= _instrumentService_DeviceRemoved;
+
+                DetectDevicesAsync().WithCallback();
+            }
         }
     }
 }
