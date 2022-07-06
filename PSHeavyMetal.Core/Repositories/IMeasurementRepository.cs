@@ -15,6 +15,13 @@ namespace PSHeavyMetal.Core.Repositories
         Task DeleteMeasurement(Guid id);
 
         /// <summary>
+        /// Deletes the configuration of the measurement
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteMeasurementConfiguration(Guid id);
+
+        /// <summary>
         /// Loads all measurement configurations
         /// </summary>
         /// <returns></returns>

@@ -3,17 +3,24 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
+    xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
+    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
     </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InverseBoolConverter x:Key="inverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
         <StackLayout
@@ -48,22 +55,40 @@
                         <ViewCell>
                             <!--<ScrollView>-->
                             <StackLayout VerticalOptions="Start">
-                                <Frame
-                                    Margin="7"
-                                    Padding="0"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="White"
-                                    CornerRadius="0"
-                                    HasShadow="False"
-                                    HeightRequest="50"
-                                    WidthRequest="200">
-                                    <Label
-                                        Padding="0,0,0,3"
-                                        FontSize="20"
-                                        HorizontalTextAlignment="Center"
-                                        Text="{Binding AnalyteName}"
-                                        VerticalTextAlignment="Center" />
-                                </Frame>
+                                <SwipeView BackgroundColor="Transparent" IsEnabled="{Binding IsDefault, Converter={StaticResource inverseBoolConverter}}">
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItemView
+                                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=DeleteConfigurationCommand}"
+                                                CommandParameter="{Binding}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="CenterAndExpand"
+                                                WidthRequest="120">
+                                                <Image
+                                                    Margin="10"
+                                                    BackgroundColor="Transparent"
+                                                    Source="delete.png" />
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <Frame
+                                        Margin="7"
+                                        Padding="0"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="White"
+                                        CornerRadius="0"
+                                        HasShadow="False"
+                                        HeightRequest="50"
+                                        WidthRequest="200">
+                                        <Label
+                                            Padding="0,0,0,3"
+                                            FontSize="20"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding AnalyteName}"
+                                            VerticalTextAlignment="Center" />
+                                    </Frame>
+                                </SwipeView>
                             </StackLayout>
                             <!--</ScrollView>-->
                         </ViewCell>

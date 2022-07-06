@@ -60,9 +60,6 @@
                                         </SwipeItemView>
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
-                                <!--<StackLayout>
-                                    <Button Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:SelectMeasurementViewModel}}, Path=MeasurementSelectedCommand}" Text="blah" />
-                                </StackLayout>-->
                                 <Frame
                                     Margin="7"
                                     Padding="5,2,5,2"

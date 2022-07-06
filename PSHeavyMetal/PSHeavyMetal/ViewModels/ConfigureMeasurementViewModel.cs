@@ -27,7 +27,10 @@ namespace PSHeavyMetal.Forms.ViewModels
             this.OnConfigSelected = CommandFactory.Create(async conf => await SetConfiguration(conf as MeasurementConfiguration));
             this.OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
             this.ImportAnalyteCommand = CommandFactory.Create(ImportAnalyte);
+            this.DeleteConfigurationCommand = CommandFactory.Create(async conf => await DeleteConfiguration(conf as MeasurementConfiguration));
         }
+
+        public ICommand DeleteConfigurationCommand { get; }
 
         /// <summary>
         /// Gets the import analyte command where the user can select a analyte to use for measurements
@@ -39,6 +42,19 @@ namespace PSHeavyMetal.Forms.ViewModels
         public ICommand OnConfigSelected { get; }
 
         public ICommand OnPageAppearingCommand { get; }
+
+        private async Task DeleteConfiguration(MeasurementConfiguration config)
+        {
+            try
+            {
+                await _measurementService.DeleteMeasurementConfiguration(config.Id);
+                this.MeasurementConfigurations.Remove(config);
+            }            
+            catch (Exception)
+            {
+                _messageService.LongAlert("Failed deleting the analyte. Please restart the application if the problem persists");
+            }
+        }
 
         private async Task ImportAnalyte()
         {

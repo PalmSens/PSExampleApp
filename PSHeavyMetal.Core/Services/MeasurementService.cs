@@ -117,6 +117,11 @@ namespace PSHeavyMetal.Core.Services
             await _userService.DeleteMeasurementInfo(id);
         }
 
+        public async Task DeleteMeasurementConfiguration(Guid id)
+        {
+            await _measurementRepository.DeleteMeasurementConfiguration(id);
+        }
+
         public async Task InitializeMeasurementConfigurations()
         {
             var existingConfigurations = await _measurementRepository.LoadAllConfigurations();
@@ -124,6 +129,7 @@ namespace PSHeavyMetal.Core.Services
             if (existingConfigurations != null && !existingConfigurations.Any())
             {
                 var configuration = await LoadMeasurementConfigurationFromFile(defaultPbConfiguration);
+                configuration.IsDefault = true;
 
                 await _measurementRepository.SaveMeasurementConfiguration(configuration);
             }

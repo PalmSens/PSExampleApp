@@ -20,6 +20,11 @@ namespace PSHeavyMetal.Core.Repositories
             await _dataOperations.DeleteByIdAsync<SavedMeasurement>(id);
         }
 
+        public async Task DeleteMeasurementConfiguration(Guid id)
+        {
+            await _dataOperations.DeleteByIdAsync<MeasurementConfiguration>(id);
+        }
+
         public async Task<IEnumerable<MeasurementConfiguration>> LoadAllConfigurations()
         {
             return await _dataOperations.GetAllAsync<MeasurementConfiguration>();
