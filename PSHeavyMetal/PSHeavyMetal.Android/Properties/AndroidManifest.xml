@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.psheavymetal" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="27" android:targetSdkVersion="31" />
 	<application android:label="PSHeavyMetal.Android" android:theme="@style/MainTheme" android:exported="true" android:icon="@drawable/wateropacity">
-		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileProvider" android:exported="false" android:grantUriPermissions="true">
+		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
 	</application>

@@ -3,12 +3,12 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-    xmlns:model="clr-namespace:PSHeavyMetal.Common.Models;assembly=PSHeavyMetal.Common"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}">
 
@@ -47,9 +47,6 @@
                 ItemsSource="{Binding MeasurementConfigurations}"
                 VerticalOptions="EndAndExpand"
                 WidthRequest="200">
-                <ListView.Behaviors>
-                    <behaviors:OnListViewItemTapped OnItemTappedCommand="{Binding OnConfigSelected}" />
-                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:MeasurementConfiguration">
                         <ViewCell>
@@ -72,22 +69,30 @@
                                             </SwipeItemView>
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
-                                    <Frame
-                                        Margin="7"
-                                        Padding="0"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="White"
-                                        CornerRadius="0"
-                                        HasShadow="False"
-                                        HeightRequest="50"
-                                        WidthRequest="200">
-                                        <Label
-                                            Padding="0,0,0,3"
-                                            FontSize="20"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding AnalyteName}"
-                                            VerticalTextAlignment="Center" />
-                                    </Frame>
+                                    <StackLayout>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=OnConfigSelected}"
+                                                CommandParameter="{Binding}"
+                                                NumberOfTapsRequired="1" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Frame
+                                            Margin="7"
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="White"
+                                            CornerRadius="0"
+                                            HasShadow="False"
+                                            HeightRequest="50"
+                                            WidthRequest="200">
+                                            <Label
+                                                Padding="0,0,0,3"
+                                                FontSize="20"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding AnalyteName}"
+                                                VerticalTextAlignment="Center" />
+                                        </Frame>
+                                    </StackLayout>
                                 </SwipeView>
                             </StackLayout>
                             <!--</ScrollView>-->
