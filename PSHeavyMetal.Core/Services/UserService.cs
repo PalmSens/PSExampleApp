@@ -55,11 +55,6 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
-        public IEnumerable<User> GetAllUsers()
-        {
-            return _userRepository.GetAllUsers();
-        }
-
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllUsersAsync();
@@ -82,7 +77,9 @@ namespace PSHeavyMetal.Core.Services
 
         public async Task SaveUserAsync(string username)
         {
-            var user = await _userRepository.CreateUser(username);
+            var user = new User { Name = username, Password = "123", Id = Guid.NewGuid(), Language = Language.English, IsAdmin = false };
+            await _userRepository.UpdateUser(user);
+
             ActiveUser = user;
         }
 

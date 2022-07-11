@@ -1,5 +1,4 @@
-﻿using LiteDB;
-using LiteDB.Async;
+﻿using LiteDB.Async;
 using PSHeavyMetal.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -13,15 +12,19 @@ namespace PSHeavyMetal.Core.DataAccess
     {
         private readonly string _connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XamarinLiteDB.db");
 
-        public async Task DeleteByIdAsync<T>(Guid id) where T : DataObject
+        private readonly ILiteDatabaseAsync _liteDatabaseAsync;
+
+        public LiteDbDataOperations()
+        {
+            _liteDatabaseAsync = new LiteDatabaseAsync(_connectionString);
+        }
+
+        public Task DeleteByIdAsync<T>(Guid id) where T : DataObject
         {
             try
             {
-                using (var db = new LiteDatabaseAsync(_connectionString))
-                {
-                    var collection = db.GetCollection<T>();
-                    await collection.DeleteAsync(id);
-                }
+                var collection = _liteDatabaseAsync.GetCollection<T>();
+                return collection.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -30,14 +33,28 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
-        public IEnumerable<T> GetAll<T>() where T : DataObject
+        //public IEnumerable<T> GetAll<T>() where T : DataObject
+        //{
+        //    try
+        //    {
+        //        using var db = new LiteDatabase(_connectionString);
+
+        //        var collection = db.GetCollection<T>();
+        //        return collection.Query().ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //        throw;
+        //    }
+        //}
+
+        public Task<List<T>> GetAllAsync<T>() where T : DataObject
         {
             try
             {
-                using var db = new LiteDatabase(_connectionString);
-
-                var collection = db.GetCollection<T>();
-                return collection.Query().ToList();
+                var collection = _liteDatabaseAsync.GetCollection<T>();
+                return collection.Query().ToListAsync();
             }
             catch (Exception ex)
             {
@@ -46,15 +63,12 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>() where T : DataObject
+        public Task<T> LoadByIdAsync<T>(Guid id) where T : DataObject
         {
             try
             {
-                using var db = new LiteDatabaseAsync(_connectionString);
-
-                var collection = db.GetCollection<T>();
-
-                return await collection.Query().ToListAsync();
+                var collection = _liteDatabaseAsync.GetCollection<T>();
+                return collection.FindByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -63,14 +77,12 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
-        public async Task<T> LoadByIdAsync<T>(Guid id) where T : DataObject
+        public Task<T> LoadByNameAsync<T>(string name) where T : DataObject
         {
             try
             {
-                using var db = new LiteDatabaseAsync(_connectionString);
-
-                var collection = db.GetCollection<T>();
-                return await collection.FindByIdAsync(id);
+                var collection = _liteDatabaseAsync.GetCollection<T>();
+                return collection.FindOneAsync(x => x.Name == name);
             }
             catch (Exception ex)
             {
@@ -79,31 +91,12 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
-        public async Task<T> LoadByNameAsync<T>(string name) where T : DataObject
+        public Task SaveAsync<T>(T entity) where T : DataObject
         {
             try
             {
-                using var db = new LiteDatabaseAsync(_connectionString);
-
-                var collection = db.GetCollection<T>();
-                return await collection.FindOneAsync(x => x.Name == name);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                throw;
-            }
-        }
-
-        public async Task SaveAsync<T>(T entity) where T : DataObject
-        {
-            try
-            {
-                using (var db = new LiteDatabaseAsync(_connectionString))
-                {
-                    var collection = db.GetCollection<T>();
-                    await collection.UpsertAsync(entity);
-                }
+                var collection = _liteDatabaseAsync.GetCollection<T>();
+                return collection.UpsertAsync(entity);
             }
             catch (Exception ex)
             {

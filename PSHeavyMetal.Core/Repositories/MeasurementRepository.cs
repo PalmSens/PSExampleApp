@@ -15,34 +15,34 @@ namespace PSHeavyMetal.Core.Repositories
             _dataOperations = dataOperations;
         }
 
-        public async Task DeleteMeasurement(Guid id)
+        public Task DeleteMeasurement(Guid id)
         {
-            await _dataOperations.DeleteByIdAsync<SavedMeasurement>(id);
+            return _dataOperations.DeleteByIdAsync<SavedMeasurement>(id);
         }
 
-        public async Task DeleteMeasurementConfiguration(Guid id)
+        public Task DeleteMeasurementConfiguration(Guid id)
         {
-            await _dataOperations.DeleteByIdAsync<MeasurementConfiguration>(id);
+            return _dataOperations.DeleteByIdAsync<MeasurementConfiguration>(id);
         }
 
-        public async Task<IEnumerable<MeasurementConfiguration>> LoadAllConfigurations()
+        public Task<List<MeasurementConfiguration>> LoadAllConfigurations()
         {
-            return await _dataOperations.GetAllAsync<MeasurementConfiguration>();
+            return _dataOperations.GetAllAsync<MeasurementConfiguration>();
         }
 
-        public async Task<SavedMeasurement> LoadMeasurement(Guid id)
+        public Task<SavedMeasurement> LoadMeasurement(Guid id)
         {
-            return await _dataOperations.LoadByIdAsync<SavedMeasurement>(id);
+            return _dataOperations.LoadByIdAsync<SavedMeasurement>(id);
         }
 
-        public async Task SaveMeasurement(SavedMeasurement measurement)
+        public Task SaveMeasurement(SavedMeasurement measurement)
         {
-            await _dataOperations.SaveAsync(measurement);
+            return _dataOperations.SaveAsync(measurement);
         }
 
-        public async Task SaveMeasurementConfiguration(MeasurementConfiguration configuration)
+        public Task SaveMeasurementConfiguration(MeasurementConfiguration configuration)
         {
-            await _dataOperations.SaveAsync(configuration);
+            return _dataOperations.SaveAsync(configuration);
         }
     }
 }

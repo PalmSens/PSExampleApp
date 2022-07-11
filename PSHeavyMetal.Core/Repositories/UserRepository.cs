@@ -15,19 +15,7 @@ namespace PSHeavyMetal.Core.Repositories
             _dataOperations = dataOperations;
         }
 
-        public async Task<User> CreateUser(string name)
-        {
-            var user = new User { Name = name, Password = "123", Id = Guid.NewGuid(), Language = Language.English, IsAdmin = false };
-            await _dataOperations.SaveAsync(user);
-            return user;
-        }
-
-        public IEnumerable<User> GetAllUsers()
-        {
-            return _dataOperations.GetAll<User>();
-        }
-
-        public Task<IEnumerable<User>> GetAllUsersAsync()
+        public Task<List<User>> GetAllUsersAsync()
         {
             return _dataOperations.GetAllAsync<User>();
         }
@@ -42,9 +30,9 @@ namespace PSHeavyMetal.Core.Repositories
             return _dataOperations.LoadByNameAsync<User>(name);
         }
 
-        public async Task UpdateUser(User user)
+        public Task UpdateUser(User user)
         {
-            await _dataOperations.SaveAsync(user);
+            return _dataOperations.SaveAsync(user);
         }
     }
 }

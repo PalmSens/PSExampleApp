@@ -34,12 +34,6 @@ namespace PSHeavyMetal.Core.Services
         /// Retrieves all users
         /// </summary>
         /// <returns></returns>
-        IEnumerable<User> GetAllUsers();
-
-        /// <summary>
-        /// Retrieves all users
-        /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<User>> GetAllUsersAsync();
 
         /// <summary>

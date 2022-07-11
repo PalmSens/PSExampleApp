@@ -25,7 +25,7 @@ namespace PSHeavyMetal.Core.Repositories
         /// Loads all measurement configurations
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<MeasurementConfiguration>> LoadAllConfigurations();
+        Task<List<MeasurementConfiguration>> LoadAllConfigurations();
 
         /// <summary>
         /// Loads a measurement based on id

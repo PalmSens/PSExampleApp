@@ -20,14 +20,7 @@
         /// </summary>
         /// <typeparam name="T">Type of collection</typeparam>
         /// <returns></returns>
-        public IEnumerable<T> GetAll<T>() where T : DataObject;
-
-        /// <summary>
-        /// Loads all entities from the collection
-        /// </summary>
-        /// <typeparam name="T">Type of collection</typeparam>
-        /// <returns></returns>
-        public Task<IEnumerable<T>> GetAllAsync<T>() where T : DataObject;
+        public Task<List<T>> GetAllAsync<T>() where T : DataObject;
 
         /// <summary>
         /// Loads a entity based on Id
