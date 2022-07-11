@@ -88,6 +88,15 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin options.
+        /// </summary>
+        public static string AdminOptionsHeader {
+            get {
+                return ResourceManager.GetString("AdminOptionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ANALYZING SAMPLE.
         /// </summary>
         public static string AnalyzingSample {
@@ -147,6 +156,15 @@ namespace PSHeavyMetal.Forms.Resx {
         public static string ConfigureApp {
             get {
                 return ResourceManager.GetString("ConfigureApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure method.
+        /// </summary>
+        public static string ConfigureMethod {
+            get {
+                return ResourceManager.GetString("ConfigureMethod", resourceCulture);
             }
         }
         

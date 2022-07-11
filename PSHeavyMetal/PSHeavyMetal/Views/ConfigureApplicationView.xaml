@@ -3,21 +3,29 @@
     x:Class="PSHeavyMetal.Forms.Views.ConfigureApplicationView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:ConfigureApplicationViewModel"
     Style="{StaticResource CustomPage}">
     <ContentPage.Content>
         <Grid>
+            <Label
+                Grid.Row="0"
+                Style="{StaticResource LargeTextStyle}"
+                Text="{xct:Translate AdminOptionsHeader}"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="250" />
             <StackLayout
+                Grid.Row="1"
                 HorizontalOptions="CenterAndExpand"
                 Spacing="25"
                 VerticalOptions="CenterAndExpand"
-                WidthRequest="200">
+                WidthRequest="225">
                 <Button Command="{Binding ConfigureAnalyteCommand}" Text="{xct:Translate ConfigureAnalyte}" />
+                <Button Command="{Binding ConfigureMethodCommand}" Text="{xct:Translate ConfigureMethod}" />
             </StackLayout>
-            <ContentView VerticalOptions="End">
+            <ContentView Grid.Row="2" VerticalOptions="End">
                 <views:StatusBarView />
             </ContentView>
         </Grid>

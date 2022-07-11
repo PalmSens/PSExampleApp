@@ -61,7 +61,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             var customFileType =
                 new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
-                { DevicePlatform.iOS, new[] { "applicatin/json" } },
+                { DevicePlatform.iOS, new[] { "application/json" } },
                 { DevicePlatform.Android, new[] { "application/json" } },
                 });
             var options = new PickOptions

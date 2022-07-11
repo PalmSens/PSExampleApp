@@ -126,6 +126,9 @@
   <data name="AdminMode" xml:space="preserve">
     <value>Admin mode</value>
   </data>
+  <data name="AdminOptionsHeader" xml:space="preserve">
+    <value>Admin options</value>
+  </data>
   <data name="AnalyzingSample" xml:space="preserve">
     <value>ANALYZING SAMPLE</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="ConfigureApp" xml:space="preserve">
     <value>Configure app</value>
+  </data>
+  <data name="ConfigureMethod" xml:space="preserve">
+    <value>Configure method</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
