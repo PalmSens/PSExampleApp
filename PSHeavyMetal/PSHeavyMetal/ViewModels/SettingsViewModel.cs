@@ -12,6 +12,7 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class SettingsViewModel : BaseViewModel
     {
         private readonly IUserService _userService;
+        private bool _isAdmin;
         private Language _language;
         private bool _settingsChanged;
 
@@ -19,9 +20,21 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             _userService = userService;
             Language = _userService.ActiveUser.Language;
+            IsAdmin = _userService.ActiveUser.IsAdmin;
             _settingsChanged = false;
 
             OnPageDisappearingCommand = CommandFactory.Create(OnDisappearing);
+        }
+
+        public bool IsAdmin
+        {
+            get => _isAdmin;
+            set
+            {
+                _isAdmin = value;
+                _userService.ActiveUser.IsAdmin = value;
+                _settingsChanged = true;
+            }
         }
 
         public Language Language

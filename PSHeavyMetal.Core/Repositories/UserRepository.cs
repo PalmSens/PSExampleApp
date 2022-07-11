@@ -17,7 +17,7 @@ namespace PSHeavyMetal.Core.Repositories
 
         public async Task<User> CreateUser(string name)
         {
-            var user = new User { Name = name, Password = "123", Id = Guid.NewGuid(), Language = Language.English };
+            var user = new User { Name = name, Password = "123", Id = Guid.NewGuid(), Language = Language.English, IsAdmin = false };
             await _dataOperations.SaveAsync(user);
             return user;
         }

@@ -6,12 +6,14 @@
         AddUserView,
         PrepareMeasurementView,
         SelectDeviceView,
-        ConfigureMeasurementView,
+        SelectAnalyteView,
         SensorDetectionView,
         RunMeasurementView,
         MeasurmentFinished,
         MeasurementList,
         MeasurementDataView,
         MeasurementPlotView,
+        ConfigureApplicationView,
+        ConfigureAnalyteView,
     }
 }

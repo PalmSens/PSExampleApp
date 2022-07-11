@@ -138,8 +138,14 @@
   <data name="ChangeUser" xml:space="preserve">
     <value>Verander gebruiker</value>
   </data>
-  <data name="ConfigureMeasurementHeader" xml:space="preserve">
-    <value>Selecteer of importeer een analyt</value>
+  <data name="ConfigureAnalyte" xml:space="preserve">
+    <value>Configureer analyte</value>
+  </data>
+  <data name="ConfigureAnalyteHeader" xml:space="preserve">
+    <value>Importeer of verwijder analyte</value>
+  </data>
+  <data name="ConfigureApp" xml:space="preserve">
+    <value>Configureer app</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Bevestig</value>
@@ -218,6 +224,9 @@
   </data>
   <data name="Searching" xml:space="preserve">
     <value>Zoeken</value>
+  </data>
+  <data name="SelectAnalyteHeader" xml:space="preserve">
+    <value>Selecteer een analyte</value>
   </data>
   <data name="SelectDeviceHeader" xml:space="preserve">
     <value />

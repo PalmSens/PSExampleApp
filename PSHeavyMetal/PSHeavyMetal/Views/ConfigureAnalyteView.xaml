@@ -1,6 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="PSHeavyMetal.Forms.Views.ConfigureMeasurementView"
+﻿<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.ConfigureAnalyteView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
@@ -29,7 +28,7 @@
             VerticalOptions="EndAndExpand">
             <Label
                 Style="{StaticResource MediumTextStyle}"
-                Text="{xct:Translate ConfigureMeasurementHeader}"
+                Text="{xct:Translate ConfigureAnalyteHeader}"
                 VerticalOptions="CenterAndExpand" />
             <Button
                 Command="{Binding ImportAnalyteCommand}"
@@ -70,12 +69,6 @@
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
                                     <StackLayout>
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer
-                                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=OnConfigSelected}"
-                                                CommandParameter="{Binding}"
-                                                NumberOfTapsRequired="1" />
-                                        </StackLayout.GestureRecognizers>
                                         <Frame
                                             Margin="7"
                                             Padding="0"

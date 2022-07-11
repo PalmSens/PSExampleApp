@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PSHeavyMetal.Forms.Views.ConfigureApplicationView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    x:DataType="viewmodels:ConfigureApplicationViewModel"
+    Style="{StaticResource CustomPage}">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="25"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="200">
+                <Button Command="{Binding ConfigureAnalyteCommand}" Text="{xct:Translate ConfigureAnalyte}" />
+            </StackLayout>
+            <ContentView VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

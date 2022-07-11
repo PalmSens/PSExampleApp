@@ -124,11 +124,29 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select or import an analyte.
+        ///   Looks up a localized string similar to Configure analyte.
         /// </summary>
-        public static string ConfigureMeasurementHeader {
+        public static string ConfigureAnalyte {
             get {
-                return ResourceManager.GetString("ConfigureMeasurementHeader", resourceCulture);
+                return ResourceManager.GetString("ConfigureAnalyte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import or remove analyte.
+        /// </summary>
+        public static string ConfigureAnalyteHeader {
+            get {
+                return ResourceManager.GetString("ConfigureAnalyteHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure app.
+        /// </summary>
+        public static string ConfigureApp {
+            get {
+                return ResourceManager.GetString("ConfigureApp", resourceCulture);
             }
         }
         
@@ -363,6 +381,15 @@ namespace PSHeavyMetal.Forms.Resx {
         public static string Searching {
             get {
                 return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select an analyte.
+        /// </summary>
+        public static string SelectAnalyteHeader {
+            get {
+                return ResourceManager.GetString("SelectAnalyteHeader", resourceCulture);
             }
         }
         

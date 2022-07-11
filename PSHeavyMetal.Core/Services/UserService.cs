@@ -95,6 +95,7 @@ namespace PSHeavyMetal.Core.Services
         {
             ActiveUser.Language = language;
             await _userRepository.UpdateUser(ActiveUser);
+            this.ActiveUserChanged.Invoke(this, ActiveUser);
         }
     }
 }

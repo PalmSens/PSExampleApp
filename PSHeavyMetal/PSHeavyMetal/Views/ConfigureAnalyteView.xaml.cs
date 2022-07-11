@@ -1,13 +1,14 @@
 ﻿using PSHeavyMetal.Forms.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace PSHeavyMetal.Forms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConfigureMeasurementView : ContentPage
+    public partial class ConfigureAnalyteView : ContentPage
     {
-        public ConfigureMeasurementView()
+        public ConfigureAnalyteView()
         {
             BindingContext = App.GetViewModel<ConfigureMeasurementViewModel>();
             InitializeComponent();

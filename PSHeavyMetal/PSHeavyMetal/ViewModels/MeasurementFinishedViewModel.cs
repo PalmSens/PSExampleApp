@@ -32,7 +32,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
             ShowPlotCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.MeasurementPlotView));
             NavigateToHomeCommand = CommandFactory.Create(NavigateToHome);
-            RepeatMeasurementCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
+            RepeatMeasurementCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.SelectAnalyteView));
             OnPhotoSelectedCommand = CommandFactory.Create(async photo => await OpenPhoto(photo as ImageSource));
             TakePhotoCommand = CommandFactory.Create(TakePhoto);
             ShareMeasurementCommand = CommandFactory.Create(ShareMeasurement);
@@ -118,7 +118,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task ShareMeasurement()
         {
-            var cacheFile = Path.Combine(FileSystem.CacheDirectory, $"Report-{ActiveMeasurement.Name}");
+            var cacheFile = Path.Combine(FileSystem.CacheDirectory, $"Report-{ActiveMeasurement.Name}.pdf");
             IsCreatingReport = true;
 
             //CreatePDFfile is a long running proces that isn't async by itself.

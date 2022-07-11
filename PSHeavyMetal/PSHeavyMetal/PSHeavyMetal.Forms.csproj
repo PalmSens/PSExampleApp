@@ -76,6 +76,9 @@
     <Compile Update="Styles\Generic.xaml.cs">
       <DependentUpon>Generic.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SelectAnalyteView.xaml.cs">
+      <DependentUpon>SelectAnalyteView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -108,7 +111,13 @@
     <EmbeddedResource Update="Views\AddUserPopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ConfigureMeasurementView.xaml">
+    <EmbeddedResource Update="Views\ConfigureAnalyteView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ConfigureApplicationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SelectAnalyteView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CustomFlyOutPage.xaml">

@@ -34,7 +34,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             OnPageDisappearingCommand = CommandFactory.Create(OnPageDisappearing);
             OnInstrumentSelected = CommandFactory.Create(async pd => await ConnectToInstrument(pd as PlatformDevice));
             CancelCommand = CommandFactory.Create(async () => await NavigationDispatcher.Pop());
-            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView));
+            ContinueCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.SelectAnalyteView));
             DisconnectCommand = CommandFactory.Create(Disconnect);
         }
 
@@ -124,7 +124,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                 await ResetDeviceDiscovery();
             }
 
-            await NavigationDispatcher.Push(NavigationViewType.ConfigureMeasurementView);
+            await NavigationDispatcher.Push(NavigationViewType.SelectAnalyteView);
         }
 
         private async Task Disconnect()

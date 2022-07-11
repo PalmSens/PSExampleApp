@@ -13,6 +13,7 @@
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -36,6 +37,10 @@
                 <Button Command="{Binding StartMeasurementCommand}" Text="{xct:Translate RunMeasurement}" />
                 <Button Command="{Binding OpenMeasurementListCommand}" Text="{xct:Translate MeasurementHistory}" />
                 <Button Command="{Binding OpenLoginPopupCommand}" Text="{xct:Translate ChangeUser}" />
+                <Button
+                    Command="{Binding ConfigureApplicationCommand}"
+                    IsVisible="{Binding ActiveUserIsAdmin}"
+                    Text="{xct:Translate ConfigureApp}" />
             </StackLayout>
         </StackLayout>
         <ContentView VerticalOptions="End">

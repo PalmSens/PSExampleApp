@@ -24,7 +24,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             this._measurementService = measurementService;
             this._messageService = messageService;
-            this.OnConfigSelected = CommandFactory.Create(async conf => await SetConfiguration(conf as MeasurementConfiguration));
+            this.OnConfigSelectedCommand = CommandFactory.Create(async conf => await SetConfiguration(conf as MeasurementConfiguration));
             this.OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
             this.ImportAnalyteCommand = CommandFactory.Create(ImportAnalyte);
             this.DeleteConfigurationCommand = CommandFactory.Create(async conf => await DeleteConfiguration(conf as MeasurementConfiguration));
@@ -39,7 +39,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ObservableCollection<MeasurementConfiguration> MeasurementConfigurations { get; } = new ObservableCollection<MeasurementConfiguration>();
 
-        public ICommand OnConfigSelected { get; }
+        public ICommand OnConfigSelectedCommand { get; }
 
         public ICommand OnPageAppearingCommand { get; }
 
@@ -49,7 +49,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             {
                 await _measurementService.DeleteMeasurementConfiguration(config.Id);
                 this.MeasurementConfigurations.Remove(config);
-            }            
+            }
             catch (Exception)
             {
                 _messageService.LongAlert("Failed deleting the analyte. Please restart the application if the problem persists");
