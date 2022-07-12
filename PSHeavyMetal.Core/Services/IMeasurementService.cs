@@ -73,8 +73,6 @@ namespace PSHeavyMetal.Core.Services
         /// <returns></returns>
         public Task<MeasurementConfiguration> LoadMeasurementConfigurationFromFile(string filename);
 
-        public Method LoadMethod(string filename);
-
         /// <summary>
         /// Resets the measurement this means setting the active measurement to null
         /// </summary>

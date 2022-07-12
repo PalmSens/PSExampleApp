@@ -13,7 +13,7 @@ namespace PSHeavyMetal.Forms
         public static IServiceCollection InitializeRepositories(this IServiceCollection services)
         {
             services.AddSingleton<IDataOperations, LiteDbDataOperations>();
-            services.AddSingleton<IDeviceRepository, DeviceRepository>();
+            services.AddSingleton<IAppConfigurationRepository, AppConfigurationRepository>();
             services.AddSingleton<IMeasurementRepository, MeasurementRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             return services;
@@ -44,6 +44,7 @@ namespace PSHeavyMetal.Forms
 
         public static IServiceCollection InitiliazeServices(this IServiceCollection services)
         {
+            services.AddSingleton<IAppConfigurationService, AppConfigurationService>();
             services.AddSingleton<IShareService, ShareService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton(DependencyService.Resolve<IPermissionService>());

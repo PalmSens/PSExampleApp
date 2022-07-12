@@ -12,13 +12,15 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        private readonly IAppConfigurationService _appConfigurationService;
         private readonly IMeasurementService _measurementService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
 
-        public HomeViewModel(IUserService userService, IMeasurementService measurementService)
+        public HomeViewModel(IUserService userService, IMeasurementService measurementService, IAppConfigurationService appConfigurationService)
         {
             _popupNavigation = PopupNavigation.Instance;
+            _appConfigurationService = appConfigurationService;
 
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);
             OpenMeasurementListCommand = CommandFactory.Create(OpenMeasurementList);
@@ -44,7 +46,12 @@ namespace PSHeavyMetal.Forms.ViewModels
             _userService.ActiveUserChanged += _userService_ActiveUserChanged;
 
             if (_userService.ActiveUser == null)
+            {
+                //This is during the initialization of the project
                 await _popupNavigation.PushAsync(new LoginPopUp());
+
+                await _appConfigurationService.InitiliazeMethod();
+            }
         }
 
         public void OnPageDisappearing()

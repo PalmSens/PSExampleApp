@@ -8,7 +8,14 @@
     public interface IDataOperations
     {
         /// <summary>
-        /// Delete a
+        /// Clears a whole collection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public Task DeleteAll<T>() where T : DataObject;
+
+        /// <summary>
+        /// Delete a element in the collection, based on ID
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>

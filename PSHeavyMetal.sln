@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSHeavyMetal.iOS", "PSHeavy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSHeavyMetal.Forms", "PSHeavyMetal\PSHeavyMetal\PSHeavyMetal.Forms.csproj", "{5F2F565C-A2E9-47B8-909D-37DE50ACD6DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSHeavyMetal.Tests", "PSHeavyMetal.Tests\PSHeavyMetal.Tests.csproj", "{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSHeavyMetal.Core", "PSHeavyMetal.Core\PSHeavyMetal.Core.csproj", "{B72162DA-AF0B-4997-9B42-C51AEAC63AF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSHeavyMetal.Common", "PSHeavyMetal.Common\PSHeavyMetal.Common.csproj", "{63AE6A89-9A6C-49D6-87D2-93F2ED711449}"
@@ -90,18 +88,6 @@ Global
 		{5F2F565C-A2E9-47B8-909D-37DE50ACD6DA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{5F2F565C-A2E9-47B8-909D-37DE50ACD6DA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{5F2F565C-A2E9-47B8-909D-37DE50ACD6DA}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|iPhone.Build.0 = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{AC2E2395-FAC2-4775-9AA8-5B06A9B3BA15}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{B72162DA-AF0B-4997-9B42-C51AEAC63AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B72162DA-AF0B-4997-9B42-C51AEAC63AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72162DA-AF0B-4997-9B42-C51AEAC63AF4}.Debug|iPhone.ActiveCfg = Debug|Any CPU

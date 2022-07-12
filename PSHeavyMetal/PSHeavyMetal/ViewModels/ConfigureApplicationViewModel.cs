@@ -1,9 +1,8 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Services;
+using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -13,10 +12,12 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class ConfigureApplicationViewModel : BaseViewModel
     {
+        private readonly IAppConfigurationService _appConfigurationService;
         private readonly IMessageService _messageService;
 
-        public ConfigureApplicationViewModel(IMessageService messageService)
+        public ConfigureApplicationViewModel(IMessageService messageService, IAppConfigurationService appConfigurationService)
         {
+            _appConfigurationService = appConfigurationService;
             _messageService = messageService;
             ConfigureAnalyteCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureAnalyteView));
             ConfigureMethodCommand = CommandFactory.Create(async () => await ConfigureMethod());
@@ -28,27 +29,16 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task ConfigureMethod()
         {
-            var customFileType =
-               new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-               {
-                { DevicePlatform.iOS, new[] { "application/psmethod" } },
-                { DevicePlatform.Android, new[] { "application/psmethod" } },
-               });
-            var options = new PickOptions
-            {
-                FileTypes = customFileType,
-            };
-
             try
             {
-                var result = await FilePicker.PickAsync(options);
+                var result = await FilePicker.PickAsync();
 
                 if (result != null)
                 {
                     using var stream = await result.OpenReadAsync();
-                    using var streamReader = new StreamReader(stream);
 
-                    var jsonString = await streamReader.ReadToEndAsync();
+                    await _appConfigurationService.SaveConfigurationMethod(stream);
+                    _messageService.ShortAlert("Method succesfully saved");
                 }
             }
             catch (PermissionException)

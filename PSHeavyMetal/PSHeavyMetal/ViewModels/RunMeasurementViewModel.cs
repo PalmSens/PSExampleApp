@@ -18,6 +18,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class RunMeasurementViewModel : BaseViewModel
     {
+        private readonly IAppConfigurationService _appConfigurationService;
         private readonly IDeviceService _deviceService;
         private readonly IMeasurementService _measurementService;
         private readonly IMessageService _messageService;
@@ -28,9 +29,10 @@ namespace PSHeavyMetal.Forms.ViewModels
         private double _progress;
         private int _progressPercentage;
 
-        public RunMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IDeviceService deviceService)
+        public RunMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IDeviceService deviceService, IAppConfigurationService appConfigurationService)
         {
             Progress = 0;
+            _appConfigurationService = appConfigurationService;
             _deviceService = deviceService;
             _messageService = messageService;
             _measurementService = measurementService;
@@ -122,11 +124,11 @@ namespace PSHeavyMetal.Forms.ViewModels
             MeasurementIsFinished = true;
         }
 
-        private Method LoadDiffPulseMethod()
+        private async Task<Method> LoadDiffPulseMethod()
         {
             try
             {
-                return _measurementService.LoadMethod("PSDiffPulse.psmethod");
+                return await _appConfigurationService.LoadConfigurationMethod();
             }
             catch (Exception)
             {
@@ -144,7 +146,7 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task OnPageAppearing()
         {
-            var method = LoadDiffPulseMethod();
+            var method = await LoadDiffPulseMethod();
 
             try
             {

@@ -172,14 +172,6 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
-        public Method LoadMethod(string filename)
-        {
-            using (var filestream = _loadAssetsService.LoadFile(filename))
-            {
-                return _loadSavePlatformService.LoadMethod(filestream);
-            }
-        }
-
         public void ResetMeasurement()
         {
             ActiveMeasurement = null;

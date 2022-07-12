@@ -19,6 +19,12 @@ namespace PSHeavyMetal.Core.DataAccess
             _liteDatabaseAsync = new LiteDatabaseAsync(_connectionString);
         }
 
+        public Task DeleteAll<T>() where T : DataObject
+        {
+            var collection = _liteDatabaseAsync.GetCollection<T>();
+            return collection.DeleteAllAsync();
+        }
+
         public Task DeleteByIdAsync<T>(Guid id) where T : DataObject
         {
             try
@@ -32,22 +38,6 @@ namespace PSHeavyMetal.Core.DataAccess
                 throw;
             }
         }
-
-        //public IEnumerable<T> GetAll<T>() where T : DataObject
-        //{
-        //    try
-        //    {
-        //        using var db = new LiteDatabase(_connectionString);
-
-        //        var collection = db.GetCollection<T>();
-        //        return collection.Query().ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex);
-        //        throw;
-        //    }
-        //}
 
         public Task<List<T>> GetAllAsync<T>() where T : DataObject
         {
