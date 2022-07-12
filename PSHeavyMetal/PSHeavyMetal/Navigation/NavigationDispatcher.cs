@@ -41,6 +41,11 @@ namespace PSHeavyMetal.Forms.Navigation
             await _instance.Navigation.PushAsync(PageSelector(navigationViewType));
         }
 
+        internal static Task<bool> PushAlert(string title, string message)
+        {
+            return Application.Current.MainPage.DisplayAlert(title, message, "Ok", "Cancel");
+        }
+
         internal void Initialize(INavigation navigation)
         {
             _navigation = navigation;

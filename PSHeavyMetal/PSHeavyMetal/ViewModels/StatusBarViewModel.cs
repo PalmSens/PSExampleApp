@@ -1,6 +1,7 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
+using PSHeavyMetal.Forms.Navigation;
 using PSHeavyMetal.Forms.Resx;
 using PSHeavyMetal.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
@@ -151,7 +152,8 @@ namespace PSHeavyMetal.Forms.ViewModels
             //We only want to start detecting devices when it's not yet
             if (!_deviceService.IsDetecting && !_deviceService.IsConnected)
             {
-                await _permissionService.RequestBluetoothPermission();
+                await _permissionService.RequestBluetoothPermission();                
+
                 await DiscoverDevices();
             }
         }

@@ -1,13 +1,13 @@
 ﻿<pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.LoginPopUp"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:local="clr-namespace:PSHeavyMetal.Forms.Converters"
-    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pagesanimation="http://rotorgames.com"
+    xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:LoginViewModel"
     CloseWhenBackgroundIsClicked="False"
     Visual="Material">
@@ -33,6 +33,7 @@
 
     <pages:PopupPage.Behaviors>
         <behaviors:OnPopupAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnPopupDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </pages:PopupPage.Behaviors>
 
     <StackLayout Spacing="40" VerticalOptions="CenterAndExpand">
