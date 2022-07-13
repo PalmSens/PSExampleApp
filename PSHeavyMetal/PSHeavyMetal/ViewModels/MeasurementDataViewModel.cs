@@ -42,7 +42,10 @@ namespace PSHeavyMetal.Forms.ViewModels
             OnPhotoSelectedCommand = CommandFactory.Create(async photo => await OpenPhoto(photo as ImageSource));
             TakePhotoCommand = CommandFactory.Create(TakePhoto);
             OnPageDisappearingCommand = CommandFactory.Create(OnDisappearing);
+            BackCommand = CommandFactory.Create(Back);
         }
+
+        public ICommand BackCommand { get; }
 
         /// <summary>
         /// Gets if the measurement has a maximum amount of photos. This is 3
@@ -74,6 +77,12 @@ namespace PSHeavyMetal.Forms.ViewModels
         public ICommand ShowPlotCommand { get; }
 
         public ICommand TakePhotoCommand { get; }
+
+        private async Task Back()
+        {
+            await NavigationDispatcher.PopToRoot();
+            _measurementService.ResetMeasurement();
+        }
 
         private void LoadPhoto(byte[] image)
         {

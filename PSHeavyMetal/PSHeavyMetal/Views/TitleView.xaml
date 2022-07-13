@@ -16,8 +16,8 @@
         <Grid>
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
                 <Label
-                    Margin="0,0,20,0"
                     FontSize="22"
+                    HorizontalOptions="CenterAndExpand"
                     LineBreakMode="NoWrap"
                     Text="{Binding ApplicationTitle}" />
                 <Image
