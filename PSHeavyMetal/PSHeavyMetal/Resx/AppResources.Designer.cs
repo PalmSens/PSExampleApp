@@ -169,6 +169,15 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure title.
+        /// </summary>
+        public static string ConfigureTitle {
+            get {
+                return ResourceManager.GetString("ConfigureTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Confirm {
@@ -237,6 +246,15 @@ namespace PSHeavyMetal.Forms.Resx {
         public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new title.
+        /// </summary>
+        public static string EnterTitle {
+            get {
+                return ResourceManager.GetString("EnterTitle", resourceCulture);
             }
         }
         

@@ -2,9 +2,9 @@
 <pages:PopupPage
     x:Class="PSHeavyMetal.Forms.Views.MeasurementPhotoPopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:pagesanimation="http://rotorgames.com"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pagesanimation="http://rotorgames.com">
     <pages:PopupPage.Animation>
         <pagesanimation:ScaleAnimation
             DurationIn="400"

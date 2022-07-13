@@ -23,6 +23,13 @@
         public Task DeleteByIdAsync<T>(Guid id) where T : DataObject;
 
         /// <summary>
+        /// Loads all entities from the collection but not in a async way
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public List<T> GetAll<T>() where T : DataObject;
+
+        /// <summary>
         /// Loads all entities from the collection
         /// </summary>
         /// <typeparam name="T">Type of collection</typeparam>
@@ -44,6 +51,14 @@
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<T> LoadByNameAsync<T>(string name) where T : DataObject;
+
+        /// <summary>
+        /// Saves a enitity
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objectToStore"></param>
+        /// <returns></returns>
+        public void Save<T>(T entity) where T : DataObject;
 
         /// <summary>
         /// Saves a enitity

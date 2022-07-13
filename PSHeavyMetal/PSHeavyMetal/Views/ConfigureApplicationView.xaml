@@ -24,6 +24,7 @@
                 WidthRequest="225">
                 <Button Command="{Binding ConfigureAnalyteCommand}" Text="{xct:Translate ConfigureAnalyte}" />
                 <Button Command="{Binding ConfigureMethodCommand}" Text="{xct:Translate ConfigureMethod}" />
+                <Button Command="{Binding ConfigureTitleCommand}" Text="{xct:Translate ConfigureTitle}" />
             </StackLayout>
             <ContentView Grid.Row="2" VerticalOptions="End">
                 <views:StatusBarView />

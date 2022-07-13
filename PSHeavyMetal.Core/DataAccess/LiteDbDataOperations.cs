@@ -39,6 +39,20 @@ namespace PSHeavyMetal.Core.DataAccess
             }
         }
 
+        public List<T> GetAll<T>() where T : DataObject
+        {
+            try
+            {
+                var collection = _liteDatabaseAsync.UnderlyingDatabase.GetCollection<T>();
+                return collection.Query().ToList();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+
         public Task<List<T>> GetAllAsync<T>() where T : DataObject
         {
             try
@@ -73,6 +87,20 @@ namespace PSHeavyMetal.Core.DataAccess
             {
                 var collection = _liteDatabaseAsync.GetCollection<T>();
                 return collection.FindOneAsync(x => x.Name == name);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+
+        public void Save<T>(T entity) where T : DataObject
+        {
+            try
+            {
+                var collection = _liteDatabaseAsync.UnderlyingDatabase.GetCollection<T>();
+                collection.Upsert(entity);
             }
             catch (Exception ex)
             {

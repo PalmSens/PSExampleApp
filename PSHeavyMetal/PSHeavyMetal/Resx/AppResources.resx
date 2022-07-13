@@ -153,6 +153,9 @@
   <data name="ConfigureMethod" xml:space="preserve">
     <value>Configure method</value>
   </data>
+  <data name="ConfigureTitle" xml:space="preserve">
+    <value>Configure title</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="EnterTitle" xml:space="preserve">
+    <value>Enter new title</value>
   </data>
   <data name="EnterUser" xml:space="preserve">
     <value>Enter a username</value>

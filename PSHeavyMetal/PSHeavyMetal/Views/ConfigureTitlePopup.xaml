@@ -1,12 +1,12 @@
 ﻿<pages:PopupPage
-    x:Class="PSHeavyMetal.Forms.Views.AddUserPopUp"
+    x:Class="PSHeavyMetal.Forms.Views.ConfigureTitlePopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:pagesanimation="http://rotorgames.com"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:DataType="viewmodels:AddUserViewModel"
+    x:DataType="viewmodels:ConfigureTitleViewModel"
     HasKeyboardOffset="False"
     Visual="Material">
     <pages:PopupPage.Animation>
@@ -31,17 +31,17 @@
             VerticalOptions="CenterAndExpand">
             <Entry
                 x:Name="UserNameEntry"
-                Placeholder="{xct:Translate EnterUser}"
-                ReturnCommand="{Binding AddUserCommand}"
+                Placeholder="{xct:Translate EnterTitle}"
+                ReturnCommand="{Binding ConfigureTitleCommand}"
                 ReturnType="Done"
-                Text="{Binding UserName}" />
+                Text="{Binding ConfiguredTitle}" />
         </StackLayout>
         <StackLayout
             Margin="0,0,0,75"
             HorizontalOptions="CenterAndExpand"
             Spacing="20"
             VerticalOptions="EndAndExpand">
-            <Button Command="{Binding AddUserCommand}" Text="{xct:Translate AddUser}" />
+            <Button Command="{Binding ConfigureTitleCommand}" Text="{xct:Translate Confirm}" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

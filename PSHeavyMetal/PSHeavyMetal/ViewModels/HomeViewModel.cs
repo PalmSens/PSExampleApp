@@ -50,7 +50,7 @@ namespace PSHeavyMetal.Forms.ViewModels
                 //This is during the initialization of the project
                 await _popupNavigation.PushAsync(new LoginPopUp());
 
-                await _appConfigurationService.InitiliazeMethod();
+                await _appConfigurationService.InitializeMethod();
             }
         }
 

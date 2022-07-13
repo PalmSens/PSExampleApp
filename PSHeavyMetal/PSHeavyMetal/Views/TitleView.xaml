@@ -3,9 +3,15 @@
     x:Class="PSHeavyMetal.Forms.Views.TitleView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSHeavyMetal.Forms.Behaviors"
     xmlns:viewmodels="clr-namespace:PSHeavyMetal.Forms.ViewModels"
     x:DataType="viewmodels:TitleViewModel"
     Visual="Material">
+
+    <ContentView.Behaviors>
+        <behaviors:OnViewAppearingBehavior OnAppearingCommand="{Binding OnViewAppearingCommand}" />
+    </ContentView.Behaviors>
+
     <ContentView.Content>
         <Grid>
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
@@ -13,7 +19,7 @@
                     Margin="0,0,20,0"
                     FontSize="22"
                     LineBreakMode="NoWrap"
-                    Text="PS HeavyMetal" />
+                    Text="{Binding ApplicationTitle}" />
                 <Image
                     HeightRequest="30"
                     Source="usericon.png"

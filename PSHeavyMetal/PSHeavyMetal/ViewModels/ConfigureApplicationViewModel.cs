@@ -2,6 +2,9 @@
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using PSHeavyMetal.Forms.Navigation;
+using PSHeavyMetal.Forms.Views;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,18 +18,23 @@ namespace PSHeavyMetal.Forms.ViewModels
     {
         private readonly IAppConfigurationService _appConfigurationService;
         private readonly IMessageService _messageService;
+        private readonly IPopupNavigation _popupNavigation;
 
         public ConfigureApplicationViewModel(IMessageService messageService, IAppConfigurationService appConfigurationService)
         {
+            _popupNavigation = PopupNavigation.Instance;
             _appConfigurationService = appConfigurationService;
             _messageService = messageService;
             ConfigureAnalyteCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureAnalyteView));
             ConfigureMethodCommand = CommandFactory.Create(async () => await ConfigureMethod());
+            ConfigureTitleCommand = CommandFactory.Create(async () => await ConfigureTitle());
         }
 
         public ICommand ConfigureAnalyteCommand { get; }
 
         public ICommand ConfigureMethodCommand { get; }
+
+        public ICommand ConfigureTitleCommand { get; }
 
         private async Task ConfigureMethod()
         {
@@ -67,6 +75,11 @@ namespace PSHeavyMetal.Forms.ViewModels
             {
                 _messageService.LongAlert("Failed importing analyte. Please check if the json file has the correct format");
             }
+        }
+
+        private async Task ConfigureTitle()
+        {
+            await _popupNavigation.PushAsync(new ConfigureTitlePopup());
         }
     }
 }

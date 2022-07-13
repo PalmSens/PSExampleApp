@@ -12,10 +12,12 @@ namespace PSHeavyMetal.Core.Services
 {
     public class AppConfigurationService : IAppConfigurationService
     {
+        private const string DefaultBackground = "background.jpeg";
         private const string DefaultMethod = "PSDiffPulse.psmethod";
         private readonly IAppConfigurationRepository _appConfigurationRepository;
         private readonly ILoadAssetsService _loadAssetsService;
         private readonly ILoadSavePlatformService _loadSavePlatformService;
+        private ApplicationSettings _applicationSettings;
 
         public AppConfigurationService(IAppConfigurationRepository appConfigurationRepository, ILoadAssetsService loadAssetsService, ILoadSavePlatformService loadSavePlatformService)
         {
@@ -24,7 +26,37 @@ namespace PSHeavyMetal.Core.Services
             _loadSavePlatformService = loadSavePlatformService;
         }
 
-        public async Task InitiliazeMethod()
+        public ApplicationSettings CurrentApplicationSettings
+        {
+            get => _applicationSettings;
+            set => _applicationSettings = value;
+        }
+
+        public StreamReader GetBackgroundImage()
+        {
+            return _loadAssetsService.LoadFile(DefaultBackground);
+        }
+
+        public ApplicationSettings GetSettings()
+        {
+            var settings = _appConfigurationRepository.LoadApplicationSettings();
+
+            var currentSettings = settings.FirstOrDefault();
+
+            if (currentSettings != null)
+                CurrentApplicationSettings = currentSettings;
+
+            return currentSettings;
+        }
+
+        public async Task<ApplicationSettings> GetSettingsAsync()
+        {
+            var settings = await _appConfigurationRepository.LoadApplicationSettingsAsync();
+
+            return settings.FirstOrDefault();
+        }
+
+        public async Task InitializeMethod()
         {
             try
             {
@@ -77,6 +109,25 @@ namespace PSHeavyMetal.Core.Services
                 stream.CopyTo(mem);
                 await _appConfigurationRepository.SaveMethodAsync(new MethodConfiguration { Id = Guid.NewGuid(), SerializedMethod = mem.ToArray() });
             }
+        }
+
+        public void SaveSettings(ApplicationSettings settings)
+        {
+            _appConfigurationRepository.SaveApplicationSettings(settings);
+            CurrentApplicationSettings = settings;
+        }
+
+        public Task SaveSettingsAsync(ApplicationSettings settings)
+        {
+            return _appConfigurationRepository.SaveApplicationSettingsAsync(settings);
+        }
+
+        public async Task SaveTitle(string title)
+        {
+            var settings = await GetSettingsAsync();
+
+            settings.Title = title;
+            await _appConfigurationRepository.SaveApplicationSettingsAsync(settings);
         }
     }
 }
