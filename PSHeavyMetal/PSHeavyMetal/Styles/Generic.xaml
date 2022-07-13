@@ -3,8 +3,8 @@
     x:Class="PSHeavyMetal.Forms.Styles.Generic"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views">
+    xmlns:views="clr-namespace:PSHeavyMetal.Forms.Views"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <system:Double x:Key="DefaultControlWidth">240</system:Double>
     <system:Double x:Key="DefaultEntryHeight">60</system:Double>
@@ -41,7 +41,10 @@
         <Setter Property="HeightRequest" Value="{StaticResource DefaultEntryHeight}" />
         <Setter Property="WidthRequest" Value="{StaticResource DefaultControlWidth}" />
     </Style>
-    <Style TargetType="Picker" />
+
+    <Style TargetType="Picker">
+        <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+    </Style>
 
     <Style x:Key="TitleStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource SourceSansSemiBold}" />
