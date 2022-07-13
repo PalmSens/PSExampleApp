@@ -102,6 +102,14 @@ namespace PSHeavyMetal.Core.Services
             }
         }
 
+        public async Task SaveBackGroundImage(byte[] array)
+        {
+            var settings = await GetSettingsAsync();
+
+            settings.BackgroundImage = array;
+            await _appConfigurationRepository.SaveApplicationSettingsAsync(settings);
+        }
+
         public async Task SaveConfigurationMethod(Stream stream)
         {
             using (var mem = new MemoryStream())

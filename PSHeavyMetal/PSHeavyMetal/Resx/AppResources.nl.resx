@@ -150,6 +150,9 @@
   <data name="ConfigureApp" xml:space="preserve">
     <value>Configureer app</value>
   </data>
+  <data name="ConfigureBackground" xml:space="preserve">
+    <value>Configureer achtergrond</value>
+  </data>
   <data name="ConfigureMethod" xml:space="preserve">
     <value>Configureer method</value>
   </data>

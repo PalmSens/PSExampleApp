@@ -160,6 +160,15 @@ namespace PSHeavyMetal.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure background.
+        /// </summary>
+        public static string ConfigureBackground {
+            get {
+                return ResourceManager.GetString("ConfigureBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure method.
         /// </summary>
         public static string ConfigureMethod {

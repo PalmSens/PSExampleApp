@@ -9,6 +9,10 @@ namespace PSHeavyMetal.Core.Services
     {
         public ApplicationSettings CurrentApplicationSettings { get; }
 
+        /// <summary>
+        /// Gets the defailt background image
+        /// </summary>
+        /// <returns></returns>
         public StreamReader GetBackgroundImage();
 
         public ApplicationSettings GetSettings();
@@ -22,6 +26,13 @@ namespace PSHeavyMetal.Core.Services
         public Task InitializeMethod();
 
         public Task<Method> LoadConfigurationMethod();
+
+        /// <summary>
+        /// Saves the background image as a byte array
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public Task SaveBackGroundImage(byte[] array);
 
         public Task SaveConfigurationMethod(Stream stream);
 

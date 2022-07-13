@@ -7,6 +7,7 @@ using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -19,6 +20,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private readonly IAppConfigurationService _appConfigurationService;
         private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
+        private bool _appConfigured = false;
 
         public ConfigureApplicationViewModel(IMessageService messageService, IAppConfigurationService appConfigurationService)
         {
@@ -26,15 +28,50 @@ namespace PSHeavyMetal.Forms.ViewModels
             _appConfigurationService = appConfigurationService;
             _messageService = messageService;
             ConfigureAnalyteCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureAnalyteView));
-            ConfigureMethodCommand = CommandFactory.Create(async () => await ConfigureMethod());
-            ConfigureTitleCommand = CommandFactory.Create(async () => await ConfigureTitle());
+            ConfigureMethodCommand = CommandFactory.Create(ConfigureMethod);
+            ConfigureTitleCommand = CommandFactory.Create(ConfigureTitle);
+            ConfigureBackgroundCommand = CommandFactory.Create(ConfigureBackground);
         }
 
         public ICommand ConfigureAnalyteCommand { get; }
 
+        public ICommand ConfigureBackgroundCommand { get; }
+
         public ICommand ConfigureMethodCommand { get; }
 
         public ICommand ConfigureTitleCommand { get; }
+
+        private async Task ConfigureBackground()
+        {
+            var options = new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images
+            };
+
+            try
+            {
+                var result = await FilePicker.PickAsync(options);
+
+                if (result != null)
+                {
+                    using var stream = await result.OpenReadAsync();
+                    using var memStream = new MemoryStream();
+
+                    await stream.CopyToAsync(memStream);
+
+                    await _appConfigurationService.SaveBackGroundImage(memStream.ToArray());
+                    _messageService.LongAlert("Background succesfully saved, please restart the application for the changes to take effect.");
+                }
+            }
+            catch (PermissionException)
+            {
+                _messageService.LongAlert("Failed to import file. Permissions not set");
+            }
+            catch (Exception)
+            {
+                _messageService.LongAlert("Failed importing the image. Please check if the image file has the correct format");
+            }
+        }
 
         private async Task ConfigureMethod()
         {
@@ -73,7 +110,7 @@ namespace PSHeavyMetal.Forms.ViewModels
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Failed importing analyte. Please check if the json file has the correct format");
+                _messageService.LongAlert("Failed importing the method. Please check if the method file has the correct format");
             }
         }
 

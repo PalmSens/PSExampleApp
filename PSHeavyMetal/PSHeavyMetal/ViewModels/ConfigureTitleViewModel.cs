@@ -1,4 +1,5 @@
 ﻿using MvvmHelpers;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -11,10 +12,12 @@ namespace PSHeavyMetal.Forms.ViewModels
     public class ConfigureTitleViewModel : BaseViewModel
     {
         private readonly IAppConfigurationService _appConfigurationService;
+        private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
 
-        public ConfigureTitleViewModel(IAppConfigurationService appConfigurationService)
+        public ConfigureTitleViewModel(IAppConfigurationService appConfigurationService, IMessageService messageService)
         {
+            _messageService = messageService;
             _popupNavigation = PopupNavigation.Instance;
             _appConfigurationService = appConfigurationService;
             ConfigureTitleCommand = CommandFactory.Create(ConfigureTitle);
@@ -27,6 +30,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         {
             await _appConfigurationService.SaveTitle(ConfiguredTitle);
             await _popupNavigation.PopAllAsync();
+            _messageService.LongAlert("Title configured, please restart the application for the changes to take effect.");
         }
     }
 }
