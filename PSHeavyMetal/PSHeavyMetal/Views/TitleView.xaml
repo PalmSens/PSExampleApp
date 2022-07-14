@@ -14,9 +14,10 @@
 
     <ContentView.Content>
         <Grid>
-            <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                 <Label
-                    FontSize="22"
+                    Margin="40,0,0,0"
+                    FontSize="20"
                     HorizontalOptions="CenterAndExpand"
                     LineBreakMode="NoWrap"
                     Text="{Binding ApplicationTitle}" />
