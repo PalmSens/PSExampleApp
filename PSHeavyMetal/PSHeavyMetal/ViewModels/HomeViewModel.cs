@@ -47,10 +47,13 @@ namespace PSHeavyMetal.Forms.ViewModels
 
             if (_userService.ActiveUser == null)
             {
-                //This is during the initialization of the project
-                await _popupNavigation.PushAsync(new LoginPopUp());
+                //This is during the initialization of the project. We check if the popup stack is 0. If its not then it means that the page onappearing is not triggered by the app startup
+                if (_popupNavigation.PopupStack.Count == 0)
+                {
+                    await _popupNavigation.PushAsync(new LoginPopUp());
 
-                await _appConfigurationService.InitializeMethod();
+                    await _appConfigurationService.InitializeMethod();
+                }
             }
         }
 

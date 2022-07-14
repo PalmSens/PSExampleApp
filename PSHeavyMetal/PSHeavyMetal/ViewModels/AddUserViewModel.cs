@@ -1,4 +1,5 @@
 ﻿using MvvmHelpers;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSHeavyMetal.Core.Services;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -10,11 +11,13 @@ namespace PSHeavyMetal.Forms.ViewModels
 {
     public class AddUserViewModel : BaseViewModel
     {
+        private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
 
-        public AddUserViewModel(IUserService userService)
+        public AddUserViewModel(IUserService userService, IMessageService messageService)
         {
+            _messageService = messageService;
             _popupNavigation = PopupNavigation.Instance;
             _userService = userService;
             AddUserCommand = CommandFactory.Create(OnAddUserClicked);
@@ -25,8 +28,21 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public async Task OnAddUserClicked()
         {
-            await _userService.SaveUserAsync(UserName);
-            await _popupNavigation.PopAllAsync();
+            if (string.IsNullOrEmpty(UserName))
+            {
+                _messageService.ShortAlert("Please fill in a valid username");
+                return;
+            }
+
+            try
+            {
+                await _userService.SaveUserAsync(UserName);
+                await _popupNavigation.PopAllAsync();
+            }
+            catch (System.Exception)
+            {
+                _messageService.ShortAlert("Please fill in a valid username");
+            }
         }
     }
 }

@@ -31,8 +31,8 @@ namespace PSHeavyMetal.Forms.ViewModels
             _popupNavigation = PopupNavigation.Instance;
 
             OpenAddUserViewCommand = CommandFactory.Create(async () => await _popupNavigation.PushAsync(new AddUserPopUp()));
-            OnPageAppearingCommand = CommandFactory.Create(async () => await UpdateUsers());
-            OnPageDisappearingCommand = CommandFactory.Create(async () => await OnDisappearing());
+            OnPageAppearingCommand = CommandFactory.Create(OnAppearing);
+            OnPageDisappearingCommand = CommandFactory.Create(OnDisappearing);
             CancelCommand = CommandFactory.Create(async () => await _popupNavigation.PopAsync());
             SelectionChangedCommand = CommandFactory.Create(SelectionChangedEvent);
 
@@ -46,6 +46,9 @@ namespace PSHeavyMetal.Forms.ViewModels
         }
 
         public ICommand CancelCommand { get; }
+
+        public bool HasUser => Users.Count > 0;
+
         public ICommand OnPageAppearingCommand { get; set; }
 
         public ICommand OnPageDisappearingCommand { get; set; }
@@ -61,8 +64,16 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
 
+        public async Task OnAppearing()
+        {
+            Users.CollectionChanged += Users_CollectionChanged;
+            await UpdateUsers();
+        }
+
         public async Task OnDisappearing()
         {
+            Users.CollectionChanged -= Users_CollectionChanged;
+
             var bluetoothEnabled = _permissionService.CheckBlueToothEnabled();
 
             if (!bluetoothEnabled)
@@ -86,11 +97,18 @@ namespace PSHeavyMetal.Forms.ViewModels
 
         private async Task UpdateUsers()
         {
+            OnPropertyChanged(nameof(HasUser));
+
             foreach (var user in await _userService.GetAllUsersAsync())
             {
                 if (!Users.Any(x => x.Name == user.Name))
                     Users.Add(user);
             }
+        }
+
+        private void Users_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(HasUser));
         }
     }
 }
