@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="PSExampleApp.Forms.Views.TitleView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+    xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    x:DataType="viewmodels:TitleViewModel"
+    Visual="Material">
+
+    <ContentView.Behaviors>
+        <behaviors:OnViewAppearingBehavior OnAppearingCommand="{Binding OnViewAppearingCommand}" />
+    </ContentView.Behaviors>
+
+    <ContentView.Content>
+        <Grid>
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <Label
+                    Margin="40,0,0,0"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    LineBreakMode="NoWrap"
+                    Text="{Binding ApplicationTitle}" />
+                <Image
+                    HeightRequest="30"
+                    Source="usericon.png"
+                    WidthRequest="30" />
+                <Label
+                    Margin="0,0,20,0"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding ActiveUserName}"
+                    VerticalTextAlignment="Center"
+                    WidthRequest="40" />
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PSExampleApp.Forms.Views.MeasurementDataView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:models="clr-namespace:PSExampleApp.Common.Models;assembly=PSExampleApp.Common"
+    xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
+    xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
+    x:DataType="viewmodels:MeasurementDataViewModel"
+    NavigationPage.HasBackButton="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImage" />
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <Grid>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding IsCreatingReport}"
+            Spacing="50"
+            VerticalOptions="CenterAndExpand">
+            <Label Style="{StaticResource MediumTextStyle}" Text="{xct:Translate CreatingReport}" />
+            <ActivityIndicator
+                HeightRequest="100"
+                IsRunning="True"
+                WidthRequest="100"
+                Color="White" />
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsCreatingReport, Converter={StaticResource InverseBoolConverter}}">
+            <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
+                <Label
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="{xct:Translate ResultFor}"
+                    VerticalOptions="Start" />
+                <Label Style="{StaticResource SmallTextStyle}" Text="{Binding LoadedMeasurement.Name}" />
+
+                <Label
+                    Margin="0,30,0,0"
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="{xct:Translate Found}"
+                    VerticalOptions="EndAndExpand" />
+                <Label FontAttributes="Bold" Style="{StaticResource MediumTextStyle}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="LoadedMeasurement.Concentration" />
+                            <Binding Path="LoadedMeasurement.Configuration.ConcentrationUnit" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="10"
+                VerticalOptions="StartAndExpand">
+                <Button
+                    x:Name="button"
+                    Command="{Binding TakePhotoCommand}"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasMaxPhotos, Converter={StaticResource InverseBoolConverter}}"
+                    Text="{xct:Translate AddPhoto}"
+                    WidthRequest="200" />
+                <Frame
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    HeightRequest="75"
+                    WidthRequest="200">
+                    <CollectionView
+                        HeightRequest="75"
+                        HorizontalOptions="StartAndExpand"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding MeasurementPhotos}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:MeasurementPhotoPresenter">
+                                <Grid>
+                                    <StackLayout
+                                        HeightRequest="50"
+                                        Orientation="Horizontal"
+                                        WidthRequest="70">
+                                        <ImageButton
+                                            Margin="5"
+                                            Aspect="AspectFill"
+                                            Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:MeasurementDataViewModel}}, Path=OnPhotoSelectedCommand}"
+                                            CommandParameter="{Binding Photo}"
+                                            HeightRequest="50"
+                                            Source="{Binding Photo}"
+                                            WidthRequest="50" />
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
+                <Button
+                    Command="{Binding ShareMeasurementCommand}"
+                    HorizontalOptions="Center"
+                    Text="{xct:Translate ShareReport}"
+                    WidthRequest="200" />
+                <Button
+                    Command="{Binding ShowPlotCommand}"
+                    HorizontalOptions="Center"
+                    Text="{xct:Translate ShowPlot}"
+                    WidthRequest="200" />
+                <Button
+                    Command="{Binding BackCommand}"
+                    HorizontalOptions="Center"
+                    Text="{xct:Translate Back}"
+                    WidthRequest="200" />
+            </StackLayout>
+        </StackLayout>
+
+        <ContentView VerticalOptions="End">
+            <views:StatusBarView />
+        </ContentView>
+    </Grid>
+</ContentPage>

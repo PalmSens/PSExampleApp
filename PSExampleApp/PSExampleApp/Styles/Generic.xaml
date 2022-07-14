@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="PSExampleApp.Forms.Styles.Generic"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:Double x:Key="DefaultControlWidth">240</system:Double>
+    <system:Double x:Key="DefaultEntryHeight">60</system:Double>
+    <system:Double x:Key="DefaultControlButtonHeight">50</system:Double>
+
+    <Style x:Key="CustomPage" TargetType="ContentPage">
+        <Setter Property="Visual" Value="Material" />
+        <Setter Property="NavigationPage.TitleView">
+            <Setter.Value>
+                <views:TitleView />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <Style TargetType="ImageButton">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="White" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="HeightRequest" Value="{StaticResource DefaultControlButtonHeight}" />
+        <Setter Property="WidthRequest" Value="{StaticResource DefaultControlWidth}" />
+    </Style>
+    <Style TargetType="Entry">
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="HeightRequest" Value="{StaticResource DefaultEntryHeight}" />
+        <Setter Property="WidthRequest" Value="{StaticResource DefaultControlWidth}" />
+    </Style>
+
+    <Style TargetType="Picker">
+        <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+    </Style>
+
+    <Style x:Key="TitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansSemiBold}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+
+    <Style x:Key="LargeTextStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="MediumTextStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize28}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="SmallTextStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize24}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="MicroTextStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize20}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="SmallSubTextStyle" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Italic" />
+        <Setter Property="FontFamily" Value="{StaticResource SourceSansLight}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize24}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="RadioButton">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CheckedStates">
+                    <VisualState x:Name="Checked">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                            <Setter Property="Opacity" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                            <Setter Property="Opacity" Value="0.5" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+</ResourceDictionary>

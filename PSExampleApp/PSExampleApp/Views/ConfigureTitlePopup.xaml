@@ -1,0 +1,47 @@
+﻿<pages:PopupPage
+    x:Class="PSExampleApp.Forms.Views.ConfigureTitlePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pagesanimation="http://rotorgames.com"
+    xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:DataType="viewmodels:ConfigureTitleViewModel"
+    HasKeyboardOffset="False"
+    Visual="Material">
+    <pages:PopupPage.Animation>
+        <pagesanimation:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <StackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="300">
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="CenterAndExpand">
+            <Entry
+                x:Name="UserNameEntry"
+                Placeholder="{xct:Translate EnterTitle}"
+                ReturnCommand="{Binding ConfigureTitleCommand}"
+                ReturnType="Done"
+                Text="{Binding ConfiguredTitle}" />
+        </StackLayout>
+        <StackLayout
+            Margin="0,0,0,75"
+            HorizontalOptions="CenterAndExpand"
+            Spacing="20"
+            VerticalOptions="EndAndExpand">
+            <Button Command="{Binding ConfigureTitleCommand}" Text="{xct:Translate Confirm}" />
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

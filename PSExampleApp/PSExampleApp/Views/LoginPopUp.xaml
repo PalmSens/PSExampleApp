@@ -1,0 +1,98 @@
+﻿<pages:PopupPage
+    x:Class="PSExampleApp.Forms.Views.LoginPopUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:pagesanimation="http://rotorgames.com"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
+    xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:DataType="viewmodels:LoginViewModel"
+    CloseWhenBackgroundIsClicked="False"
+    Visual="Material">
+    <pages:PopupPage.Animation>
+        <pagesanimation:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <local:NullToVisibilityConverter x:Key="nullToVisibility" />
+            <local:NullToInVisibilityConverter x:Key="nullToInvisibility" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Behaviors>
+        <behaviors:OnPopupAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnPopupDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
+    </pages:PopupPage.Behaviors>
+
+    <StackLayout Spacing="40" VerticalOptions="CenterAndExpand">
+        <Label
+            IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
+            Style="{StaticResource TitleStyle}"
+            Text="{xct:Translate Welcome}" />
+        <Label
+            IsVisible="{Binding ActiveUser, Converter={StaticResource nullToInvisibility}}"
+            Style="{StaticResource MediumTextStyle}"
+            Text="{xct:Translate SelectUserHeader}"
+            WidthRequest="250" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Picker
+                x:Name="UserPicker"
+                Title="{xct:Translate SelectUser}"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="CenterAndExpand"
+                IsEnabled="{Binding HasUser}"
+                ItemDisplayBinding="{Binding Name}"
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                WidthRequest="200">
+                <Picker.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding SelectionChangedCommand}" EventName="SelectedIndexChanged" />
+                </Picker.Behaviors>
+            </Picker>
+            <ImageButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Aspect="Fill"
+                BackgroundColor="Transparent"
+                Command="{Binding OpenAddUserViewCommand}"
+                HeightRequest="60"
+                HorizontalOptions="Start"
+                Source="plusicon.png"
+                VerticalOptions="Center"
+                WidthRequest="60" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                Command="{Binding CancelCommand}"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding ActiveUser, Converter={StaticResource nullToVisibility}}"
+                Text="{xct:Translate Cancel}"
+                VerticalOptions="End"
+                WidthRequest="200" />
+        </Grid>
+    </StackLayout>
+</pages:PopupPage>
