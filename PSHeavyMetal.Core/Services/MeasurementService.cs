@@ -88,15 +88,15 @@ namespace PSHeavyMetal.Core.Services
 
             //Here we filter based on the expected peak and the peakwidth. If the PeakX value falls within the width then the peak fill be used.
             //If we find multiple peaks then we select the one one with the highest peak value
-            var peakWidthLeft = ActiveMeasurement.Configuration.ConcentrationMethod.ExpectedPeakOnXAxis - ActiveMeasurement.Configuration.ConcentrationMethod.PeakWidth;
-            var peakWidthRight = ActiveMeasurement.Configuration.ConcentrationMethod.ExpectedPeakOnXAxis + ActiveMeasurement.Configuration.ConcentrationMethod.PeakWidth;
+            var peakWidthLeft = ActiveMeasurement.Configuration.ConcentrationMethod.PeakWindowXMin;
+            var peakWidthRight = ActiveMeasurement.Configuration.ConcentrationMethod.PeakWindowXMax;
             var filteredPeak = peakList.Where(x => x.PeakX >= peakWidthLeft && x.PeakX <= peakWidthRight).OrderByDescending(y => y.PeakValue).FirstOrDefault();
 
             //If we can't find any filtered peaks then we leave the concentration at 0
             if (filteredPeak == null)
                 return;
 
-            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.Slope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.Offset);
+            ActiveMeasurement.Concentration = Math.Truncate(ActiveMeasurement.Configuration.ConcentrationMethod.CalibrationCurveSlope * filteredPeak.PeakValue + ActiveMeasurement.Configuration.ConcentrationMethod.CalibrationCurveOffset);
         }
 
         public HeavyMetalMeasurement CreateMeasurement(MeasurementConfiguration configuration)

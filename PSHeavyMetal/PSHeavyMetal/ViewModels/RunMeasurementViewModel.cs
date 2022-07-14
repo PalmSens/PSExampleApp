@@ -184,7 +184,7 @@ namespace PSHeavyMetal.Forms.ViewModels
         private async Task RunPeakAnalysis()
         {
             _activeCurve.DetectedPeaks += Curve_DetectedPeaks;
-            await _activeCurve.DetectPeaksAsync();
+            await _activeCurve.DetectPeaksAsync(ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinWidth, ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinHeight);
         }
     }
 }

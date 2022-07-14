@@ -1,10 +1,12 @@
 {
   "analyteName": "pb default",
   "concentrationMethod": {
-    "offset": 50,
-    "expectedPeakOnXAxis": 0.02,
-    "peakWidth": 0.2,
-    "slope": 1000.0
+    "CalibrationCurveOffset": 50,
+    "PeakWindowXMin": -0.2,
+    "PeakWindowXMax": 0.2,
+    "PeakMinWidth": 0.01,
+    "PeakMinHeight": 0.0004,
+    "CalibrationCurveSlope": 1000.0
   },
   "concentrationUnit": "ppm",
   "description": "Test description"
