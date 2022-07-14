@@ -19,7 +19,6 @@ namespace PSHeavyMetal.Forms
         public App()
         {
             ServiceProvider = Startup.Init();
-            InitializeComponent();
 
             LocalizationResourceManager.Current.PropertyChanged += Current_PropertyChanged;
             LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
@@ -39,6 +38,8 @@ namespace PSHeavyMetal.Forms
                     appConfigurationService.SaveSettings(settings);
                 }
             }
+
+            InitializeComponent();
 
             var navigationPage = new NavigationPage(new HomeView())
             {
