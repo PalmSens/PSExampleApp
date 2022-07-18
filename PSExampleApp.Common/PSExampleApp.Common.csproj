@@ -9,12 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PSXamarinFormsSDK\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj" />
+    <ProjectReference Include="..\PSLibraries\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="PalmSens.Core">
-      <HintPath>..\PSXamarinFormsSDK\PSLibraries\PalmSens.Core.dll</HintPath>
+      <HintPath>..\PSLibraries\PalmSens.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

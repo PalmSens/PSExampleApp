@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="PalmSens.Core">
-      <HintPath>..\PSLibraries\PalmSens.Core.dll</HintPath>
+      <HintPath>..\PalmSens.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -42,10 +42,10 @@
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="PalmSens.Core">
-      <HintPath>..\PSLibraries\PalmSens.Core.dll</HintPath>
+      <HintPath>..\PalmSens.Core.dll</HintPath>
     </Reference>
     <Reference Include="PalmSens.PSAndroid.Core">
-      <HintPath>..\PSLibraries\PalmSens.PSAndroid.Core.dll</HintPath>
+      <HintPath>..\PalmSens.PSAndroid.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

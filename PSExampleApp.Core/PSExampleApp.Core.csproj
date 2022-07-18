@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PSExampleApp.Common\PSExampleApp.Common.csproj" />
-    <ProjectReference Include="..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj" />    
+    <ProjectReference Include="..\PSLibraries\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj" />    
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +44,7 @@
       <HintPath>..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="PalmSens.Core">
-      <HintPath>..\PSXamarinFormsSDK\PSLibraries\PalmSens.Core.dll</HintPath>
+      <HintPath>..\PSLibraries\PalmSens.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

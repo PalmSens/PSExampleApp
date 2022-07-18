@@ -54,13 +54,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PSExampleApp.Core\PSExampleApp.Core.csproj" />    
-  </ItemGroup>
+  </ItemGroup>	
 
   <ItemGroup>
-    <Reference Include="PalmSens.Core">
-      <HintPath>..\..\PSXamarinFormsSDK\PSLibraries\PalmSens.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>	
+	  <Reference Include="PalmSens.Core">
+		  <HintPath>..\..\PSLibraries\PalmSens.Core.dll</HintPath>
+	  </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resx\AppResources.nl.Designer.cs">

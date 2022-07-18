@@ -151,7 +151,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
+    <ProjectReference Include="..\..\PSLibraries\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
       <Project>{CB510E02-A04F-46A6-832F-D8925066036E}</Project>
       <Name>PalmSens.Core.Simplified.XF.Application</Name>
     </ProjectReference>

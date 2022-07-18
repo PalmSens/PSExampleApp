@@ -127,15 +127,15 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
+    <ProjectReference Include="..\..\PSLibraries\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
       <Project>{CB510E02-A04F-46A6-832F-D8925066036E}</Project>
       <Name>PalmSens.Core.Simplified.XF.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified.XF.Infrastructure.Android\PalmSens.Core.Simplified.XF.Infrastructure.Android.csproj">
-      <Project>{3E72DA4E-376C-43AA-956D-AE7BBEC54F96}</Project>
+    <ProjectReference Include="..\..\PSLibraries\PalmSens.Core.Simplified.XF.Infrastructure.Android\PalmSens.Core.Simplified.XF.Infrastructure.Android.csproj">
+      <Project>{3e72da4e-376c-43aa-956d-ae7bbec54f96}</Project>
       <Name>PalmSens.Core.Simplified.XF.Infrastructure.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\PSXamarinFormsSDK\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj">
+    <ProjectReference Include="..\..\PSLibraries\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj">
       <Project>{564E4775-148F-4CCB-ADA2-74B50A3AACBA}</Project>
       <Name>PalmSens.Core.Simplified</Name>
     </ProjectReference>
