@@ -9,12 +9,30 @@ namespace PSExampleApp.Droid.Services
 {
     public class BluetoothPermission : Xamarin.Essentials.Permissions.BasePlatformPermission
     {
-        public override (string androidPermission, bool isRuntime)[] RequiredPermissions => new List<(string androidPermission, bool isRuntime)>
+        public override (string androidPermission, bool isRuntime)[] RequiredPermissions
         {
-            (Android.Manifest.Permission.BluetoothScan, true),
-            (Android.Manifest.Permission.BluetoothConnect, true),
-            (Android.Manifest.Permission.AccessFineLocation, true)
-        }.ToArray();
+            get
+            {
+                var permissionList = new List<(string androidPermission, bool isRuntime)>();
+                if (DeviceInfo.Version.Major >= 12)
+                {
+                    permissionList.Add((Android.Manifest.Permission.BluetoothScan, true));
+                    permissionList.Add((Android.Manifest.Permission.BluetoothConnect, true));
+                }
+                else if (DeviceInfo.Version.Major >= 10 && DeviceInfo.Version.Minor <= 11)
+                {
+                    permissionList.Add((Android.Manifest.Permission.Bluetooth, true));
+                    permissionList.Add((Android.Manifest.Permission.AccessFineLocation, true));
+                }
+                else
+                {
+                    permissionList.Add((Android.Manifest.Permission.Bluetooth, true));
+                    permissionList.Add((Android.Manifest.Permission.AccessCoarseLocation, true));
+                }
+
+                return permissionList.ToArray();
+            }
+        }
     }
 
     public class PermissionService : IPermissionService
