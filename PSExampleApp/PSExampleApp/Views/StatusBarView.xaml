@@ -3,15 +3,12 @@
     x:Class="PSExampleApp.Forms.Views.StatusBarView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
     xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    xmlns:helpers="clr-namespace:PSExampleApp.Core.Helpers;assembly=PSExampleApp.Core"
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"    
     x:DataType="viewmodels:StatusBarViewModel"
     Visual="Material">
-
-    <ContentView.Behaviors>
-        <behaviors:OnViewAppearingBehavior OnAppearingCommand="{Binding OnViewAppearingCommand}" />
-    </ContentView.Behaviors>
 
     <ContentView.Resources>
         <ResourceDictionary>
@@ -21,7 +18,8 @@
 
     <ContentView.Content>
         <Grid>
-            <Frame BackgroundColor="Black" Opacity="0.6" />
+            <Frame
+                Style="{StaticResource StatusBarFrame}"/>
             <StackLayout HeightRequest="75" Orientation="Horizontal">
                 <StackLayout
                     Padding="20,0,20,0"
@@ -37,11 +35,11 @@
                         Source="searchinganimation.gif"
                         VerticalOptions="Start"
                         WidthRequest="30" />
-                    <Image
+                    <ffimageloadingsvg:SvgCachedImage
                         HeightRequest="30"
                         HorizontalOptions="Start"
                         IsVisible="{Binding IsConnected}"
-                        Source="bluetoothconnected.png"
+                        Source="resource://PSExampleApp.Forms.Resources.bluetoothconnected.svg"
                         WidthRequest="30" />
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
                         <Label
@@ -58,19 +56,19 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="30" />
                     </StackLayout>
-                    <ImageButton
+                    <ffimageloadingsvg:SvgCachedImage
                         Margin="0,0,5,0"
-                        Command="{Binding OpenDataCommand}"
+                        helpers:TappedGestureAttached.Command="{Binding OpenDataCommand}"
                         HeightRequest="30"
                         HorizontalOptions="EndAndExpand"
                         IsVisible="{Binding HasActiveMeasurement, Converter={StaticResource InverseBool}}"
-                        Source="chart.png"
+                        Source="resource://PSExampleApp.Forms.Resources.chart.svg"
                         WidthRequest="30" />
-                    <ImageButton
-                        Command="{Binding OpenSettingsCommand}"
+                    <ffimageloadingsvg:SvgCachedImage
+                        helpers:TappedGestureAttached.Command="{Binding OpenSettingsCommand}"
                         HeightRequest="30"
                         HorizontalOptions="End"
-                        Source="cogwheel.png"
+                        Source="resource://PSExampleApp.Forms.Resources.cogwheel.svg"
                         WidthRequest="30" />
                 </StackLayout>
             </StackLayout>

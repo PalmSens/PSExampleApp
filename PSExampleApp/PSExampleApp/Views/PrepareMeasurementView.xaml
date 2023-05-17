@@ -7,18 +7,31 @@
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     x:DataType="viewmodels:PrepareMeasurementViewModel"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"    
     Style="{StaticResource CustomPage}">
 
-    <Grid>
-        <StackLayout
-            HorizontalOptions="CenterAndExpand"
-            Orientation="Vertical"
-            VerticalOptions="CenterAndExpand">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*,60,5,60,*,50,5,70"
+            ColumnDefinitions="*,3*,*">
             <Entry
-                Margin="0,0,0,20"
+                Grid.Column="1"
+                Grid.Row="1"
                 Placeholder="{xct:Translate SampleName}"
                 Text="{Binding SampleName}" />
             <Editor
+                Grid.Column="1"
+                Grid.Row="3"
                 AutoSize="Disabled"
                 BackgroundColor="White"
                 HeightRequest="150"
@@ -27,13 +40,17 @@
                 Placeholder="{xct:Translate Notes}"
                 Text="{Binding SampleNotes}" />
             <Button
-                Margin="0,20,0,0"
+                Grid.Column="1"
+                Grid.Row="5"
                 Command="{Binding ContinueCommand}"
                 Text="{xct:Translate Continue}" />
-        </StackLayout>
 
-        <ContentView VerticalOptions="End">
-            <views:StatusBarView />
-        </ContentView>
-    </Grid>
+            <ContentView 
+                Grid.Row="7"
+                Grid.ColumnSpan="3"
+                Grid.Column="0">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

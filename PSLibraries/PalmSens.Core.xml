@@ -3118,6 +3118,26 @@
             </summary>
       <param name="settings">The settings as calculated by Method.GetTimeFilterbyte.</param>
     </member>
+    <member name="M:PalmSens.Comm.ClientConnection.LoadDeviceFile(PalmSens.Data.DeviceFile)">
+      <summary>
+            Loads a measurement from the internal storage
+            </summary>
+      <param name="file">
+      </param>
+      <returns>The loaded measurement</returns>
+      <exception cref="T:System.NotImplementedException">
+      </exception>
+    </member>
+    <member name="M:PalmSens.Comm.ClientConnection.LoadDeviceFileAsync(PalmSens.Data.DeviceFile)">
+      <summary>
+            Loads a measurement from the internal storage
+            </summary>
+      <param name="file">
+      </param>
+      <returns>The loaded measurement</returns>
+      <exception cref="T:System.NotImplementedException">
+      </exception>
+    </member>
     <member name="M:PalmSens.Comm.ClientConnection.RemoteControl(System.Char,System.Int64,System.Int64)">
       <summary>
             Sends a remote control command
@@ -3615,24 +3635,6 @@
             Whether The EmStat Pico should measure temperature, current and potential when idle.
             </summary>
     </member>
-    <member name="M:PalmSens.Comm.ClientConnectionMS.SetHWSync(System.Boolean)">
-      <summary>
-            Enables/disables the hardware synchronization for supported multichannel instruments
-            </summary>
-      <param name="isEnabled">
-      </param>
-      <returns>
-      </returns>
-    </member>
-    <member name="M:PalmSens.Comm.ClientConnectionMS.SetHWSyncAsync(System.Boolean)">
-      <summary>
-            Enables/disables the hardware synchronization for supported multichannel instruments
-            </summary>
-      <param name="isEnabled">
-      </param>
-      <returns>
-      </returns>
-    </member>
     <member name="M:PalmSens.Comm.ClientConnectionMS.EnterDownloadMode">
       <summary>
             Enter the download mode
@@ -3793,23 +3795,25 @@
       <param name="methodScript">The method script.</param>
       <param name="timeOut">Optional time out in milliseconds (500ms by default)</param>
     </member>
-    <member name="M:PalmSens.Comm.ClientConnectionMS.StartGetterMethodScript(System.String,System.Int32,System.Boolean)">
+    <member name="M:PalmSens.Comm.ClientConnectionMS.StartGetterMethodScript(System.String,System.Int32,System.Boolean,System.Int32)">
       <summary>
             Runs a script that returns the MethodSCRIPTS unparsed response
             </summary>
       <param name="methodScript">The MethodSCRIPT.</param>
-      <param name="readingTimeOut">Exception is thrown when no new data is received for the read time out period (milliseconds).</param>
+      <param name="resultTimeOut">Exception is thrown when no result is received for the read time out period (milliseconds).</param>
       <param name="throwExceptionsDirectly">if set to <c>true</c> [throw exceptions directly].</param>
+      <param name="responseTimeOut">Exception is thrown when instrument does not respond to acknowledge it has received the script</param>
       <returns>unparsed </returns>
       <exception cref="T:System.TimeoutException">Timeout while waiting for terminated packet</exception>
     </member>
-    <member name="M:PalmSens.Comm.ClientConnectionMS.StartGetterMethodScriptAsync(System.String,System.Int32,System.Boolean)">
+    <member name="M:PalmSens.Comm.ClientConnectionMS.StartGetterMethodScriptAsync(System.String,System.Int32,System.Boolean,System.Int32)">
       <summary>
             Runs a script that returns the MethodSCRIPTS unparsed response
             </summary>
       <param name="methodScript">The MethodSCRIPT.</param>
-      <param name="readingTimeOut">Exception is thrown when no new data is received for the read time out period (milliseconds).</param>
+      <param name="resultTimeOut">Exception is thrown when no result is received for the read time out period (milliseconds).</param>
       <param name="throwExceptionsDirectly">if set to <c>true</c> [throw exceptions directly].</param>
+      <param name="responseTimeOut">Exception is thrown when instrument does not respond to acknowledge it has received the script</param>
       <returns>unparsed </returns>
       <exception cref="T:System.TimeoutException">Timeout while waiting for terminated packet</exception>
     </member>
@@ -4304,7 +4308,7 @@
             </summary>
       <param name="ct">The cell type id.</param>
     </member>
-    <member name="M:PalmSens.Comm.ClientConnectionPS4.ConvertMeasurementVersion(System.Double,PalmSens.Comm.Buffer)">
+    <member name="M:PalmSens.Comm.ClientConnectionPS4.ConvertMeasurementVersion(System.Double,PalmSens.Comm.OfflineBuffer)">
       <summary>
             Converts measurements performed by previous versions of the firmware to the currentmost version.
             </summary>
@@ -5908,6 +5912,16 @@
     <member name="F:PalmSens.Comm.MeasureVersusOCP.CurrentPhase">
       <summary>
             The current phase of the measurement procedure
+            </summary>
+    </member>
+    <member name="F:PalmSens.Comm.MeasureVersusOCP._prevPotential">
+      <summary>
+            Used for stability criterium check
+            </summary>
+    </member>
+    <member name="F:PalmSens.Comm.MeasureVersusOCP._stabCount">
+      <summary>
+            Used to count if the potential is stable for 5x in a row  (5x200 ms = 1 s)
             </summary>
     </member>
     <member name="P:PalmSens.Comm.MeasureVersusOCP.OCP">
@@ -11678,6 +11692,76 @@
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
     </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedance.Name">
+      <summary>
+            The readable name of this technique
+            </summary>
+    </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedance.ShortName">
+      <summary>
+            The abbreviation for this technique
+            </summary>
+    </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedance.MethodID">
+      <summary>
+            The abbreviation for this technique
+            </summary>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedance.ToString">
+      <summary>
+            Convert to string
+            </summary>
+      <returns>the name of the technique</returns>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedance.ToShortString">
+      <summary>
+            Returns the abbreviation of the technique
+            </summary>
+      <returns>the abbrevation</returns>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedance.GetMethodID">
+      <summary>
+            Gets a unique identifier for the type of this method class.
+            This unqiue ID can never be changed. Saved methods refer to this ID to initialize the method.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedanceGstat.Name">
+      <summary>
+            The readable name of this technique
+            </summary>
+    </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedanceGstat.ShortName">
+      <summary>
+            The abbreviation for this technique
+            </summary>
+    </member>
+    <member name="F:PalmSens.Core.Techniques.FastImpedanceGstat.MethodID">
+      <summary>
+            The abbreviation for this technique
+            </summary>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedanceGstat.ToString">
+      <summary>
+            Convert to string
+            </summary>
+      <returns>the name of the technique</returns>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedanceGstat.ToShortString">
+      <summary>
+            Returns the abbreviation of the technique
+            </summary>
+      <returns>the abbrevation</returns>
+    </member>
+    <member name="M:PalmSens.Core.Techniques.FastImpedanceGstat.GetMethodID">
+      <summary>
+            Gets a unique identifier for the type of this method class.
+            This unqiue ID can never be changed. Saved methods refer to this ID to initialize the method.
+            </summary>
+      <returns>
+      </returns>
+    </member>
     <member name="T:PalmSens.EncodedMethod">
       <summary>
             Helper class for generating protocol data
@@ -13221,14 +13305,14 @@
             <list type="bullet"><item><description>supported mux channels</description></item><item><description>supported ranges for auto ranging (1 mA and 10 mA not supported by EmStat1)</description></item></list></summary>
       <param name="capab">The device capabilities.</param>
     </member>
-    <member name="M:PalmSens.Method.GetPotentialRangeParameters">
+    <member name="M:PalmSens.Method.GetPotentialRangeParameters(System.Boolean)">
       <summary>
             Gets the parameters that must comply with the potential range [ESPico only].
             </summary>
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Method.GetExpectedPotentialRange(System.Single@,System.Single@)">
+    <member name="M:PalmSens.Method.GetExpectedPotentialRange(System.Single@,System.Single@,System.Boolean)">
       <summary>
             Gets the expected potential range of the method [ESPico only].
             </summary>
@@ -13297,11 +13381,15 @@
             Estimated number of seconds the pretreatment phase will take.
             </summary>
     </member>
-    <member name="P:PalmSens.Method.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Method.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>Estimated number of seconds a measurement will take at least in seconds (not multiplied by multiplexer cycles)</summary>
+      <param name="capab">
+      </param>
     </member>
-    <member name="P:PalmSens.Method.MaximumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Method.GetMaximumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>Estimated number of seconds a measurement will take multiplied with n multiplexer channels (in seconds)</summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Method.MultiplexCycles">
       <summary>
@@ -13521,7 +13609,7 @@
             The delay in seconds after start of the measurement.
             </value>
     </member>
-    <member name="M:PalmSens.Method.DeterminePGStatMode(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Method.DeterminePGStatMode(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Determines the recommended potentiostat mode. Make sure base classes do not also call this in their validate.
             </summary>
@@ -13539,9 +13627,19 @@
       <exception cref="T:System.NotSupportedException">
       </exception>
     </member>
+    <member name="M:PalmSens.Method.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
+      <summary>
+            Function for generating the method script. 
+            </summary>
+      <param name="capabilities">The capabilities.</param>
+      <returns>
+      </returns>
+      <exception cref="T:System.NotImplementedException">
+      </exception>
+    </member>
     <member name="M:PalmSens.Method.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
       <summary>
-            Function for generating the method script.
+            Function for generating the method script. Backwards compatible for SDK users.
             </summary>
       <param name="capabilities">The capabilities.</param>
       <returns>
@@ -13715,6 +13813,12 @@
       <summary>
             Used with corrosion and impedance measurements only
             Gets a the number of vs OCP parameters available
+            </summary>
+    </member>
+    <member name="M:PalmSens.Method.OCPUsePar``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Used with corrosion and impedance measurements only
+            Gets a value indicating whether the potential parameter should be used for OCP
             </summary>
     </member>
     <member name="M:PalmSens.Method.OCPGetLabelIndexedPar(System.Int32)">
@@ -13997,6 +14101,17 @@
       <param name="n">The n amount of iterations.</param>
       <exception cref="T:System.Exception">The method script should define the IndexVariable as a TechniqueSpecificVariable</exception>
     </member>
+    <member name="M:PalmSens.MethodScript.SetGenericLoop(System.Action,System.String,System.Boolean,System.Boolean,System.Boolean,System.String)">
+      <summary>
+            Set a generic loop containing a loop defined in the inner loop function
+            for an n amount of iterations.
+            This function requires the IndexVariable to be declared as a
+            Technique specific variable.
+            </summary>
+      <param name="innerLoopFunc">The function defining the inner loop.</param>
+      <param name="n">The n amount of iterations.</param>
+      <exception cref="T:System.Exception">The method script should define the IndexVariable as a TechniqueSpecificVariable</exception>
+    </member>
     <member name="M:PalmSens.MethodScript.BeginScript">
       <summary>
             Marks the beginning of the MethodScript
@@ -14013,11 +14128,18 @@
             </summary>
       <returns>string representation of the MethodScript</returns>
     </member>
-    <member name="M:PalmSens.MethodScript.DeclareVariables(System.String[])">
+    <member name="M:PalmSens.MethodScript.DeclareVariables(System.Collections.Generic.IEnumerable{System.String})">
       <summary>
             Declares the given variables
             </summary>
       <param name="variables">
+      </param>
+    </member>
+    <member name="M:PalmSens.MethodScript.DeclareArrays(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.Int32}})">
+      <summary>
+            Declares the given arrays
+            </summary>
+      <param name="arrays">
       </param>
     </member>
     <member name="M:PalmSens.MethodScript.DeclareTechniqueSpecificVsOCPVariables">
@@ -14704,7 +14826,7 @@
       <param name="freqType">Type of the freq. Set to 'fixed' if unknown at beforehand. AddRow() will change FreqType if a different frequency is added.</param>
       <param name="frequencies">The frequencies used in case freqType == FreqScan.</param>
     </member>
-    <member name="M:PalmSens.Plottables.EISData.ToJsonBagAsync(System.Threading.CancellationToken)">
+    <member name="M:PalmSens.Plottables.EISData.ToJsonWriterAsync(Newtonsoft.Json.JsonWriter,System.Threading.CancellationToken)">
       <summary>
             Saves EISData to a Json bag.
             </summary>
@@ -15412,13 +15534,13 @@
       <summary>Step potential in V.</summary>
       <remarks>Resolution is 1 mV.</remarks>
     </member>
-    <member name="M:PalmSens.PotentialMethod.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.PotentialMethod.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
       <returns>error message or null if there were no errors</returns>
     </member>
-    <member name="M:PalmSens.PotentialMethod.GetPotentialRangeParameters">
+    <member name="M:PalmSens.PotentialMethod.GetPotentialRangeParameters(System.Boolean)">
       <summary>
             Gets the parameters that must comply with the potential range [ESPico only].
             </summary>
@@ -16305,6 +16427,13 @@
             Whether autoranging is enabled
             </summary>
     </member>
+    <member name="M:PalmSens.RangingPotential.GetOptimalRangeForPotential(System.Double,PalmSens.Devices.DeviceCapabilities)">
+      <summary>
+            Gets the optimal range for potential in V.
+            </summary>
+      <param name="current">The potential in V.</param>
+      <returns>Byte to use for PalmSens.CurrentRange.FromCRByte()</returns>
+    </member>
     <member name="T:PalmSens.AutoRangingPotential">
       <summary>
             Autoranging
@@ -16731,7 +16860,7 @@
             Measurement the DC current
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.ACVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.ACVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -16796,10 +16925,12 @@
             </summary>
       <param name="m">The encoded method</param>
     </member>
-    <member name="P:PalmSens.Techniques.ACVoltammetry.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ACVoltammetry.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Estimated minimum number of seconds this method will take.
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="M:PalmSens.Techniques.ACVoltammetry.Deserialize(System.String)">
       <summary>
@@ -16807,7 +16938,7 @@
             </summary>
       <param name="contents">The contents to deserialize.</param>
     </member>
-    <member name="M:PalmSens.Techniques.ACVoltammetry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.ACVoltammetry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -16839,7 +16970,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.AmperometricDetection.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.AmperometricDetection.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -16909,7 +17040,7 @@
       <param name="m">
       </param>
     </member>
-    <member name="M:PalmSens.Techniques.AmperometricDetection.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.AmperometricDetection.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -17048,8 +17179,10 @@
             Whether this measurement can be saved and loaded from the device storage
             </summary>
     </member>
-    <member name="P:PalmSens.Techniques.ChronoPotStripping.MaximumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ChronoPotStripping.GetMaximumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary> Estimated number of seconds a measurement will take at most (in seconds)</summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Techniques.ChronoPotStripping.MeasurementTime">
       <summary>Measurement Time</summary>
@@ -17113,12 +17246,14 @@
             </summary>
       <param name="m">destination blob</param>
     </member>
-    <member name="P:PalmSens.Techniques.ChronoPotStripping.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ChronoPotStripping.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Number of seconds this method will at least take. 
             </summary>
+      <param name="capab">
+      </param>
     </member>
-    <member name="M:PalmSens.Techniques.ChronoPotStripping.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.ChronoPotStripping.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -17130,7 +17265,7 @@
             </summary>
       <param name="contents">The contents to deserialize.</param>
     </member>
-    <member name="M:PalmSens.Techniques.ChronoPotStripping.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.ChronoPotStripping.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -17257,13 +17392,13 @@
             Default right X
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.CyclicVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.CyclicVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
       <returns>error string or null if there were no errors</returns>
     </member>
-    <member name="M:PalmSens.Techniques.CyclicVoltammetry.ValidateBase(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.CyclicVoltammetry.ValidateBase(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -17310,10 +17445,12 @@
             </summary>
       <param name="m">destination blob</param>
     </member>
-    <member name="P:PalmSens.Techniques.CyclicVoltammetry.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.CyclicVoltammetry.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum number of seconds this method will take
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="M:PalmSens.Techniques.CyclicVoltammetry.Serialize(System.IO.TextWriter)">
       <summary>
@@ -17327,7 +17464,7 @@
             </summary>
       <param name="contents">The content string.</param>
     </member>
-    <member name="M:PalmSens.Techniques.CyclicVoltammetry.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.CyclicVoltammetry.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is StepPotential / Scanrate.
@@ -17336,7 +17473,7 @@
             The interval time.
             </value>
     </member>
-    <member name="M:PalmSens.Techniques.CyclicVoltammetry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.CyclicVoltammetry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -17374,7 +17511,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.FastCyclicVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.FastCyclicVoltammetry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -17465,7 +17602,7 @@
             Number of points used in a measurement
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.FastAmperometry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.FastAmperometry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -17535,7 +17672,7 @@
             </summary>
       <param name="m">encoded method to write to</param>
     </member>
-    <member name="M:PalmSens.Techniques.FastAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.FastAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -17660,7 +17797,7 @@
             DC Current
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.ImpedimetricGstatMethod.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.ImpedimetricGstatMethod.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this Method.
             </summary>
@@ -17843,10 +17980,12 @@
             </summary>
       <returns>"Impedance"</returns>
     </member>
-    <member name="P:PalmSens.Techniques.ImpedimetricIterationMethodBase.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ImpedimetricIterationMethodBase.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Number of seconds this measurement will at least take.
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="F:PalmSens.Techniques.ImpedimetricIterationMethodBase.Frequency">
       <summary>
@@ -18017,7 +18156,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.ImpedimetricIterationMethodBase.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.ImpedimetricIterationMethodBase.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -18206,18 +18345,15 @@
             </summary>
       <param name="contents">The contents.</param>
     </member>
-    <member name="M:PalmSens.Techniques.ImpedimetricMethodBase.GetPotentialRangeParameters">
-      <summary>
-            Gets the parameters that must comply with the potential range [ESPico only].
-            </summary>
-      <returns>
-      </returns>
-    </member>
-    <member name="P:PalmSens.Techniques.ImpedimetricMethodBase.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ImpedimetricMethodBase.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>Estimated number of seconds a measurement will take at least (in seconds)</summary>
+      <param name="capab">
+      </param>
     </member>
-    <member name="P:PalmSens.Techniques.ImpedimetricMethodBase.MaximumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.ImpedimetricMethodBase.GetMaximumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>Estimated number of seconds a measurement will take at maximum (in seconds)</summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="T:PalmSens.Techniques.ImpedimetricMethod">
       <summary>Contains all methodparameters for technique ImpedimetricMethod.</summary>
@@ -18263,11 +18399,18 @@
             Determines if scan is versus E or t
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.ImpedimetricMethod.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.ImpedimetricMethod.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this Method.
             </summary>
       <returns>error string or null if there were no errors</returns>
+    </member>
+    <member name="M:PalmSens.Techniques.ImpedimetricMethod.GetPotentialRangeParameters(System.Boolean)">
+      <summary>
+            Gets the parameters that must comply with the potential range [ESPico only].
+            </summary>
+      <returns>
+      </returns>
     </member>
     <member name="F:PalmSens.Techniques.ImpedimetricMethod.Name">
       <summary>
@@ -18314,7 +18457,7 @@
             Receives the measurement.
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.ImpedimetricMethod.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.ImpedimetricMethod.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -18581,10 +18724,12 @@
             Generate Linear Sweep method
             </summary>
     </member>
-    <member name="P:PalmSens.Techniques.LinearSweep.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.LinearSweep.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum number of seconds this method will take
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Techniques.LinearSweep.Scanrate">
       <summary>The applied scan rate.</summary>
@@ -18597,7 +18742,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweep.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.LinearSweep.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -18650,7 +18795,7 @@
             </summary>
       <param name="m">The encoded method</param>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweep.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.LinearSweep.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -18677,7 +18822,7 @@
             </summary>
       <param name="contents">The contents.</param>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweep.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.LinearSweep.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is StepPotential / Scanrate.
@@ -18792,10 +18937,12 @@
             So 3 = 1uA, 4 = 10uA, 5 = 100 uA, 6 = 1mA, etc.
             </value>
     </member>
-    <member name="P:PalmSens.Techniques.LinearSweepPotentiometry.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum number of seconds this method will take
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Techniques.LinearSweepPotentiometry.ScanrateG">
       <summary>The applied scan rate.</summary>
@@ -18816,7 +18963,7 @@
         <c>true</c> if versus previous I; otherwise, <c>false</c>.
             </value>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -18886,7 +19033,7 @@
             </summary>
       <param name="m">The encoded method</param>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -18913,7 +19060,7 @@
             </summary>
       <param name="contents">The contents.</param>
     </member>
-    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.LinearSweepPotentiometry.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is StepCurrent / Scanrate.
@@ -19156,7 +19303,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.MixedMode.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.MixedMode.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Checks the validity of the method. Returns nothing if valid.
             Disables automatically unsuported features by hardware:
@@ -19165,7 +19312,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.MixedMode.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.MixedMode.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -19394,7 +19541,7 @@
             The t1.
             </value>
     </member>
-    <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -19447,10 +19594,12 @@
             </summary>
       <param name="m">destination hex blob</param>
     </member>
-    <member name="P:PalmSens.Techniques.MultiplePulseAmperometry.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Estimated minimum number of seconds this method will take.
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.ToHex1(PalmSens.EncodedMethodV1)">
       <summary>
@@ -19464,7 +19613,7 @@
             </summary>
       <param name="contents">The contents.</param>
     </member>
-    <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.MultiplePulseAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -19517,7 +19666,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.MultistepAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.MultistepAmperometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -19595,7 +19744,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.MultistepPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.MultistepPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -19684,8 +19833,10 @@
             Number of cycles
             </summary>
     </member>
-    <member name="P:PalmSens.Techniques.Multistep.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.Multistep.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>Estimated number of seconds a measurement will take at least (in seconds)</summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Techniques.Multistep.RunTime">
       <summary>
@@ -19712,7 +19863,7 @@
             Whether this measurement can be saved and loaded from the device storage
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.Multistep.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.Multistep.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this Method
             </summary>
@@ -19968,7 +20119,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.Potentiometry.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.Potentiometry.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             Changes OCP to <c>true</c> if capab.IsGalvanostat is <c>false</c></summary>
@@ -20038,7 +20189,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.Potentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.Potentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20098,7 +20249,7 @@
              Is always 0 for this technique (Open Circuit Potentiometry)
              </summary>
     </member>
-    <member name="M:PalmSens.Techniques.OpenCircuitPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.OpenCircuitPotentiometry.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20158,10 +20309,12 @@
       <returns>
       </returns>
     </member>
-    <member name="P:PalmSens.Techniques.DifferentialPulse.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.DifferentialPulse.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum number of seconds this method will take.
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="M:PalmSens.Techniques.DifferentialPulse.ToHex0(PalmSens.EncodedMethodV0)">
       <summary>
@@ -20169,14 +20322,14 @@
             </summary>
       <param name="m">destination blob</param>
     </member>
-    <member name="M:PalmSens.Techniques.DifferentialPulse.GetPotentialRangeParameters">
+    <member name="M:PalmSens.Techniques.DifferentialPulse.GetPotentialRangeParameters(System.Boolean)">
       <summary>
             Gets the parameters that must comply with the potential range [ESPico only].
             </summary>
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.DifferentialPulse.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.DifferentialPulse.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is StepPotential / Scanrate.
@@ -20185,7 +20338,7 @@
             The interval time.
             </value>
     </member>
-    <member name="M:PalmSens.Techniques.DifferentialPulse.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.DifferentialPulse.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20205,12 +20358,14 @@
             Create new Normal Pulse method
             </summary>
     </member>
-    <member name="P:PalmSens.Techniques.NormalPulse.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.NormalPulse.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum duration of this method
             </summary>
+      <param name="capab">
+      </param>
     </member>
-    <member name="M:PalmSens.Techniques.NormalPulse.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.NormalPulse.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is StepPotential / Scanrate.
@@ -20260,13 +20415,6 @@
             </summary>
       <param name="m">destination blob</param>
     </member>
-    <member name="M:PalmSens.Techniques.NormalPulse.GetPotentialRangeParameters">
-      <summary>
-            Gets the potential range parameters.
-            </summary>
-      <returns>
-      </returns>
-    </member>
     <member name="M:PalmSens.Techniques.NormalPulse.ToHex1(PalmSens.EncodedMethodV1)">
       <summary>
             Return version 1 style hex blob.
@@ -20274,7 +20422,7 @@
             </summary>
       <param name="m">encoded method to write to</param>
     </member>
-    <member name="M:PalmSens.Techniques.NormalPulse.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.NormalPulse.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20300,7 +20448,7 @@
     <member name="P:PalmSens.Techniques.Pulse.PulseTime">
       <summary>The pulse time.</summary>
     </member>
-    <member name="M:PalmSens.Techniques.Pulse.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.Pulse.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -20390,7 +20538,7 @@
       <summary>There are three modi for this technique:
              <list type="bullet"><item><description><c>Dc</c> measurement is performed at potential E</description></item><item><description><c>Pulse</c> measurement is performed at potential E pulse</description></item><item><description><c>Dif</c> measurement is <c>Dc - Pulse</c></description></item></list></summary>
     </member>
-    <member name="M:PalmSens.Techniques.PulsedAmpDetection.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.PulsedAmpDetection.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
@@ -20443,7 +20591,7 @@
             </summary>
       <param name="m">method blob to write to</param>
     </member>
-    <member name="M:PalmSens.Techniques.PulsedAmpDetection.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.PulsedAmpDetection.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20453,7 +20601,7 @@
       <exception cref="T:System.NotImplementedException">
       </exception>
     </member>
-    <member name="M:PalmSens.Techniques.PulsedAmpDetection.GetPotentialRangeParameters">
+    <member name="M:PalmSens.Techniques.PulsedAmpDetection.GetPotentialRangeParameters(System.Boolean)">
       <summary>
             Gets the parameters that must comply with the potential range [ESPico only].
             </summary>
@@ -20473,10 +20621,12 @@
             Create a new Square Wave method
             </summary>
     </member>
-    <member name="P:PalmSens.Techniques.SquareWave.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.Techniques.SquareWave.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Minimum duration for this method
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.Techniques.SquareWave.PulseAmplitude">
       <summary>Amplitude of pulse. Values are half peak-to-peak.</summary>
@@ -20489,7 +20639,7 @@
             Measurement Forward/Reverse Current
             </summary>
     </member>
-    <member name="M:PalmSens.Techniques.SquareWave.GetIntervalTime">
+    <member name="M:PalmSens.Techniques.SquareWave.GetIntervalTime(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Gets the interval time.
             For this technique the interval time is 1/Frequency
@@ -20498,13 +20648,13 @@
             The interval time.
             </value>
     </member>
-    <member name="M:PalmSens.Techniques.SquareWave.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.Techniques.SquareWave.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method
             </summary>
       <returns>error string or null if there were no errors</returns>
     </member>
-    <member name="M:PalmSens.Techniques.SquareWave.GetPotentialRangeParameters">
+    <member name="M:PalmSens.Techniques.SquareWave.GetPotentialRangeParameters(System.Boolean)">
       <summary>
             Gets the parameters that must comply with the potential range [ESPico only].
             </summary>
@@ -20560,7 +20710,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:PalmSens.Techniques.SquareWave.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,PalmSens.Comm.ClientConnectionMS)">
+    <member name="M:PalmSens.Techniques.SquareWave.ToMethodScript(PalmSens.Devices.MethodScriptDeviceCapabilities,System.Boolean,PalmSens.Comm.ClientConnectionMS)">
       <summary>
             Function for generating the method script.
             </summary>
@@ -20681,17 +20831,19 @@
             Minimum level height (in uA), compared to previous level.
             </summary>
     </member>
-    <member name="P:PalmSens.TimeMethod.MinimumEstimatedMeasurementDuration">
+    <member name="M:PalmSens.TimeMethod.GetMinimumEstimatedMeasurementDuration(PalmSens.Devices.DeviceCapabilities)">
       <summary>
             Number of seconds this measurement will at least take.
             </summary>
+      <param name="capab">
+      </param>
     </member>
     <member name="P:PalmSens.TimeMethod.nPoints">
       <summary>
             Number of points that will be measured
             </summary>
     </member>
-    <member name="M:PalmSens.TimeMethod.Validate(PalmSens.Devices.DeviceCapabilities)">
+    <member name="M:PalmSens.TimeMethod.Validate(PalmSens.Devices.DeviceCapabilities,System.Boolean)">
       <summary>
             Validate this method.
             </summary>
@@ -21092,7 +21244,7 @@
             MicroAmpere
             </summary>
     </member>
-    <member name="M:PalmSens.Units.MicroWatt.#ctor">
+    <member name="M:PalmSens.Units.MicroWatt.#ctor(PalmSens.Units.Unit)">
       <summary>
             Create new instance
             </summary>
@@ -21139,6 +21291,45 @@
       <returns>
             Math.Pow(10, originalvalue)
             </returns>
+    </member>
+    <member name="T:PalmSens.Units.DerivativeUnit">
+      <summary>
+            Derivative of the given unit
+            Values in curve should be changed manually
+            </summary>
+    </member>
+    <member name="M:PalmSens.Units.DerivativeUnit.#ctor(PalmSens.Units.Unit,PalmSens.Units.Unit)">
+      <summary>
+            Create new instance based on OriginalUnit
+            </summary>
+      <param name="xUnit">The x unit.</param>
+      <param name="yUnit">The y unit.</param>
+    </member>
+    <member name="T:PalmSens.Units.SecondDerivativeUnit">
+      <summary>
+            Derivative of the given unit
+            Values in curve should be changed manually
+            </summary>
+    </member>
+    <member name="M:PalmSens.Units.SecondDerivativeUnit.#ctor(PalmSens.Units.Unit,PalmSens.Units.Unit)">
+      <summary>
+            Create new instance based on OriginalUnit
+            </summary>
+      <param name="xUnit">The x unit.</param>
+      <param name="yUnit">The y unit.</param>
+    </member>
+    <member name="T:PalmSens.Units.IntegralUnit">
+      <summary>
+            Derivative of the given unit
+            Values in curve should be changed manually
+            </summary>
+    </member>
+    <member name="M:PalmSens.Units.IntegralUnit.#ctor(PalmSens.Units.Unit,PalmSens.Units.Unit)">
+      <summary>
+            Create new instance based on OriginalUnit
+            </summary>
+      <param name="xUnit">The x unit.</param>
+      <param name="yUnit">The y unit.</param>
     </member>
     <member name="T:PalmSens.Units.Ampere">
       <summary>

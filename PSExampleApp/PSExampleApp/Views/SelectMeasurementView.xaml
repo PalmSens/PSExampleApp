@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"             
+             xmlns:model="clr-namespace:PSExampleApp.Common.Models;assembly=PSExampleApp.Common"
+             x:DataType="viewmodels:SelectMeasurementViewModel"
+             xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
+             xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
+             x:Class="PSExampleApp.Forms.Views.SelectMeasurementView"
+             Style="{StaticResource CustomPage}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+    
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="30,50,*,70"
+            ColumnDefinitions="*,3*,*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,50,0,0" />
+                    <On Platform="Android" Value="0,30,0,0" />
+                </OnPlatform>
+            </Grid.Margin>
+            <Label
+                Grid.Column="1"
+                Grid.Row="1"                
+                Style="{StaticResource MediumTextStyle}"
+                Text="{xct:Translate Measurements}"
+                WidthRequest="250" />
+            <CollectionView
+                Grid.Column="1"
+                Grid.Row="2"                                
+                ItemSizingStrategy="MeasureFirstItem"
+                BackgroundColor="Transparent"
+                HeightRequest="400"
+                ItemsSource="{Binding AvailableMeasurements}"
+                WidthRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MeasurementInfo">
+                        <SwipeView BackgroundColor="Transparent">
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItemView
+                                        Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:SelectMeasurementViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding}">
+                                        <ffimageloadingsvg:SvgCachedImage
+                                            Scale="0.7"
+                                            BackgroundColor="Transparent"
+                                            Source="resource://PSExampleApp.Forms.Resources.trashcan.svg" />
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Frame
+                                Margin="7"
+                                Padding="5,2,5,2"
+                                HeightRequest="60">
+                                <Grid
+                                    RowSpacing="0"
+                                    ColumnDefinitions="30,*"
+                                    RowDefinitions="*,*">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:SelectMeasurementViewModel}}, Path=OnMeasurementSelectedCommand}"
+                                                CommandParameter="{Binding}"
+                                                NumberOfTapsRequired="1" />
+                                    </Grid.GestureRecognizers>
+                                    <ffimageloadingsvg:SvgCachedImage
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Scale="0.8"
+                                        Grid.RowSpan="2"
+                                        Source="resource://PSExampleApp.Forms.Resources.chart.svg"/>
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="0"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="End"
+                                        Style="{StaticResource MicroTextStyle}"
+                                        Text="{Binding MeasurementDate, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        VerticalOptions="Start"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource MicroTextStyle}"
+                                        Text="{Binding Name}"/>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ContentView
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="3"                    
+                VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

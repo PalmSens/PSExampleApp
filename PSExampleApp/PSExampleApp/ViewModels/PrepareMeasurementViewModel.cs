@@ -10,7 +10,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class PrepareMeasurementViewModel : BaseViewModel
+    public class PrepareMeasurementViewModel : BaseAppViewModel
     {
         private readonly IPopupNavigation _popupNavigation;
         private IMeasurementService _measurementService;
@@ -18,7 +18,7 @@ namespace PSExampleApp.Forms.ViewModels
         private string _sampleName;
         private string _sampleNotes;
 
-        public PrepareMeasurementViewModel(IMeasurementService measurementService)
+        public PrepareMeasurementViewModel(IMeasurementService measurementService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _measurementService = measurementService;
             _popupNavigation = PopupNavigation.Instance;

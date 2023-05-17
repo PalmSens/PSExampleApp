@@ -129,6 +129,81 @@
   <data name="AdminOptionsHeader" xml:space="preserve">
     <value>Admin opties</value>
   </data>
+  <data name="AlertActiveUserCannotBeDeleted" xml:space="preserve">
+    <value>Actieve gebruiker kan niet verwijderd worden.</value>
+  </data>
+  <data name="AlertRemoveUserDescription" xml:space="preserve">
+    <value>Weet u zeker dat u deze gebruiker met alle metingen wil verwijderen?</value>
+  </data>
+  <data name="AlertRemoveUserTitle" xml:space="preserve">
+    <value>Gebruiker verwijderen</value>
+  </data>
+  <data name="Alert_AllowBluetooth" xml:space="preserve">
+    <value>Sta alstublieft Bluetooth rechten toe om het scannen te starten.</value>
+  </data>
+  <data name="Alert_BackgroundSaved" xml:space="preserve">
+    <value>Achtergrond opgeslagen. Herstart de app om deze weer te geven.</value>
+  </data>
+  <data name="Alert_BluetoothDescription" xml:space="preserve">
+    <value>Deze app heeft bluetooth rechten nodig om metingen te kunnen doen.</value>
+  </data>
+  <data name="Alert_BluetoothTitle" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Alert_CameraPermission" xml:space="preserve">
+    <value>Camera probleem, Controleer of de app toestemming tot de camera heeft.</value>
+  </data>
+  <data name="Alert_ConnectionFailed" xml:space="preserve">
+    <value>Connectie is gefaald, probeer het nog eens.</value>
+  </data>
+  <data name="Alert_DeviceIncompatible" xml:space="preserve">
+    <value>Instrument is onverenigbaar, selecteer een ander instrument.</value>
+  </data>
+  <data name="Alert_DiscoverFailed" xml:space="preserve">
+    <value>Scannen van instrumenten is gefaald, scannen wordt nogmaals gestart.</value>
+  </data>
+  <data name="Alert_ErrorDeleteMeasurement" xml:space="preserve">
+    <value>Het verwijderen van de meting is mislukt, herstart de app en probeer het nog eens.</value>
+  </data>
+  <data name="Alert_ErrorLoadingMeasurement" xml:space="preserve">
+    <value>Het laden van de meting is mislukt, herstart de app en probeer het nog eens.</value>
+  </data>
+  <data name="Alert_FailedDeleteAnalyte" xml:space="preserve">
+    <value>Het verwijderen van de analiet is niet gelukt. Als het probleem zich blijft voordoen herstart dan de app.</value>
+  </data>
+  <data name="Alert_FailedImageImport" xml:space="preserve">
+    <value>Import van de afbeelding is niet gelukt, controleer of de afbeelding de juiste indeling heeft</value>
+  </data>
+  <data name="Alert_FailedImport" xml:space="preserve">
+    <value>Import mislukt, permissies zijn niet gezet.</value>
+  </data>
+  <data name="Alert_FailedImportAnalyte" xml:space="preserve">
+    <value>Import van de analiet is niet gelukt, controleer of het json bestand de juiste indeling heeft.</value>
+  </data>
+  <data name="Alert_FailedImportMethod" xml:space="preserve">
+    <value>Import methode niet gelukt, controlleer of het method bestand correct is.</value>
+  </data>
+  <data name="Alert_MethodNotFound" xml:space="preserve">
+    <value>Methode niet gevonden, herinstalleer de app alstublieft.</value>
+  </data>
+  <data name="Alert_MethodSaved" xml:space="preserve">
+    <value>Methode succesvol opgeslagen.</value>
+  </data>
+  <data name="Alert_NotConnected" xml:space="preserve">
+    <value>Niet verbonden met een instrument, maak opnieuw een connectie.</value>
+  </data>
+  <data name="Alert_SelectValidMethodFile" xml:space="preserve">
+    <value>Selecteer een geldig psmethod bestand.</value>
+  </data>
+  <data name="Alert_SomethingWrong" xml:space="preserve">
+    <value>Er ging iets mis met het starten van de meting. Herstart het instrument altublieft.</value>
+  </data>
+  <data name="Alert_TitleConfigured" xml:space="preserve">
+    <value>Titel is ingesteld, herstart de app om deze te tonen.</value>
+  </data>
+  <data name="Alert_ValidUserName" xml:space="preserve">
+    <value>Geef een geldige gebruikersnaam.</value>
+  </data>
   <data name="AnalyzingSample" xml:space="preserve">
     <value>MONSTER ANALYSEREN</value>
   </data>
@@ -225,6 +300,12 @@
   <data name="Notes" xml:space="preserve">
     <value>Notities</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Picker_SelectMethodFile" xml:space="preserve">
+    <value>Selecteer een psmethod bestand</value>
+  </data>
   <data name="Repeat" xml:space="preserve">
     <value>Herhalen</value>
   </data>
@@ -245,6 +326,9 @@
   </data>
   <data name="SelectDeviceHeader" xml:space="preserve">
     <value />
+  </data>
+  <data name="SelectOrCreateUser" xml:space="preserve">
+    <value>Selecteer een gebruiker uit de lijst of creër een nieuwe</value>
   </data>
   <data name="SelectPageMultipleReaders" xml:space="preserve">
     <value>{0} apparaten gevonden, selecteer 1 om verder te gaan</value>
@@ -281,6 +365,12 @@
   </data>
   <data name="StatusBarReaderFound" xml:space="preserve">
     <value>1 apparaat gevonden</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Gebruikers</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>WELKOM</value>

@@ -6,15 +6,13 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class TitleViewModel : BaseViewModel
+    public class TitleViewModel : BaseAppViewModel
     {
-        public readonly IAppConfigurationService _appConfigurationService;
         public readonly IUserService _userService;
         private string _activeUserName;
 
-        public TitleViewModel(IUserService userService, IAppConfigurationService appConfiguration)
+        public TitleViewModel(IUserService userService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
-            _appConfigurationService = appConfiguration;
             _userService = userService;
             ActiveUserName = _userService.ActiveUser?.Name;
 

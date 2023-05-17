@@ -129,6 +129,81 @@
   <data name="AdminOptionsHeader" xml:space="preserve">
     <value>Admin options</value>
   </data>
+  <data name="AlertActiveUserCannotBeDeleted" xml:space="preserve">
+    <value>Active user cannot be deleted.</value>
+  </data>
+  <data name="AlertRemoveUserDescription" xml:space="preserve">
+    <value>Are you sure you want to remove this user with all it's measurements?</value>
+  </data>
+  <data name="AlertRemoveUserTitle" xml:space="preserve">
+    <value>Remove user</value>
+  </data>
+  <data name="Alert_AllowBluetooth" xml:space="preserve">
+    <value>Please allow bluetooth persmission to start scanning.</value>
+  </data>
+  <data name="Alert_BackgroundSaved" xml:space="preserve">
+    <value>Background succesfully saved, please restart the application for the changes to take effect.</value>
+  </data>
+  <data name="Alert_BluetoothDescription" xml:space="preserve">
+    <value>Please enable Bluetooth reader in order to start a measurement.</value>
+  </data>
+  <data name="Alert_BluetoothTitle" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Alert_CameraPermission" xml:space="preserve">
+    <value>Error taking photo, please check the app camera permission.</value>
+  </data>
+  <data name="Alert_ConnectionFailed" xml:space="preserve">
+    <value>Connection to device failed. Please try again</value>
+  </data>
+  <data name="Alert_DeviceIncompatible" xml:space="preserve">
+    <value>Device incompatible. Please select a different device</value>
+  </data>
+  <data name="Alert_DiscoverFailed" xml:space="preserve">
+    <value>Discovering devices failed. Retrying to start the scanner.</value>
+  </data>
+  <data name="Alert_ErrorDeleteMeasurement" xml:space="preserve">
+    <value>Something went wrong with deleting the measurement please reload the list</value>
+  </data>
+  <data name="Alert_ErrorLoadingMeasurement" xml:space="preserve">
+    <value>Failed loading the measurement, if the problem persist please restart the app</value>
+  </data>
+  <data name="Alert_FailedDeleteAnalyte" xml:space="preserve">
+    <value>Failed deleting the analyte. Please restart the application if the problem persists.</value>
+  </data>
+  <data name="Alert_FailedImageImport" xml:space="preserve">
+    <value>Failed importing the image. Please check if the image file has the correct format.</value>
+  </data>
+  <data name="Alert_FailedImport" xml:space="preserve">
+    <value>Failed to import file. Permissions not set.</value>
+  </data>
+  <data name="Alert_FailedImportAnalyte" xml:space="preserve">
+    <value>Failed importing analyte. Please check if the json file has the correct format.</value>
+  </data>
+  <data name="Alert_FailedImportMethod" xml:space="preserve">
+    <value>Failed importing the method. Please check if the method file has the correct format.</value>
+  </data>
+  <data name="Alert_MethodNotFound" xml:space="preserve">
+    <value>Not able to load the method. Please reinstall the app.</value>
+  </data>
+  <data name="Alert_MethodSaved" xml:space="preserve">
+    <value>Method succesfully saved.</value>
+  </data>
+  <data name="Alert_NotConnected" xml:space="preserve">
+    <value>Not connected to a device, please try reconnecting to a device again.</value>
+  </data>
+  <data name="Alert_SelectValidMethodFile" xml:space="preserve">
+    <value>Please select a valid psmethod file.</value>
+  </data>
+  <data name="Alert_SomethingWrong" xml:space="preserve">
+    <value>Something went wrong with starting a measurement please restart the device and try again</value>
+  </data>
+  <data name="Alert_TitleConfigured" xml:space="preserve">
+    <value>Title configured, please restart the application for the changes to take effect.</value>
+  </data>
+  <data name="Alert_ValidUserName" xml:space="preserve">
+    <value>Please fill in a valid username.</value>
+  </data>
   <data name="AnalyzingSample" xml:space="preserve">
     <value>ANALYZING SAMPLE</value>
   </data>
@@ -225,6 +300,12 @@
   <data name="Notes" xml:space="preserve">
     <value>Notes</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Picker_SelectMethodFile" xml:space="preserve">
+    <value>Please select a psmethod file</value>
+  </data>
   <data name="Repeat" xml:space="preserve">
     <value>Repeat</value>
   </data>
@@ -245,6 +326,9 @@
   </data>
   <data name="SelectDeviceHeader" xml:space="preserve">
     <value />
+  </data>
+  <data name="SelectOrCreateUser" xml:space="preserve">
+    <value>Select a user from the list or create a new user</value>
   </data>
   <data name="SelectPageMultipleReaders" xml:space="preserve">
     <value>{0} readers found, 
@@ -283,6 +367,12 @@ please select:</value>
   </data>
   <data name="StatusBarReaderFound" xml:space="preserve">
     <value>1 reader found</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>WELCOME</value>

@@ -6,22 +6,25 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : BaseAppViewModel
     {
         private readonly IUserService _userService;
         private bool _isAdmin;
         private Language _language;
         private bool _settingsChanged;
 
-        public SettingsViewModel(IUserService userService)
+        public SettingsViewModel(IUserService userService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _userService = userService;
-            Language = _userService.ActiveUser.Language;
-            IsAdmin = _userService.ActiveUser.IsAdmin;
             _settingsChanged = false;
+            if (_userService?.ActiveUser != null)
+            {
+                IsAdmin = _userService.ActiveUser.IsAdmin;
+            }
 
             OnPageDisappearingCommand = CommandFactory.Create(OnDisappearing);
         }
@@ -37,32 +40,15 @@ namespace PSExampleApp.Forms.ViewModels
             }
         }
 
-        public Language Language
-        {
-            get => _language;
-            set
-            {
-                _language = value;
-                _settingsChanged = true;
-                ChangeLanguage(value);
-            }
-        }
-
         public ICommand OnPageDisappearingCommand { get; }
 
-        private void ChangeLanguage(Language language)
-        {
-            var code = _userService.GetActiveUserLanguageCode(language);
-            LocalizationResourceManager.Current.CurrentCulture = code == null ? CultureInfo.CurrentCulture : new CultureInfo(code);
-        }
-
-        private async Task OnDisappearing()
+        private void OnDisappearing()
         {
             //Don't do anything if the user setting is changed
-            if (!_settingsChanged)
+            if (!_settingsChanged || _userService?.ActiveUser is null)
                 return;
 
-            await _userService.UpdateUserSettings(Language);
+            MessagingCenter.Send<object>(this, "UpdateSettings");
         }
     }
 }

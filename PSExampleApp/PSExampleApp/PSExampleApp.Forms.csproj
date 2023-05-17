@@ -15,6 +15,18 @@
     <None Remove="Fonts\OpenSans-BoldItalic.ttf" />
     <None Remove="Fonts\OpenSans-Italic.ttf" />
     <None Remove="Fonts\OpenSans-Regular.ttf" />
+    <None Remove="Fonts\sourcesanspro-bold.ttf" />
+    <None Remove="Fonts\sourcesanspro-light.ttf" />
+    <None Remove="Fonts\sourcesanspro-regular.ttf" />
+    <None Remove="Fonts\sourcesanspro-semibold.ttf" />
+    <None Remove="Resources\adduser.svg" />
+    <None Remove="Resources\background.jpeg" />
+    <None Remove="Resources\bluetoothconnected.svg" />
+    <None Remove="Resources\chart.svg" />
+    <None Remove="Resources\cogwheel.svg" />
+    <None Remove="Resources\deleteuser.svg" />
+    <None Remove="Resources\trashcan.svg" />
+    <None Remove="Resources\usericon.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,26 +42,33 @@
     <EmbeddedResource Include="Fonts\OpenSans-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\sourcesanspro-bold.ttf" />
+    <EmbeddedResource Include="Fonts\sourcesanspro-light.ttf" />
+    <EmbeddedResource Include="Fonts\sourcesanspro-regular.ttf" />
+    <EmbeddedResource Include="Fonts\sourcesanspro-semibold.ttf" />
+    <EmbeddedResource Include="Resources\background.jpeg" />
+    <EmbeddedResource Include="Resources\bluetoothconnected.svg" />
+    <EmbeddedResource Include="Resources\chart.svg" />
+    <EmbeddedResource Include="Resources\cogwheel.svg" />
+    <EmbeddedResource Include="Resources\adduser.svg" />
+    <EmbeddedResource Include="Resources\deleteuser.svg" />
+    <EmbeddedResource Include="Resources\trashcan.svg" />
+    <EmbeddedResource Include="Resources\usericon.svg" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
-    <PackageReference Include="PdfSharpCore" Version="1.3.32" />
+    <PackageReference Include="PdfSharpCore" Version="1.3.56" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
-    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.3" />
     <PackageReference Include="Xam.Plugins.Forms.ProgressRing" Version="0.1.2" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
-    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2401" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2578" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,12 +104,12 @@
     <Compile Update="Views\SensorDetectionPopup.xaml.cs">
       <DependentUpon>SensorDetectionPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\SettingsPopUp.xaml.cs">
-      <DependentUpon>SettingsPopUp.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Navigation\CustomNavigationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.nl.resx">
       <LastGenOutput>AppResources.nl.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -108,28 +127,22 @@
     <EmbeddedResource Update="Styles\Generic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddUserPopUp.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\ConfigureAnalyteView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ConfigureApplicationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ConfigureTitlePopup.xaml">
+    <EmbeddedResource Update="Views\ConfigureTitleView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LoginView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SelectAnalyteView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CustomFlyOutPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\HomeView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LoginPopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MeasurementDataView.xaml">
@@ -153,13 +166,13 @@
     <EmbeddedResource Update="Views\SelectDeviceView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SelectMeasurementPopup.xaml">
+    <EmbeddedResource Update="Views\SelectMeasurementView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SensorDetectionPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SettingsPopUp.xaml">
+    <EmbeddedResource Update="Views\SettingsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\StatusBarView.xaml">
@@ -172,5 +185,11 @@
 
   <ItemGroup>
     <Folder Include="PDFReport\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Navigation\CustomNavigationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+             x:DataType="viewmodels:ConfigureTitleViewModel"
+             xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"             
+             x:Class="PSExampleApp.Forms.Views.ConfigureTitleView"
+             Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*,50,*,60,5,50,5,50,8*"
+            ColumnDefinitions="*,3*,*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,40,0,0" />
+                </OnPlatform>
+            </Grid.Margin>
+            <Label
+                Grid.Column="1"
+                Grid.Row="1"                
+                Style="{StaticResource MediumTextStyle}"
+                Text="{xct:Translate ConfigureTitle}"
+                WidthRequest="250" />
+            <Entry
+                Grid.Column="1"
+                Grid.Row="3"
+                x:Name="UserNameEntry"
+                Placeholder="{xct:Translate EnterTitle}"
+                ReturnCommand="{Binding ConfigureTitleCommand}"
+                ReturnType="Done"
+                Text="{Binding ConfiguredTitle}" />
+            <Button
+                Grid.Column="1"
+                Grid.Row="5"
+                Command="{Binding ConfigureTitleCommand}"
+                Text="{xct:Translate Confirm}" />
+            <Button
+                Grid.Column="1"
+                Grid.Row="7"
+                Command="{Binding CancelCommand}"
+                Text="{xct:Translate Cancel}" />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

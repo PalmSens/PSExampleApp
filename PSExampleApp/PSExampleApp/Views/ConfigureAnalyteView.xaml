@@ -8,18 +8,24 @@
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"    
     x:DataType="viewmodels:ConfigureMeasurementViewModel"
     Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
     </ContentPage.Behaviors>
-
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:InverseBoolConverter x:Key="inverseBoolConverter" />
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>    
 
     <Grid>
         <StackLayout
@@ -39,60 +45,50 @@
                 Margin="0,50,0,0"
                 Style="{StaticResource SmallTextStyle}"
                 Text="{xct:Translate KnownAnalytes}" />
-            <ListView
-                HasUnevenRows="True"
+            <CollectionView
+                ItemSizingStrategy="MeasureFirstItem"
                 HeightRequest="400"
+                BackgroundColor="Transparent"
                 HorizontalOptions="Center"
                 ItemsSource="{Binding MeasurementConfigurations}"
                 VerticalOptions="EndAndExpand"
                 WidthRequest="200">
-                <ListView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:MeasurementConfiguration">
-                        <ViewCell>
-                            <!--<ScrollView>-->
-                            <StackLayout VerticalOptions="Start">
-                                <SwipeView BackgroundColor="Transparent" IsEnabled="{Binding IsDefault, Converter={StaticResource inverseBoolConverter}}">
-                                    <SwipeView.LeftItems>
-                                        <SwipeItems>
-                                            <SwipeItemView
-                                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=DeleteConfigurationCommand}"
-                                                CommandParameter="{Binding}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="CenterAndExpand"
-                                                VerticalOptions="CenterAndExpand"
-                                                WidthRequest="120">
-                                                <Image
-                                                    Margin="10"
-                                                    BackgroundColor="Transparent"
-                                                    Source="delete.png" />
-                                            </SwipeItemView>
-                                        </SwipeItems>
-                                    </SwipeView.LeftItems>
-                                    <StackLayout>
-                                        <Frame
-                                            Margin="7"
-                                            Padding="0"
+                        <SwipeView BackgroundColor="Transparent" IsEnabled="{Binding IsDefault, Converter={StaticResource inverseBoolConverter}}">
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItemView
+                                        Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=DeleteConfigurationCommand}"
+                                        CommandParameter="{Binding}">
+                                        <ffimageloadingsvg:SvgCachedImage
+                                            Scale="0.7"
                                             BackgroundColor="Transparent"
-                                            BorderColor="White"
-                                            CornerRadius="0"
-                                            HasShadow="False"
-                                            HeightRequest="50"
-                                            WidthRequest="200">
-                                            <Label
-                                                Padding="0,0,0,3"
-                                                FontSize="20"
-                                                HorizontalTextAlignment="Center"
-                                                Text="{Binding AnalyteName}"
-                                                VerticalTextAlignment="Center" />
-                                        </Frame>
-                                    </StackLayout>
-                                </SwipeView>
+                                            Source="resource://PSExampleApp.Forms.Resources.trashcan.svg" />
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <StackLayout>
+                                <Frame
+                                    Margin="7"
+                                    Padding="0"
+                                    HeightRequest="50"
+                                    WidthRequest="200">
+                                    <Label
+                                        Padding="0,0,0,3"
+                                        FontSize="20"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding AnalyteName}"
+                                        VerticalTextAlignment="Center" />
+                                </Frame>
                             </StackLayout>
-                            <!--</ScrollView>-->
-                        </ViewCell>
+                        </SwipeView>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
         <ContentView VerticalOptions="End">
             <views:StatusBarView />

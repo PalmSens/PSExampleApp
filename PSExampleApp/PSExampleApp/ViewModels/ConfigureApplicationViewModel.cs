@@ -2,6 +2,7 @@
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resx;
 using PSExampleApp.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -12,20 +13,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class ConfigureApplicationViewModel : BaseViewModel
+    public class ConfigureApplicationViewModel : BaseAppViewModel
     {
-        private readonly IAppConfigurationService _appConfigurationService;
         private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
         private bool _appConfigured = false;
 
-        public ConfigureApplicationViewModel(IMessageService messageService, IAppConfigurationService appConfigurationService)
+        public ConfigureApplicationViewModel(IMessageService messageService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
-            _popupNavigation = PopupNavigation.Instance;
-            _appConfigurationService = appConfigurationService;
+            _popupNavigation = PopupNavigation.Instance;     
             _messageService = messageService;
             ConfigureAnalyteCommand = CommandFactory.Create(async () => await NavigationDispatcher.Push(NavigationViewType.ConfigureAnalyteView));
             ConfigureMethodCommand = CommandFactory.Create(ConfigureMethod);
@@ -60,16 +60,16 @@ namespace PSExampleApp.Forms.ViewModels
                     await stream.CopyToAsync(memStream);
 
                     await _appConfigurationService.SaveBackGroundImage(memStream.ToArray());
-                    _messageService.LongAlert("Background succesfully saved, please restart the application for the changes to take effect.");
+                    _messageService.LongAlert(AppResources.Alert_BackgroundSaved);
                 }
             }
             catch (PermissionException)
             {
-                _messageService.LongAlert("Failed to import file. Permissions not set");
+                _messageService.LongAlert(AppResources.Alert_FailedImport);
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Failed importing the image. Please check if the image file has the correct format");
+                _messageService.LongAlert(AppResources.Alert_FailedImageImport);
             }
         }
 
@@ -83,40 +83,49 @@ namespace PSExampleApp.Forms.ViewModels
                 });
             var options = new PickOptions
             {
+                PickerTitle = AppResources.Picker_SelectMethodFile,
                 FileTypes = customFileType,
             };
 
             try
             {
-                var result = await FilePicker.PickAsync(options);
-
+                FileResult result = null;
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    result = await FilePicker.PickAsync();
+                }
+                else if (Device.RuntimePlatform == Device.Android)
+                {
+                    result = await FilePicker.PickAsync(options);
+                }
+                
                 if (result != null)
                 {
                     if (!result.FileName.EndsWith("psmethod"))
                     {
-                        _messageService.ShortAlert("Please select a valid psmethod file");
+                        _messageService.ShortAlert(AppResources.Alert_SelectValidMethodFile);
                         return;
                     }
 
                     using var stream = await result.OpenReadAsync();
 
                     await _appConfigurationService.SaveConfigurationMethod(stream);
-                    _messageService.ShortAlert("Method succesfully saved");
+                    _messageService.ShortAlert(AppResources.Alert_MethodSaved);
                 }
             }
             catch (PermissionException)
             {
-                _messageService.LongAlert("Failed to import file. Permissions not set");
+                _messageService.LongAlert(AppResources.Alert_FailedImport);
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Failed importing the method. Please check if the method file has the correct format");
+                _messageService.LongAlert(AppResources.Alert_FailedImportMethod);
             }
         }
 
         private async Task ConfigureTitle()
         {
-            await _popupNavigation.PushAsync(new ConfigureTitlePopup());
+            await NavigationDispatcher.Push(NavigationViewType.ConfigureTitleView);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PSExampleApp.Forms.Views;
+﻿using PSExampleApp.Forms.Resx;
+using PSExampleApp.Forms.Views;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -18,7 +19,7 @@ namespace PSExampleApp.Forms.Navigation
 
         internal static async Task Pop()
         {
-            await _instance.Navigation.PopAsync();
+            await _instance.Navigation.PopAsync(Device.RuntimePlatform == Device.iOS ? false : true);
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace PSExampleApp.Forms.Navigation
         /// <returns></returns>
         internal static async Task PopToRoot()
         {
-            await _instance.Navigation.PopToRootAsync();
+            await _instance.Navigation.PopToRootAsync(Device.RuntimePlatform == Device.iOS ? false : true);
         }
 
         /// <summary>
@@ -38,12 +39,12 @@ namespace PSExampleApp.Forms.Navigation
         /// <returns></returns>
         internal static async Task Push(NavigationViewType navigationViewType)
         {
-            await _instance.Navigation.PushAsync(PageSelector(navigationViewType));
+            await _instance.Navigation.PushAsync(PageSelector(navigationViewType), Device.RuntimePlatform == Device.iOS ? false : true);
         }
 
         internal static Task<bool> PushAlert(string title, string message)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, "Ok", "Cancel");
+            return Application.Current.MainPage.DisplayAlert(title, message, AppResources.Ok, AppResources.Cancel);
         }
 
         internal void Initialize(INavigation navigation)
@@ -51,46 +52,19 @@ namespace PSExampleApp.Forms.Navigation
             _navigation = navigation;
         }
 
+        /// <summary>
+        /// Translates page enum to page instance
+        /// </summary>
+        /// <param name="navigationViewType"></param>
+        /// <returns></returns>
         private static ContentPage PageSelector(NavigationViewType navigationViewType)
         {
-            switch (navigationViewType)
+            Type pageType = Type.GetType($"PSExampleApp.Forms.Views.{navigationViewType}");
+            if(pageType == null)
             {
-                case NavigationViewType.HomeView:
-                    return new HomeView();
-
-                case NavigationViewType.PrepareMeasurementView:
-                    return new PrepareMeasurementView();
-
-                case NavigationViewType.SelectDeviceView:
-                    return new SelectDeviceView();
-
-                case NavigationViewType.SelectAnalyteView:
-                    return new SelectAnalyteView();
-
-                case NavigationViewType.SensorDetectionView:
-                    return new SensorDetectionPopup();
-
-                case NavigationViewType.RunMeasurementView:
-                    return new RunMeasurementView();
-
-                case NavigationViewType.MeasurmentFinished:
-                    return new MeasurementFinishedView();
-
-                case NavigationViewType.MeasurementDataView:
-                    return new MeasurementDataView();
-
-                case NavigationViewType.MeasurementPlotView:
-                    return new MeasurementPlotView();
-
-                case NavigationViewType.ConfigureApplicationView:
-                    return new ConfigureApplicationView();
-
-                case NavigationViewType.ConfigureAnalyteView:
-                    return new ConfigureAnalyteView();
-
-                default:
-                    throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
+                throw new NotImplementedException($"Navigation {navigationViewType} not implemented");
             }
+            return Activator.CreateInstance(pageType) as ContentPage;
         }
     }
 }

@@ -40,21 +40,6 @@ namespace PSExampleApp.Core.Services
             await _userRepository.UpdateUser(ActiveUser);
         }
 
-        public string GetActiveUserLanguageCode(Language language)
-        {
-            switch (language)
-            {
-                case Language.English:
-                    return "en";
-
-                case Language.Dutch:
-                    return "nl";
-
-                default:
-                    return "en";
-            }
-        }
-
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllUsersAsync();
@@ -77,7 +62,7 @@ namespace PSExampleApp.Core.Services
 
         public async Task SaveUserAsync(string username)
         {
-            var user = new User { Name = username, Password = "123", Id = Guid.NewGuid(), Language = Language.English, IsAdmin = false };
+            var user = new User { Name = username, Password = "123", Id = Guid.NewGuid(), IsAdmin = false };
             await _userRepository.UpdateUser(user);
 
             ActiveUser = user;
@@ -90,9 +75,14 @@ namespace PSExampleApp.Core.Services
 
         public async Task UpdateUserSettings(Language language)
         {
-            ActiveUser.Language = language;
             await _userRepository.UpdateUser(ActiveUser);
             this.ActiveUserChanged.Invoke(this, ActiveUser);
+        }
+
+        public async Task DeleteUserAsync(Guid id)
+        {
+            if (ActiveUser.Id != id)
+                await _userRepository.DeleteUserAsync(id);
         }
     }
 }

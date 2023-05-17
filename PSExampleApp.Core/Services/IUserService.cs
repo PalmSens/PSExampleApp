@@ -24,11 +24,6 @@ namespace PSExampleApp.Core.Services
         /// <returns></returns>
         public Task DeleteMeasurementInfo(Guid id);
 
-        /// <summary>
-        /// Gets the ISO language code from user
-        /// </summary>
-        /// <returns></returns>
-        string GetActiveUserLanguageCode(Language language);
 
         /// <summary>
         /// Retrieves all users
@@ -67,5 +62,11 @@ namespace PSExampleApp.Core.Services
         /// </summary>
         /// <returns></returns>
         Task UpdateUserSettings(Language language);
+        /// <summary>
+        /// Delete the user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteUserAsync(Guid id);
     }
 }

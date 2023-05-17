@@ -97,6 +97,231 @@ namespace PSExampleApp.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please allow bluetooth persmission to start scanning..
+        /// </summary>
+        public static string Alert_AllowBluetooth {
+            get {
+                return ResourceManager.GetString("Alert_AllowBluetooth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background succesfully saved, please restart the application for the changes to take effect..
+        /// </summary>
+        public static string Alert_BackgroundSaved {
+            get {
+                return ResourceManager.GetString("Alert_BackgroundSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enable Bluetooth reader in order to start a measurement..
+        /// </summary>
+        public static string Alert_BluetoothDescription {
+            get {
+                return ResourceManager.GetString("Alert_BluetoothDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth.
+        /// </summary>
+        public static string Alert_BluetoothTitle {
+            get {
+                return ResourceManager.GetString("Alert_BluetoothTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error taking photo, please check the app camera permission..
+        /// </summary>
+        public static string Alert_CameraPermission {
+            get {
+                return ResourceManager.GetString("Alert_CameraPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection to device failed. Please try again.
+        /// </summary>
+        public static string Alert_ConnectionFailed {
+            get {
+                return ResourceManager.GetString("Alert_ConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device incompatible. Please select a different device.
+        /// </summary>
+        public static string Alert_DeviceIncompatible {
+            get {
+                return ResourceManager.GetString("Alert_DeviceIncompatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discovering devices failed. Retrying to start the scanner..
+        /// </summary>
+        public static string Alert_DiscoverFailed {
+            get {
+                return ResourceManager.GetString("Alert_DiscoverFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong with deleting the measurement please reload the list.
+        /// </summary>
+        public static string Alert_ErrorDeleteMeasurement {
+            get {
+                return ResourceManager.GetString("Alert_ErrorDeleteMeasurement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed loading the measurement, if the problem persist please restart the app.
+        /// </summary>
+        public static string Alert_ErrorLoadingMeasurement {
+            get {
+                return ResourceManager.GetString("Alert_ErrorLoadingMeasurement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed deleting the analyte. Please restart the application if the problem persists..
+        /// </summary>
+        public static string Alert_FailedDeleteAnalyte {
+            get {
+                return ResourceManager.GetString("Alert_FailedDeleteAnalyte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed importing the image. Please check if the image file has the correct format..
+        /// </summary>
+        public static string Alert_FailedImageImport {
+            get {
+                return ResourceManager.GetString("Alert_FailedImageImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to import file. Permissions not set..
+        /// </summary>
+        public static string Alert_FailedImport {
+            get {
+                return ResourceManager.GetString("Alert_FailedImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed importing analyte. Please check if the json file has the correct format..
+        /// </summary>
+        public static string Alert_FailedImportAnalyte {
+            get {
+                return ResourceManager.GetString("Alert_FailedImportAnalyte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed importing the method. Please check if the method file has the correct format..
+        /// </summary>
+        public static string Alert_FailedImportMethod {
+            get {
+                return ResourceManager.GetString("Alert_FailedImportMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not able to load the method. Please reinstall the app..
+        /// </summary>
+        public static string Alert_MethodNotFound {
+            get {
+                return ResourceManager.GetString("Alert_MethodNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method succesfully saved..
+        /// </summary>
+        public static string Alert_MethodSaved {
+            get {
+                return ResourceManager.GetString("Alert_MethodSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not connected to a device, please try reconnecting to a device again..
+        /// </summary>
+        public static string Alert_NotConnected {
+            get {
+                return ResourceManager.GetString("Alert_NotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid psmethod file..
+        /// </summary>
+        public static string Alert_SelectValidMethodFile {
+            get {
+                return ResourceManager.GetString("Alert_SelectValidMethodFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong with starting a measurement please restart the device and try again.
+        /// </summary>
+        public static string Alert_SomethingWrong {
+            get {
+                return ResourceManager.GetString("Alert_SomethingWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title configured, please restart the application for the changes to take effect..
+        /// </summary>
+        public static string Alert_TitleConfigured {
+            get {
+                return ResourceManager.GetString("Alert_TitleConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please fill in a valid username..
+        /// </summary>
+        public static string Alert_ValidUserName {
+            get {
+                return ResourceManager.GetString("Alert_ValidUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active user cannot be deleted..
+        /// </summary>
+        public static string AlertActiveUserCannotBeDeleted {
+            get {
+                return ResourceManager.GetString("AlertActiveUserCannotBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this user with all it&apos;s measurements?.
+        /// </summary>
+        public static string AlertRemoveUserDescription {
+            get {
+                return ResourceManager.GetString("AlertRemoveUserDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove user.
+        /// </summary>
+        public static string AlertRemoveUserTitle {
+            get {
+                return ResourceManager.GetString("AlertRemoveUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ANALYZING SAMPLE.
         /// </summary>
         public static string AnalyzingSample {
@@ -385,6 +610,24 @@ namespace PSExampleApp.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a psmethod file.
+        /// </summary>
+        public static string Picker_SelectMethodFile {
+            get {
+                return ResourceManager.GetString("Picker_SelectMethodFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Repeat.
         /// </summary>
         public static string Repeat {
@@ -444,6 +687,15 @@ namespace PSExampleApp.Forms.Resx {
         public static string SelectDeviceHeader {
             get {
                 return ResourceManager.GetString("SelectDeviceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a user from the list or create a new user.
+        /// </summary>
+        public static string SelectOrCreateUser {
+            get {
+                return ResourceManager.GetString("SelectOrCreateUser", resourceCulture);
             }
         }
         
@@ -554,6 +806,24 @@ namespace PSExampleApp.Forms.Resx {
         public static string StatusBarReaderFound {
             get {
                 return ResourceManager.GetString("StatusBarReaderFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
         

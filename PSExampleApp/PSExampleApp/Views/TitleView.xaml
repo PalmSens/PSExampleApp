@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     x:DataType="viewmodels:TitleViewModel"
     Visual="Material">
 
@@ -18,19 +19,19 @@
                 <Label
                     Margin="40,0,0,0"
                     FontSize="20"
+                    VerticalTextAlignment="Center"
                     HorizontalOptions="CenterAndExpand"
                     LineBreakMode="NoWrap"
                     Text="{Binding ApplicationTitle}" />
-                <Image
+                <ffimageloadingsvg:SvgCachedImage
                     HeightRequest="30"
-                    Source="usericon.png"
+                    Source="resource://PSExampleApp.Forms.Resources.usericon.svg"
                     WidthRequest="30" />
                 <Label
-                    Margin="0,0,20,0"
                     LineBreakMode="TailTruncation"
                     Text="{Binding ActiveUserName}"
                     VerticalTextAlignment="Center"
-                    WidthRequest="40" />
+                    WidthRequest="60" />
             </StackLayout>
         </Grid>
     </ContentView.Content>

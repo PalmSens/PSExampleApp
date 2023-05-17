@@ -8,25 +8,49 @@
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     x:DataType="viewmodels:MeasurementPlotViewModel"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"    
     Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
     </ContentPage.Behaviors>
 
-    <ContentPage.Content>
-        <Grid>
-            <AbsoluteLayout>
-                <oxy:PlotView
-                    AbsoluteLayout.LayoutBounds="20,0,.95,.90"
-                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                    BackgroundColor="White"
-                    Model="{Binding PlotModel}"
-                    Opacity="0.9"
-                    VerticalOptions="Center" />
-            </AbsoluteLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <ContentView VerticalOptions="End">
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
+    <ContentPage.Content>
+        <Grid 
+            RowDefinitions="*,75"
+            ColumnDefinitions="*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,30,0,0" />
+                    <On Platform="Android" Value="0,55,0,0" />
+                </OnPlatform>
+            </Grid.Margin>            
+            <oxy:PlotView
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="White"                    
+                Model="{Binding PlotModel}"
+                Opacity="0.9"                    
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill">
+                <oxy:PlotView.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,60,0,0" />
+                        <On Platform="Android" Value="0,0,0,0" />
+                    </OnPlatform>
+                </oxy:PlotView.Margin>
+            </oxy:PlotView>
+            <ContentView Grid.Row="1">
                 <views:StatusBarView />
             </ContentView>
         </Grid>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+             xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
+             xmlns:models="clr-namespace:PSExampleApp.Common.Models;assembly=PSExampleApp.Common"
+             xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
+             xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:helpers="clr-namespace:PSExampleApp.Core.Helpers;assembly=PSExampleApp.Core"
+             x:DataType="viewmodels:LoginViewModel"
+             x:Class="PSExampleApp.Forms.Views.LoginView"
+             Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+            <local:EnumBooleanConverter x:Key="enumToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,60,0,0" />
+                    <On Platform="Android" Value="0,60,0,0" />
+                </OnPlatform>
+            </Grid.Margin>            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource MediumTextStyle}"
+                Text="{xct:Translate Users}">
+            </Label>
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Style="{StaticResource MicroTextStyle}"
+                HorizontalTextAlignment="Center"
+                Text="{xct:Translate SelectOrCreateUser}">
+            </Label>
+            <CollectionView
+                x:Name="UsersCollectionView"
+                ItemSizingStrategy="MeasureFirstItem"
+                Grid.Row="4"
+                Grid.Column="1"
+                SelectionMode="None"                
+                SelectedItem="{Binding SelectedUser, Mode=OneWay}"
+                ItemsSource="{Binding Users}" 
+                IsEnabled="{Binding HasUser}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <SwipeView BackgroundColor="Transparent">
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItemView
+                                        Command="{Binding Source={x:Reference UsersCollectionView}, Path=BindingContext.RemoveUserCommand}"
+                                        CommandParameter="{Binding}">
+                                        <ffimageloadingsvg:SvgCachedImage
+                                            Scale="0.7"
+                                            BackgroundColor="Transparent"
+                                            Source="resource://PSExampleApp.Forms.Resources.deleteuser.svg" />
+                                    </SwipeItemView>                                    
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid
+                                RowDefinitions="60">
+                                <Frame
+                                    Margin="7"
+                                    Padding="5,2,5,2"                                   
+                                    Grid.Row="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference UsersCollectionView}, Path=BindingContext.GetUserCommand}" NumberOfTapsRequired="1" CommandParameter="{Binding}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Label
+                                        Style="{StaticResource SmallTextStyle}"
+                                        HorizontalTextAlignment="Center"
+                                        HorizontalOptions="Center"
+                                        VerticalTextAlignment="Center"
+                                        Text="{Binding Name}">
+                                    </Label>
+                                </Frame>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Entry
+                Grid.Row="6"
+                Grid.Column="1"
+                Text="{Binding NewUserName}"                    
+                Placeholder="{xct:Translate User}">
+            </Entry>
+            <ffimageloadingsvg:SvgCachedImage
+                Grid.Row="6"
+                Grid.Column="2"
+                Aspect="Fill"
+                BackgroundColor="Transparent"
+                helpers:TappedGestureAttached.Command="{Binding OpenAddUserViewCommand}"
+                HeightRequest="60"
+                HorizontalOptions="Start"
+                Source="resource://PSExampleApp.Forms.Resources.adduser.svg"
+                VerticalOptions="Center"
+                WidthRequest="60" />                       
+            <ContentView
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="7"                    
+                VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

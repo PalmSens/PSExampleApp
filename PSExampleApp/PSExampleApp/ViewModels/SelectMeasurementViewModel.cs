@@ -3,6 +3,7 @@ using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resx;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using System.Collections.ObjectModel;
@@ -13,14 +14,14 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class SelectMeasurementViewModel : BaseViewModel
+    public class SelectMeasurementViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
         private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
 
-        public SelectMeasurementViewModel(IUserService userService, IMeasurementService measurementService, IMessageService messageService)
+        public SelectMeasurementViewModel(IUserService userService, IMeasurementService measurementService, IMessageService messageService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _messageService = messageService;
             OnMeasurementSelectedCommand = CommandFactory.Create(async info => await MeasurementSelected(info as MeasurementInfo));
@@ -42,8 +43,11 @@ namespace PSExampleApp.Forms.ViewModels
 
         private void AddMeasurements()
         {
-            foreach (var measurement in _userService.ActiveUser.Measurements)
-                AvailableMeasurements.Add(measurement);
+            if (_userService?.ActiveUser?.Measurements != null)
+            {
+                foreach (var measurement in _userService.ActiveUser.Measurements)
+                    AvailableMeasurements.Add(measurement);
+            }
         }
 
         private async Task DeleteMeasurement(MeasurementInfo info)
@@ -55,7 +59,7 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (System.Exception)
             {
-                _messageService.ShortAlert("Something went wrong with deleting the measurement please reload the list");
+                _messageService.ShortAlert(AppResources.Alert_ErrorDeleteMeasurement);
             }
         }
 
@@ -64,13 +68,11 @@ namespace PSExampleApp.Forms.ViewModels
             try
             {
                 await _measurementService.LoadMeasurement(info.Id);
-
                 await NavigationDispatcher.Push(NavigationViewType.MeasurementDataView);
-                await _popupNavigation.PopAsync();
             }
             catch (System.Exception ex)
             {
-                _messageService.ShortAlert("Failed loading the measurement, if the problem persist please restart the app");
+                _messageService.ShortAlert(AppResources.Alert_ErrorLoadingMeasurement);
                 Debug.WriteLine(ex);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using PalmSens;
 using PalmSens.Core.Simplified.Data;
+using PalmSens.Devices;
 using PSExampleApp.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace PSExampleApp.Core.Services
         public event EventHandler MeasurementStarted;
 
         public HeavyMetalMeasurement ActiveMeasurement { get; }
+
+        public DeviceCapabilities Capabilities { get; }
 
         /// <summary>
         /// Calculations based on the configuration of the caluclation method

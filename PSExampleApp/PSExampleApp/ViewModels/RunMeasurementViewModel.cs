@@ -2,10 +2,12 @@
 using PalmSens;
 using PalmSens.Core.Simplified.Data;
 using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.Devices;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Extentions;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resx;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -16,9 +18,8 @@ using Xamarin.Essentials;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class RunMeasurementViewModel : BaseViewModel
+    public class RunMeasurementViewModel : BaseAppViewModel
     {
-        private readonly IAppConfigurationService _appConfigurationService;
         private readonly IDeviceService _deviceService;
         private readonly IMeasurementService _measurementService;
         private readonly IMessageService _messageService;
@@ -29,10 +30,9 @@ namespace PSExampleApp.Forms.ViewModels
         private double _progress;
         private int _progressPercentage;
 
-        public RunMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IDeviceService deviceService, IAppConfigurationService appConfigurationService)
+        public RunMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IDeviceService deviceService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             Progress = 0;
-            _appConfigurationService = appConfigurationService;
             _deviceService = deviceService;
             _messageService = messageService;
             _measurementService = measurementService;
@@ -111,7 +111,7 @@ namespace PSExampleApp.Forms.ViewModels
             //The continue will trigger the save of the measurement. //TODO maybe add cancel in case user doesn't want to save
             ActiveMeasurement.MeasurementDate = DateTime.Now.Date;
             await _measurementService.SaveMeasurement(ActiveMeasurement);
-            await NavigationDispatcher.Push(NavigationViewType.MeasurmentFinished);
+            await NavigationDispatcher.Push(NavigationViewType.MeasurementFinishedView);
         }
 
         private void Curve_DetectedPeaks(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace PSExampleApp.Forms.ViewModels
             catch (Exception)
             {
                 // When the method file cannot be found it means that it's manually removed. In this case the app needs to be reinstalled
-                MainThread.BeginInvokeOnMainThread(() => _messageService.ShortAlert("Not able to load the method. Please reinstall the heavy metal app"));
+                MainThread.BeginInvokeOnMainThread(() => _messageService.ShortAlert(AppResources.Alert_MethodNotFound));
                 throw;
             }
         }
@@ -150,7 +150,7 @@ namespace PSExampleApp.Forms.ViewModels
 
             try
             {
-                _countdown.Start((int)Math.Round(method.MinimumEstimatedMeasurementDuration * 1000));
+                _countdown.Start((int)Math.Round(method.GetMinimumEstimatedMeasurementDuration(_measurementService.Capabilities) * 1000));
                 _countdown.Ticked += OnCountdownTicked;
 
                 _measurementService.ActiveMeasurement.Measurement = await _measurementService.StartMeasurement(method);
@@ -158,7 +158,7 @@ namespace PSExampleApp.Forms.ViewModels
             catch (NullReferenceException)
             {
                 // Nullreference is thrown when device is not connected anymore. In this case we pop back to homescreen. The user can then try to reconnect again
-                _messageService.ShortAlert("Not connected to a device, please try reconnecting to a device again");
+                _messageService.ShortAlert(AppResources.Alert_NotConnected);
                 this._measurementService.ResetMeasurement();
                 await _deviceService.DisconnectDevice();
                 await NavigationDispatcher.PopToRoot();
@@ -166,14 +166,14 @@ namespace PSExampleApp.Forms.ViewModels
             catch (ArgumentException)
             {
                 // Argument exception is thrown when method is incompatible with the connected device.
-                _messageService.ShortAlert("Device incompatible. Please select a different device");
+                _messageService.ShortAlert(AppResources.Alert_DeviceIncompatible);
                 this._measurementService.ResetMeasurement();
                 await _deviceService.DisconnectDevice();
                 await NavigationDispatcher.PopToRoot();
             }
             catch (Exception ex)
             {
-                _messageService.LongAlert("Something went wrong with starting a measurement please restart the device and try again");
+                _messageService.LongAlert(AppResources.Alert_SomethingWrong);
                 Debug.WriteLine(ex);
                 this._measurementService.ResetMeasurement();
                 await _deviceService.DisconnectDevice();

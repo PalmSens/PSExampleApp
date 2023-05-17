@@ -3,19 +3,22 @@ using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Core.Services;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
+using System.Diagnostics;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
+using PSExampleApp.Forms.Resx;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class AddUserViewModel : BaseViewModel
+    public class AddUserViewModel : BaseAppViewModel
     {
         private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUserService _userService;
 
-        public AddUserViewModel(IUserService userService, IMessageService messageService)
+        public AddUserViewModel(IAppConfigurationService appConfigurationService, IUserService userService, IMessageService messageService) :base(appConfigurationService)
         {
             _messageService = messageService;
             _popupNavigation = PopupNavigation.Instance;
@@ -30,18 +33,24 @@ namespace PSExampleApp.Forms.ViewModels
         {
             if (string.IsNullOrEmpty(UserName))
             {
-                _messageService.ShortAlert("Please fill in a valid username");
+                _messageService.ShortAlert(AppResources.Alert_ValidUserName);
                 return;
             }
 
             try
             {
                 await _userService.SaveUserAsync(UserName);
+
+                var applicationSettings = await _appConfigurationService.GetSettingsAsync();
+                applicationSettings.ActiveUserId = _userService.ActiveUser.Id;
+                await _appConfigurationService.SaveSettingsAsync(applicationSettings);
+
                 await _popupNavigation.PopAllAsync();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                _messageService.ShortAlert("Please fill in a valid username");
+                Debug.WriteLine(ex);
+                _messageService.ShortAlert(AppResources.Alert_ValidUserName);
             }
         }
     }

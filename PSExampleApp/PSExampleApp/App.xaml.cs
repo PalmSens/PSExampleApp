@@ -1,13 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 using MvvmHelpers;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resources;
 using PSExampleApp.Forms.Resx;
+using PSExampleApp.Forms.ViewModels;
 using PSExampleApp.Forms.Views;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PSExampleApp.Forms
@@ -15,6 +20,7 @@ namespace PSExampleApp.Forms
     public partial class App : Application
     {
         private static IServiceProvider ServiceProvider;
+        private const string DefaultBackground = "PSExampleApp.Forms.Resources.background.jpeg";
 
         public App()
         {
@@ -25,42 +31,42 @@ namespace PSExampleApp.Forms
 
             var appConfigurationService = ServiceProvider.GetService<IAppConfigurationService>();
 
-            var settings = appConfigurationService.GetSettings();
+            var applicationSettings = appConfigurationService.GetSettings();
 
-            if (settings == null)
+            if (applicationSettings == null)
             {
-                using var backgroundImageStream = appConfigurationService.GetBackgroundImage();
-
-                using (var mem = new MemoryStream())
+                applicationSettings = new ApplicationSettings
                 {
-                    backgroundImageStream.BaseStream.CopyTo(mem);
-                    settings = new ApplicationSettings { Title = "PS Example App", Id = Guid.NewGuid(), BackgroundImage = mem.ToArray() };
-                    appConfigurationService.SaveSettings(settings);
+                    Title = "PS Example App", 
+                    Id = Guid.NewGuid(), 
+                    BackgroundImage = ResourceHelper.GetImageAsByteArray(DefaultBackground)
+                };
+                appConfigurationService.SaveSettings(applicationSettings);
+            }
+            else
+            {
+                if (applicationSettings.ActiveUserId.HasValue)
+                {
+                    var userService = ServiceProvider.GetService<IUserService>();
+                    Task.Run(async () => await userService.LoadUserAsync(applicationSettings.ActiveUserId.Value));
                 }
             }
 
+
             InitializeComponent();
 
-            var navigationPage = new NavigationPage(new HomeView())
+            var navigationPage = new CustomNavigationPage(new HomeView() { BackgroundImageSource = ImageSource.FromStream(() => { return new MemoryStream(applicationSettings.BackgroundImage); }), })
             {
                 BarBackgroundColor = Color.Transparent,
                 BackgroundColor = Color.Transparent,
             };
 
-            MainPage = new CustomFlyOutPage()
-            {
-                Flyout = new MainMenuView(),
-                Detail = navigationPage,
-                BackgroundImageSource = ImageSource.FromStream(() =>
-                {
-                    return new MemoryStream(settings.BackgroundImage);
-                }),
-            };
+            MainPage = navigationPage;
 
             NavigationDispatcher.Instance.Initialize(navigationPage.Navigation);
         }
 
-        public static BaseViewModel GetViewModel<T>() where T : BaseViewModel => ServiceProvider.GetService<T>();
+        public static BaseAppViewModel GetViewModel<T>() where T : BaseAppViewModel => ServiceProvider.GetService<T>();
 
         protected override void OnResume()
         {
@@ -72,6 +78,7 @@ namespace PSExampleApp.Forms
 
         protected override void OnStart()
         {
+
         }
 
         private void Current_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

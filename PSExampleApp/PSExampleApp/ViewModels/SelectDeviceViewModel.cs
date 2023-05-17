@@ -14,14 +14,14 @@ using Xamarin.Essentials;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class SelectDeviceViewModel : BaseViewModel
+    public class SelectDeviceViewModel : BaseAppViewModel
     {
         private readonly IDeviceService _deviceService;
         private readonly IMessageService _messageService;
         private readonly IPermissionService _permissionService;
         private bool _isConnecting;
 
-        public SelectDeviceViewModel(IDeviceService deviceService, IMessageService messageService, IPermissionService permissionService)
+        public SelectDeviceViewModel(IDeviceService deviceService, IMessageService messageService, IPermissionService permissionService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _deviceService = deviceService;
             _messageService = messageService;
@@ -120,7 +120,7 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Connection to device failed. Please try again");
+                _messageService.LongAlert(AppResources.Alert_ConnectionFailed);
                 await ResetDeviceDiscovery();
             }
 
@@ -169,13 +169,13 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (PermissionException)
             {
-                _messageService.ShortAlert("Please allow bluetooth persmission to start scanning");
+                _messageService.ShortAlert(AppResources.Alert_AllowBluetooth);
                 await _permissionService.RequestBluetoothPermission();
                 await _deviceService.DetectDevicesAsync();
             }
             catch (Exception ex)
             {
-                _messageService.LongAlert($"Discovering devices failed. Retrying to start the scanner. {ex}");
+                _messageService.LongAlert($"{AppResources.Alert_DiscoverFailed} {ex}");
                 await _deviceService.DetectDevicesAsync();
             }
         }

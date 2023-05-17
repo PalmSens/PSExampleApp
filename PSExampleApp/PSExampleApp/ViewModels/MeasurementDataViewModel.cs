@@ -1,11 +1,13 @@
-﻿using MvvmHelpers;
-using Plugin.Media;
+﻿using FFImageLoading;
+using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resx;
 using PSExampleApp.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,9 +20,10 @@ using Xamarin.Forms;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class MeasurementDataViewModel : BaseViewModel
+    public class MeasurementDataViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
+        private readonly IMessageService _messageService;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IShareService _shareService;
         private bool _isCreatingReport;
@@ -28,9 +31,10 @@ namespace PSExampleApp.Forms.ViewModels
         //private bool _hasMax
         private HeavyMetalMeasurement _loadedMeasurement;
 
-        public MeasurementDataViewModel(IMeasurementService measurementService, IShareService shareService)
+        public MeasurementDataViewModel(IMeasurementService measurementService, IShareService shareService, IAppConfigurationService appConfigurationService, IMessageService messageService) : base(appConfigurationService)
         {
             _measurementService = measurementService;
+            _messageService = messageService;
             _shareService = shareService;
             LoadedMeasurement = _measurementService.ActiveMeasurement;
             _popupNavigation = PopupNavigation.Instance;
@@ -163,41 +167,41 @@ namespace PSExampleApp.Forms.ViewModels
 
         private async Task TakePhoto()
         {
-            var stream = await TakePictureAsync();
-
-            var memoryStream = new MemoryStream();
-
-            stream.CopyTo(memoryStream);
-            stream.Dispose();
-
-            var byteArray = memoryStream.ToArray();
-            LoadedMeasurement.MeasurementImages.Add(byteArray);
-            await _measurementService.SaveMeasurement(LoadedMeasurement);
-
-            memoryStream.Dispose();
-
-            LoadPhoto(byteArray);
+            try
+            {
+                using (var fullImageStream = await TakePictureAsync())
+                {
+                    using (var reducedImageStream = await ImageService.Instance.LoadStream(token => Task.FromResult(fullImageStream)).DownSample(300).AsJPGStreamAsync())
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await reducedImageStream.CopyToAsync(memoryStream);
+                            var imageByteArray = memoryStream.ToArray();
+                            LoadedMeasurement.MeasurementImages.Add(imageByteArray);
+                            await _measurementService.SaveMeasurement(LoadedMeasurement);
+                            LoadPhoto(imageByteArray);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                _messageService.ShortAlert(AppResources.Alert_CameraPermission);
+            }
         }
 
         private async Task<Stream> TakePictureAsync()
         {
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            if (!MediaPicker.IsCaptureSupported)
             {
                 return null;
             }
-
-            var result = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            var photo = await MediaPicker.CapturePhotoAsync();
+            if (photo == null)
             {
-                CompressionQuality = 30,
-                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
-            });
-
-            if (result == null)
                 return null;
-
-            var stream = result.GetStream();
-
-            return stream;
+            }
+            return await photo.OpenReadAsync();
         }
     }
 }

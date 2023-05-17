@@ -14,13 +14,13 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class MeasurementPlotViewModel : BaseViewModel
+    public class MeasurementPlotViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
         private LineSeries _lineSeries;
         private SimpleCurve _simpleCurve;
 
-        public MeasurementPlotViewModel(IMeasurementService measurementService)
+        public MeasurementPlotViewModel(IMeasurementService measurementService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _measurementService = measurementService;
             OnPageAppearingCommand = CommandFactory.Create(OnPageAppearing);

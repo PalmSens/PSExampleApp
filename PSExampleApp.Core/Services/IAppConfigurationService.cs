@@ -46,5 +46,6 @@ namespace PSExampleApp.Core.Services
         public Task SaveSettingsAsync(ApplicationSettings settings);
 
         public Task SaveTitle(string title);
+        public Task<string> GetTitle();
     }
 }

@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using PalmSens.Core.Simplified.Android;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PalmSens.Core.Simplified.XF.Infrastructure.Android.Services;
 using Plugin.CurrentActivity;
@@ -35,6 +34,7 @@ namespace PSExampleApp.Droid
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             //Register platform specific services
             DependencyService.RegisterSingleton(new InstrumentService(new PlatformDeviceManager()));

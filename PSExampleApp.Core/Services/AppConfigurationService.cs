@@ -130,6 +130,12 @@ namespace PSExampleApp.Core.Services
             return _appConfigurationRepository.SaveApplicationSettingsAsync(settings);
         }
 
+        public async Task<string> GetTitle()
+        {
+            var settings = await GetSettingsAsync();
+            return settings.Title;
+        }
+
         public async Task SaveTitle(string title)
         {
             var settings = await GetSettingsAsync();

@@ -9,13 +9,24 @@
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="viewmodels:RunMeasurementViewModel"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
     NavigationPage.HasBackButton="False"
     Style="{StaticResource CustomPage}">
 
     <ContentPage.Behaviors>
         <behaviors:OnAppearingBehavior OnAppearingCommand="{Binding OnPageAppearingCommand}" />
     </ContentPage.Behaviors>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+    
     <Grid>
         <StackLayout
             HorizontalOptions="CenterAndExpand"

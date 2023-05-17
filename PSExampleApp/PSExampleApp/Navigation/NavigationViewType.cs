@@ -9,11 +9,14 @@
         SelectAnalyteView,
         SensorDetectionView,
         RunMeasurementView,
-        MeasurmentFinished,
-        MeasurementList,
+        MeasurementFinishedView,        
         MeasurementDataView,
         MeasurementPlotView,
         ConfigureApplicationView,
         ConfigureAnalyteView,
+        ConfigureTitleView,
+        SettingsView,
+        SelectMeasurementView,
+        LoginView
     }
 }

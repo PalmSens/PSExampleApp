@@ -19,64 +19,48 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:InverseBoolConverter x:Key="inverseBoolConverter" />
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <Grid>
-        <StackLayout
-            HorizontalOptions="CenterAndExpand"
-            Spacing="20"
-            VerticalOptions="CenterAndExpand">
-            <Label Style="{StaticResource MediumTextStyle}" Text="{xct:Translate SelectAnalyteHeader}" />
-            <Label
-                Margin="0,50,0,0"
-                Style="{StaticResource SmallTextStyle}"
-                Text="{xct:Translate KnownAnalytes}" />
-            <ListView
-                HasUnevenRows="True"
-                HeightRequest="400"
-                HorizontalOptions="Center"
-                ItemsSource="{Binding MeasurementConfigurations}"
-                VerticalOptions="EndAndExpand"
-                WidthRequest="200">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MeasurementConfiguration">
-                        <ViewCell>
-                            <!--<ScrollView>-->
-                            <StackLayout VerticalOptions="Start">
-                                <StackLayout>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=OnConfigSelectedCommand}"
-                                            CommandParameter="{Binding}"
-                                            NumberOfTapsRequired="1" />
-                                    </StackLayout.GestureRecognizers>
-                                    <Frame
-                                        Margin="7"
-                                        Padding="0"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="White"
-                                        CornerRadius="0"
-                                        HasShadow="False"
-                                        HeightRequest="50"
-                                        WidthRequest="200">
-                                        <Label
-                                            Padding="0,0,0,3"
-                                            FontSize="20"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding AnalyteName}"
-                                            VerticalTextAlignment="Center" />
-                                    </Frame>
-                                </StackLayout>
-                            </StackLayout>
-                            <!--</ScrollView>-->
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-        <ContentView VerticalOptions="End">
-            <views:StatusBarView />
-        </ContentView>
-    </Grid>
+    
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+    <ContentPage.Content>    
+        <Grid>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="20"
+                VerticalOptions="CenterAndExpand">
+                <Label Style="{StaticResource MediumTextStyle}" Text="{xct:Translate SelectAnalyteHeader}" />
+                <Label
+                    Margin="0,50,0,0"
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="{xct:Translate KnownAnalytes}" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureFirstItem"
+                    HeightRequest="400"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding MeasurementConfigurations}"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="200">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:MeasurementConfiguration">
+                            <Button
+                                Command="{Binding Source={RelativeSource AncestorType={Type viewmodels:ConfigureMeasurementViewModel}}, Path=OnConfigSelectedCommand}" CommandParameter="{Binding}"
+                                FontSize="{StaticResource FontSize20}"
+                                Text="{Binding AnalyteName}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <ContentView VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>    
 </ContentPage>

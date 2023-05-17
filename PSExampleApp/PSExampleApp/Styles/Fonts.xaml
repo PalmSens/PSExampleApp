@@ -4,30 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!--  Fonts  -->
-    <OnPlatform
-        x:Key="SourceSansBold"
-        x:TypeArguments="x:String"
-        Android="sourcesanspro-bold.ttf#Source Sans"
-        iOS="sourcesanspro-bold" />
-
-    <OnPlatform
-        x:Key="SourceSansSemiBold"
-        x:TypeArguments="x:String"
-        Android="sourcesanspro-semibold.ttf#Source Sans"
-        iOS="sourcesanspro-semibold" />
-
-    <OnPlatform
-        x:Key="SourceSansLight"
-        x:TypeArguments="x:String"
-        Android="sourcesanspro-light.ttf#Source Sans"
-        iOS="KelsonSans-Light" />
-
-    <OnPlatform
-        x:Key="SourceSansRegular"
-        x:TypeArguments="x:String"
-        Android="sourcesanspro-regular.ttf#Source Sans"
-        iOS="KelsonSans-Regular" />
 
     <!--  Font sizes  -->
     <x:Double x:Key="FontSize10">10</x:Double>

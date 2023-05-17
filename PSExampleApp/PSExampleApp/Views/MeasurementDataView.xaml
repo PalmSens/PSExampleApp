@@ -10,11 +10,12 @@
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     x:DataType="viewmodels:MeasurementDataViewModel"
-    NavigationPage.HasBackButton="False">
+    NavigationPage.HasBackButton="False"
+    Style="{StaticResource CustomPage}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImage" />
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
             <local:InverseBoolConverter x:Key="InverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -24,7 +25,16 @@
         <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
     <Grid>
+        <Grid.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,30,0,0" />
+            </OnPlatform>
+        </Grid.Margin>        
         <StackLayout
             HorizontalOptions="CenterAndExpand"
             IsVisible="{Binding IsCreatingReport}"
@@ -72,8 +82,6 @@
                     WidthRequest="200" />
                 <Frame
                     Padding="0"
-                    BackgroundColor="Transparent"
-                    BorderColor="White"
                     HeightRequest="75"
                     WidthRequest="200">
                     <CollectionView

@@ -16,6 +16,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />            
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -24,7 +25,16 @@
         <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
     </ContentPage.Behaviors>
 
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
     <Grid>
+        <Grid.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,30,0,0" />
+            </OnPlatform>
+        </Grid.Margin>
         <StackLayout
             HorizontalOptions="CenterAndExpand"
             IsVisible="{Binding IsCreatingReport}"
@@ -72,8 +82,6 @@
                     WidthRequest="200" />
                 <Frame
                     Padding="0"
-                    BackgroundColor="Transparent"
-                    BorderColor="White"
                     HeightRequest="75"
                     WidthRequest="200">
                     <CollectionView

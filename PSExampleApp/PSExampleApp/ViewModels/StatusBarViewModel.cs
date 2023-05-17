@@ -1,6 +1,7 @@
 ﻿using MvvmHelpers;
 using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Core.Services;
+using PSExampleApp.Forms.Navigation;
 using PSExampleApp.Forms.Resx;
 using PSExampleApp.Forms.Views;
 using Rg.Plugins.Popup.Contracts;
@@ -10,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class StatusBarViewModel : BaseViewModel
+    public class StatusBarViewModel : BaseAppViewModel
     {
         private readonly IDeviceService _deviceService;
         private readonly IMeasurementService _measurementService;
@@ -22,26 +24,30 @@ namespace PSExampleApp.Forms.ViewModels
         private bool _isConnected;
         private IPermissionService _permissionService;
         private IPopupNavigation _popupNavigation;
+        private IUserService _userService;
         private string _statusText;
 
-        public StatusBarViewModel(IDeviceService deviceService, IPermissionService permissionService, IMeasurementService measurementService, IMessageService messageService)
+        public StatusBarViewModel(
+            IDeviceService deviceService, 
+            IPermissionService permissionService, 
+            IMeasurementService measurementService, 
+            IMessageService messageService,
+            IUserService userService,
+            IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _messageService = messageService;
             _measurementService = measurementService;
             _permissionService = permissionService;
             _deviceService = deviceService;
+            _userService = userService;
             _popupNavigation = PopupNavigation.Instance;
             _deviceService.DeviceStateChanged += _deviceService_DeviceStateChanged;
             _measurementService.MeasurementChanged += _measurementService_MeasurementReset;
 
             OpenSettingsCommand = CommandFactory.Create(OpenSettings);
             OpenDataCommand = CommandFactory.Create(OpenData);
-            OnViewAppearingCommand = CommandFactory.Create(OnViewAppearing, onException: ex =>
-                            MainThread.BeginInvokeOnMainThread(() =>
-                            {
-                                //DisplayAlert();
-                                Console.WriteLine(ex.Message);
-                            }), allowsMultipleExecutions: false);
+
+            MessagingCenter.Subscribe<object>(this, "DiscoverDevices" , async (_) => { await GetBlueToothDevices(); });
         }
 
         public bool HasActiveMeasurement
@@ -56,8 +62,6 @@ namespace PSExampleApp.Forms.ViewModels
             set => SetProperty(ref _isConnected, value);
         }
 
-        public ICommand OnViewAppearingCommand { get; }
-
         public ICommand OpenDataCommand { get; }
 
         public ICommand OpenSettingsCommand { get; }
@@ -70,12 +74,18 @@ namespace PSExampleApp.Forms.ViewModels
 
         public async Task OpenData()
         {
-            await _popupNavigation.PushAsync(new SelectMeasurementPopup());
+            if (_userService.ActiveUser != null)
+            {
+                await NavigationDispatcher.Push(NavigationViewType.SelectMeasurementView);
+            }
         }
 
         public async Task OpenSettings()
         {
-            await _popupNavigation.PushAsync(new SettingsPopUp());
+            if (_userService.ActiveUser != null)
+            {
+                await NavigationDispatcher.Push(NavigationViewType.SettingsView);
+            }
         }
 
         private void _deviceService_DeviceDiscovered(object sender, PalmSens.Core.Simplified.XF.Application.Models.PlatformDevice e)
@@ -135,18 +145,18 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (PermissionException)
             {
-                _messageService.ShortAlert("Please allow bluetooth persmission to start scanning");
+                _messageService.ShortAlert(AppResources.Alert_AllowBluetooth);
                 await _permissionService.RequestBluetoothPermission();
                 await DiscoverDevices();
             }
             catch (Exception ex)
             {
-                _messageService.LongAlert($"Discovering devices failed. Retrying to start the scanner. {ex}");
+                _messageService.LongAlert($"{AppResources.Alert_DiscoverFailed} {ex}");
                 await DiscoverDevices();
             }
         }
 
-        private async Task OnViewAppearing()
+        private async Task GetBlueToothDevices()
         {
             //We only want to start detecting devices when it's not yet
             if (!_deviceService.IsDetecting && !_deviceService.IsConnected)
@@ -155,6 +165,7 @@ namespace PSExampleApp.Forms.ViewModels
 
                 await DiscoverDevices();
             }
+
         }
     }
 }

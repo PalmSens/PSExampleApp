@@ -14,7 +14,7 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.3.99.16")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.2.0.99")]
 	public partial class Resource
 	{
 		
@@ -5937,13 +5937,10 @@ namespace PalmSens.Core.Simplified.XF.Infrastructure.Android
 		{
 			
 			// aapt resource value: 0x7F0F0000
-			public static int device_filter = 2131689472;
+			public static int image_share_filepaths = 2131689472;
 			
 			// aapt resource value: 0x7F0F0001
-			public static int image_share_filepaths = 2131689473;
-			
-			// aapt resource value: 0x7F0F0002
-			public static int xamarin_essentials_fileprovider_file_paths = 2131689474;
+			public static int xamarin_essentials_fileprovider_file_paths = 2131689473;
 			
 			static Xml()
 			{

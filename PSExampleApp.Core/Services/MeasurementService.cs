@@ -3,6 +3,7 @@ using PalmSens;
 using PalmSens.Analysis;
 using PalmSens.Core.Simplified.Data;
 using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.Devices;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Repositories;
 using System;
@@ -68,6 +69,11 @@ namespace PSExampleApp.Core.Services
                 _activeMeasurement = value;
                 MeasurementChanged?.Invoke(this, value);
             }
+        }
+
+        public DeviceCapabilities Capabilities
+        {
+            get => _instrumentService.Capabilities;
         }
 
         public void CalculateConcentration()

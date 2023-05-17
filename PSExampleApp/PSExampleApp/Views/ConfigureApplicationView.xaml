@@ -7,27 +7,34 @@
     xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
     xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
     x:DataType="viewmodels:ConfigureApplicationViewModel"
+    xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
     Style="{StaticResource CustomPage}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+    
     <ContentPage.Content>
-        <Grid>
+        <Grid
+            ColumnDefinitions="*,3*,*"
+            RowDefinitions="100,80,*,50,20,50,20,50,20,50,*,75">
             <Label
-                Grid.Row="0"
-                Style="{StaticResource LargeTextStyle}"
-                Text="{xct:Translate AdminOptionsHeader}"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="250" />
-            <StackLayout
                 Grid.Row="1"
-                HorizontalOptions="CenterAndExpand"
-                Spacing="25"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="230">
-                <Button Command="{Binding ConfigureAnalyteCommand}" Text="{xct:Translate ConfigureAnalyte}" />
-                <Button Command="{Binding ConfigureMethodCommand}" Text="{xct:Translate ConfigureMethod}" />
-                <Button Command="{Binding ConfigureTitleCommand}" Text="{xct:Translate ConfigureTitle}" />
-                <Button Command="{Binding ConfigureBackgroundCommand}" Text="{xct:Translate ConfigureBackground}" />
-            </StackLayout>
-            <ContentView Grid.Row="2" VerticalOptions="End">
+                Grid.Column="1"
+                Style="{StaticResource LargeTextStyle}"
+                Text="{xct:Translate AdminOptionsHeader}"/>
+            <Button Grid.Column="1" Grid.Row="3" Command="{Binding ConfigureAnalyteCommand}" Text="{xct:Translate ConfigureAnalyte}" />
+            <Button Grid.Column="1" Grid.Row="5" Command="{Binding ConfigureMethodCommand}" Text="{xct:Translate ConfigureMethod}" />
+            <Button Grid.Column="1" Grid.Row="7" Command="{Binding ConfigureTitleCommand}" Text="{xct:Translate ConfigureTitle}" />
+            <Button Grid.Column="1" Grid.Row="9" Command="{Binding ConfigureBackgroundCommand}" Text="{xct:Translate ConfigureBackground}" />
+
+            <ContentView Grid.Row="11" Grid.ColumnSpan="3" VerticalOptions="End">
                 <views:StatusBarView />
             </ContentView>
         </Grid>

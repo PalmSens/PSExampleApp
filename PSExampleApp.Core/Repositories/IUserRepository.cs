@@ -33,5 +33,11 @@ namespace PSExampleApp.Core.Repositories
         /// <param name="user"></param>
         /// <returns></returns>
         Task UpdateUser(User user);
+        /// <summary>
+        /// Remove the user from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteUserAsync(Guid id);
     }
 }

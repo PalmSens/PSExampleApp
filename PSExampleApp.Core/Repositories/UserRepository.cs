@@ -34,5 +34,10 @@ namespace PSExampleApp.Core.Repositories
         {
             return _dataOperations.SaveAsync(user);
         }
+
+        public Task DeleteUserAsync(Guid id)
+        {
+            return _dataOperations.DeleteByIdAsync<User>(id);
+        }
     }
 }

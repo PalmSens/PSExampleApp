@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:PSExampleApp.Forms.Behaviors"
+             xmlns:local="clr-namespace:PSExampleApp.Forms.Converters"
+             xmlns:model="clr-namespace:PSExampleApp.Common.Models;assembly=PSExampleApp.Common"
+             xmlns:views="clr-namespace:PSExampleApp.Forms.Views"
+             xmlns:viewmodels="clr-namespace:PSExampleApp.Forms.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:DataType="viewmodels:SettingsViewModel"
+             x:Class="PSExampleApp.Forms.Views.SettingsView"
+             Style="{StaticResource CustomPage}">
+
+    <ContentPage.Behaviors>
+        <behaviors:OnDisappearingBehavior OnDisappearingCommand="{Binding OnPageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+            <local:EnumBooleanConverter x:Key="enumToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BackgroundImageSource>
+        <Binding Path="BackgroundImage" Converter="{StaticResource ByteArrayToImageSourceConverter}" />
+    </ContentPage.BackgroundImageSource>
+
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*,50,*,50,5,50,50,5,50,8*,70"
+            ColumnDefinitions="*,3*,*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,40,0,0" />
+                </OnPlatform>
+            </Grid.Margin>
+            <Label
+                Grid.Column="1"
+                Grid.Row="1"                
+                Style="{StaticResource MediumTextStyle}"
+                Text="{xct:Translate Settings}"
+                WidthRequest="250" />
+            <StackLayout
+                Grid.Column="1"
+                Grid.Row="8"                
+                Margin="0,10,0,0" 
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource SmallTextStyle}"
+                    Text="{xct:Translate AdminMode}" />
+                <Switch 
+                    HorizontalOptions="EndAndExpand" 
+                    IsToggled="{Binding IsAdmin}" />
+            </StackLayout>
+            <ContentView
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="10"                    
+                VerticalOptions="End">
+                <views:StatusBarView />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

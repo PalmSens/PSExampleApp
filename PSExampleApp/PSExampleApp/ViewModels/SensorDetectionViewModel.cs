@@ -10,14 +10,14 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class SensorDetectionViewModel : BaseViewModel
+    public class SensorDetectionViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
         private readonly IPopupNavigation _popupNavigation;
         private bool _isSensorInserted;
         private string _sourcePath;
 
-        public SensorDetectionViewModel(IMeasurementService measurementService)
+        public SensorDetectionViewModel(IMeasurementService measurementService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             _popupNavigation = PopupNavigation.Instance;
             _measurementService = measurementService;

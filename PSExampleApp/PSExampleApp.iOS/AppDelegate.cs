@@ -1,6 +1,11 @@
 ﻿using Foundation;
+using PalmSens.Core.Simplified.XF.Application.Services;
+using PalmSens.Core.Simplified.XF.Infrastructure.iOS.Services;
+using ProgressRingControl.Forms.Plugin.iOS;
 using PSExampleApp.Forms;
+using PSExampleApp.iOS.Services;
 using UIKit;
+using Xamarin.Forms;
 
 namespace PSExampleApp.iOS
 {
@@ -19,9 +24,21 @@ namespace PSExampleApp.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.Forms.FormsMaterial.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
+            //Register platform specific services
+            DependencyService.RegisterSingleton(new InstrumentService(new PlatformDeviceManager()));
+            DependencyService.RegisterSingleton<IPermissionService>(new PermissionService());
+            DependencyService.RegisterSingleton<IMessageService>(new MessageIOS());
+
+            DependencyService.RegisterSingleton<ILoadAssetsService>(new LoadAssetsService());
+            DependencyService.RegisterSingleton<ILoadSavePlatformService>(new SimpleLoadSaveFunctions());
+            Xamarin.IQKeyboardManager.SharedManager.Enable = true;
             LoadApplication(new App());
+            ProgressRingRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }

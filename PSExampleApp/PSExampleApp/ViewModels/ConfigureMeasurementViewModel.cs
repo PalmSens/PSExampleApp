@@ -4,6 +4,7 @@ using PalmSens.Core.Simplified.XF.Application.Services;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Services;
 using PSExampleApp.Forms.Navigation;
+using PSExampleApp.Forms.Resx;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,12 +16,12 @@ using Xamarin.Essentials;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    public class ConfigureMeasurementViewModel : BaseViewModel
+    public class ConfigureMeasurementViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
         private readonly IMessageService _messageService;
 
-        public ConfigureMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService)
+        public ConfigureMeasurementViewModel(IMeasurementService measurementService, IMessageService messageService, IAppConfigurationService appConfigurationService) : base(appConfigurationService)
         {
             this._measurementService = measurementService;
             this._messageService = messageService;
@@ -52,7 +53,7 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Failed deleting the analyte. Please restart the application if the problem persists");
+                _messageService.LongAlert(AppResources.Alert_FailedDeleteAnalyte);
             }
         }
 
@@ -88,11 +89,11 @@ namespace PSExampleApp.Forms.ViewModels
             }
             catch (PermissionException)
             {
-                _messageService.LongAlert("Failed to import file. Permissions not set");
+                _messageService.LongAlert(AppResources.Alert_FailedImport);
             }
             catch (Exception)
             {
-                _messageService.LongAlert("Failed importing analyte. Please check if the json file has the correct format");
+                _messageService.LongAlert(AppResources.Alert_FailedImportAnalyte);
             }
         }
 
