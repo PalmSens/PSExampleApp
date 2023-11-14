@@ -1,4 +1,5 @@
-﻿using PalmSens.Core.Simplified.XF.Application.Models;
+﻿using PalmSens.Devices;
+using PalmSens.Core.Simplified.XF.Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -30,6 +31,16 @@ namespace PalmSens.Core.Simplified.XF.Application.Services
         public Task<List<PlatformDevice>> GetConnectedDevices(CancellationToken? cancellationToken = null)
         {
             return _platformDeviceManager.GetConnectedDevices(cancellationToken);
+        }
+        
+        public void InitializeInstrument(Method method)
+        {
+            if (this.Comm.Capabilities is EmStatPicoCapabilities picoCapabilities)
+            {
+                method.DeterminePGStatMode(picoCapabilities);
+                picoCapabilities.ActiveSignalTrainConfiguration = method.PGStatMode;
+                method.Ranging.SupportedCurrentRanges = Capabilities.SupportedRanges;
+            }
         }
     }
 }

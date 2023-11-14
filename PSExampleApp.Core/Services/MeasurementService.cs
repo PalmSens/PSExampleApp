@@ -222,6 +222,7 @@ namespace PSExampleApp.Core.Services
 
         public async Task<SimpleMeasurement> StartMeasurement(Method method)
         {
+            _instrumentService.InitializeInstrument(method);
             return await _instrumentService.MeasureAsync(method);
         }
     }

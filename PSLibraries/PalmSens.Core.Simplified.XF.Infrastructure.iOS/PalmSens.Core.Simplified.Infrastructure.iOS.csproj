@@ -32,9 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="netstandard" />
-    <Reference Include="PalmSens.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Repos\PSExampleAppDev\PSLibraries\PalmSens.Core.dll</HintPath>
+    <Reference Include="PalmSens.Core">
+      <HintPath>..\PalmSens.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -61,11 +60,11 @@
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="C:\Repos\PSExampleAppDev\PSLibraries\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
+    <ProjectReference Include="..\PalmSens.Core.Simplified.XF.Application\PalmSens.Core.Simplified.XF.Application.csproj">
       <Project>{cb510e02-a04f-46a6-832f-d8925066036e}</Project>
       <Name>PalmSens.Core.Simplified.XF.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Repos\PSExampleAppDev\PSLibraries\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj">
+    <ProjectReference Include="..\PalmSens.Core.Simplified\PalmSens.Core.Simplified.csproj">
       <Project>{564e4775-148f-4ccb-ada2-74b50a3aacba}</Project>
       <Name>PalmSens.Core.Simplified</Name>
     </ProjectReference>
