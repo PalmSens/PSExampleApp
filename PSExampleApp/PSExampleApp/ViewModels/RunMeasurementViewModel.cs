@@ -184,7 +184,12 @@ namespace PSExampleApp.Forms.ViewModels
         private async Task RunPeakAnalysis()
         {
             _activeCurve.DetectedPeaks += Curve_DetectedPeaks;
-            await _activeCurve.DetectPeaksAsync(ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinWidth, ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinHeight);
+            //NOTE: When running a LSV or CV a 'PeakTypes.LSVCV' is more appropriate.
+            await _activeCurve.DetectPeaksAsync(
+                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinWidth, 
+                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinHeight, 
+                true, 
+                PeakTypes.Default);
         }
     }
 }
