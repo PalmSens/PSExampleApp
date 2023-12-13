@@ -184,8 +184,9 @@ namespace PSExampleApp.Forms.ViewModels
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 _messageService.ShortAlert(AppResources.Alert_CameraPermission);
             }
         }

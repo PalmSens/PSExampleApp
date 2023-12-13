@@ -17,6 +17,8 @@ using Xamarin.Forms;
 
 namespace PSExampleApp.Forms.ViewModels
 {
+    using System.Diagnostics;
+
     internal class MeasurementFinishedViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
@@ -157,9 +159,9 @@ namespace PSExampleApp.Forms.ViewModels
                     }
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-
+                Debug.WriteLine(ex);
                 _messageService.ShortAlert(AppResources.Alert_CameraPermission);
             }
 
