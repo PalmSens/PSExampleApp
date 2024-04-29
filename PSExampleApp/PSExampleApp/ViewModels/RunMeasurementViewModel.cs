@@ -88,7 +88,15 @@ namespace PSExampleApp.Forms.ViewModels
             _activeCurve.NewDataAdded -= ActiveSimpleCurve_NewDataAdded;
             _countdown.Ticked -= OnCountdownTicked;
 
-            RunPeakAnalysis().WithCallback();
+            RunPeakAnalysis().WithCallback(
+                onError: async (ex) =>
+                {
+                    _messageService.LongAlert(AppResources.Alert_SomethingWrong);
+                    Debug.WriteLine(ex);
+                    _measurementService.ResetMeasurement();
+                    await _deviceService.DisconnectDevice();
+                    await NavigationDispatcher.PopToRoot();
+                });
         }
 
         private void ActiveSimpleCurve_NewDataAdded(object sender, PalmSens.Data.ArrayDataAddedEventArgs e)
@@ -184,12 +192,19 @@ namespace PSExampleApp.Forms.ViewModels
         private async Task RunPeakAnalysis()
         {
             _activeCurve.DetectedPeaks += Curve_DetectedPeaks;
-            //NOTE: When running a LSV or CV a 'PeakTypes.LSVCV' is more appropriate.
+            
+            var peakType = PeakTypes.Default;
+            if (ActiveMeasurement.Measurement.MeasurementType == MeasurementTypes.LinearSweepVoltammetry || 
+                ActiveMeasurement.Measurement.MeasurementType == MeasurementTypes.CyclicVoltammetry)
+            {
+                peakType = PeakTypes.LSVCV;
+            }
+            
             await _activeCurve.DetectPeaksAsync(
-                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinWidth, 
-                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinHeight, 
-                true, 
-                PeakTypes.Default);
+                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinWidth,
+                ActiveMeasurement.Configuration.ConcentrationMethod.PeakMinHeight,
+                true,
+                peakType);
         }
     }
 }

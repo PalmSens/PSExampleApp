@@ -107,9 +107,24 @@ namespace PSExampleApp.Forms.ViewModels
                         return;
                     }
 
-                    using var stream = await result.OpenReadAsync();
+                    await using var stream = await result.OpenReadAsync();
 
                     await _appConfigurationService.SaveConfigurationMethod(stream);
+                    var loadedMethod = await _appConfigurationService.LoadConfigurationMethod();
+                    
+                    // Post Checks
+                    if (loadedMethod == null)
+                    {
+                        _messageService.LongAlert(AppResources.Alert_FailedImportMethod);
+                        return;
+                    }
+                    
+                    if (loadedMethod.nScans > 1)
+                    {
+                        _messageService.LongAlert(AppResources.Alert_MethodIncompatibleNumberOfScans);
+                        return;
+                    }
+                    
                     _messageService.ShortAlert(AppResources.Alert_MethodSaved);
                 }
             }

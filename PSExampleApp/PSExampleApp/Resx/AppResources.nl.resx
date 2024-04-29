@@ -375,4 +375,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>WELKOM</value>
   </data>
+  <data name="Alert_MethodIncompatibleNumberOfScans" xml:space="preserve">
+    <value>Methode mag alleen maar één scan hebben.</value>
+  </data>
 </root>

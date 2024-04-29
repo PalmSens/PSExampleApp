@@ -108,7 +108,7 @@ namespace PSExampleApp.Core.Services
             }
             catch (NullReferenceException ex)
             {
-                // With a null exception it means its allready disconnected. We don't want to do anything except log the exception and force invokethe disconnected event.
+                // With a null exception it means its all ready disconnected. We don't want to do anything except log the exception and force invoke the disconnected event.
                 Debug.WriteLine(ex);
                 this.DeviceDisconnected?.Invoke(this, ex);
                 this.ConnectedDevice = null;

@@ -377,4 +377,7 @@ please select:</value>
   <data name="Welcome" xml:space="preserve">
     <value>WELCOME</value>
   </data>
+  <data name="Alert_MethodIncompatibleNumberOfScans" xml:space="preserve">
+    <value>Method must have only one scan.</value>
+  </data>
 </root>

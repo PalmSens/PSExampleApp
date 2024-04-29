@@ -232,6 +232,15 @@ namespace PSExampleApp.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Method must have only one scan..
+        /// </summary>
+        public static string Alert_MethodIncompatibleNumberOfScans {
+            get {
+                return ResourceManager.GetString("Alert_MethodIncompatibleNumberOfScans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not able to load the method. Please reinstall the app..
         /// </summary>
         public static string Alert_MethodNotFound {
