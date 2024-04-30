@@ -65,7 +65,7 @@
                 HorizontalOptions="CenterAndExpand"
                 Orientation="Vertical"                
                 VerticalOptions="Start"
-                WidthRequest="200">
+                WidthRequest="250">
                 <CollectionView
                     ItemSizingStrategy="MeasureFirstItem"
                     BackgroundColor="Transparent"
@@ -81,8 +81,7 @@
                         <DataTemplate x:DataType="model:PlatformDevice">
                             <Button
                                 Command="{Binding Source={x:Reference AssignmentsCollectionView}, Path=BindingContext.OnInstrumentSelected}" CommandParameter="{Binding}"
-                                FontSize="{StaticResource FontSize20}"
-                                Text="{Binding Name}" />
+                                Text="{Binding Name}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

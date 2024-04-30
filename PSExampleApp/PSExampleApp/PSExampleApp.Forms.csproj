@@ -184,10 +184,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PDFReport\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Navigation\CustomNavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

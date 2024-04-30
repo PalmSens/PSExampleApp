@@ -18,7 +18,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:InverseBoolConverter x:Key="inverseBoolConverter" />
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>

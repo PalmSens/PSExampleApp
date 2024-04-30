@@ -14,11 +14,10 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace PSExampleApp.Forms.ViewModels
 {
-    using System.Diagnostics;
-
     internal class MeasurementFinishedViewModel : BaseAppViewModel
     {
         private readonly IMeasurementService _measurementService;
