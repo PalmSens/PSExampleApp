@@ -59,19 +59,29 @@ namespace PSExampleApp.Forms.ViewModels
             peakLines.Points.Add(new DataPoint(peak.PeakX, peak.PeakY));
             peakLines.Points.Add(new DataPoint(peak.PeakX, peak.OffsetY));
             peakLines.Points.Add(new DataPoint(peak.RightX, peak.RightY));
+            
+            var verticalAlignment = VerticalAlignment.Bottom;
+            if (peak.PeakY < PlotModel.PlotArea.Top + 30) // Adjust 30 as needed to ensure the label is visible
+            {
+                verticalAlignment = VerticalAlignment.Top;
+            }
 
-            //Sets the peak height as the label
+            // Create the label annotation
             var label = new PointAnnotation()
             {
                 YAxisKey = simpleCurvePlotData.YAxisKey,
                 X = peak.PeakX,
                 Y = peak.PeakY,
-                Shape = MarkerType.None,
+                Fill = OxyColors.Blue,
+                Stroke = OxyColors.Black,
+                TextColor = OxyColors.Blue,
+                Shape = MarkerType.Circle,
                 Text = peak.PeakValue.ToString(),
-                TextVerticalAlignment = VerticalAlignment.Bottom,
+                TextVerticalAlignment = verticalAlignment,
                 TextHorizontalAlignment = HorizontalAlignment.Left
             };
 
+            
             PlotModel.Annotations.Add(label);
             PlotModel.Series.Add(peakLines);
         }
@@ -113,8 +123,10 @@ namespace PSExampleApp.Forms.ViewModels
             PlotModel.Axes.Add(yAxis);
             PlotModel.Series.Add(_lineSeries);
 
-            //TODO try fix peaks polish point
-            //InitPeakPlotData(_lineSeries, _simpleCurve.Peaks[0]);
+            if (_simpleCurve.Peaks.nPeaks > 0)
+            {
+                InitPeakPlotData(_lineSeries, _simpleCurve.Peaks[0]);
+            }
             PlotModel.InvalidatePlot(true);
         }
     }
