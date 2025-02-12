@@ -186,6 +186,9 @@
   <data name="Alert_MethodNotFound" xml:space="preserve">
     <value>Not able to load the method. Please reinstall the app.</value>
   </data>
+  <data name="Alert_MethodIncompatible" xml:space="preserve">
+    <value>The technique and/or method parameters are not compatible with the connected instrument.</value>
+  </data>
   <data name="Alert_MethodSaved" xml:space="preserve">
     <value>Method succesfully saved.</value>
   </data>

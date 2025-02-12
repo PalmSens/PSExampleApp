@@ -1,8 +1,6 @@
-﻿using MvvmHelpers;
-using PalmSens;
+﻿using PalmSens;
 using PalmSens.Core.Simplified.Data;
 using PalmSens.Core.Simplified.XF.Application.Services;
-using PalmSens.Devices;
 using PSExampleApp.Common.Models;
 using PSExampleApp.Core.Extentions;
 using PSExampleApp.Core.Services;
@@ -11,6 +9,7 @@ using PSExampleApp.Forms.Resx;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -132,11 +131,13 @@ namespace PSExampleApp.Forms.ViewModels
             MeasurementIsFinished = true;
         }
 
-        private async Task<Method> LoadDiffPulseMethod()
+        private async Task<Method> LoadMethod()
         {
+            Method method = null;
+
             try
             {
-                return await _appConfigurationService.LoadConfigurationMethod();
+                method = await _appConfigurationService.LoadConfigurationMethod();
             }
             catch (Exception)
             {
@@ -144,6 +145,16 @@ namespace PSExampleApp.Forms.ViewModels
                 MainThread.BeginInvokeOnMainThread(() => _messageService.ShortAlert(AppResources.Alert_MethodNotFound));
                 throw;
             }
+
+            var errors = method.Validate(_measurementService.Capabilities);
+
+            if (errors.Any(error => error.IsFatal))
+            {
+                MainThread.BeginInvokeOnMainThread(() => _messageService.ShortAlert(AppResources.Alert_MethodIncompatible));
+                throw new Exception("The method is not compatible with connected device.\n\n" + string.Join('\n', errors.Where(error => error.IsFatal).Select(error => error.Message)));
+            }
+
+            return method;
         }
 
         private void OnCountdownTicked()
@@ -154,10 +165,10 @@ namespace PSExampleApp.Forms.ViewModels
 
         private async Task OnPageAppearing()
         {
-            var method = await LoadDiffPulseMethod();
-
             try
             {
+                var method = await LoadMethod();
+
                 _countdown.Start((int)Math.Round(method.GetMinimumEstimatedMeasurementDuration(_measurementService.Capabilities) * 1000));
                 _countdown.Ticked += OnCountdownTicked;
 
@@ -168,24 +179,24 @@ namespace PSExampleApp.Forms.ViewModels
                 // Nullreference is thrown when device is not connected anymore. In this case we pop back to homescreen. The user can then try to reconnect again
                 _messageService.ShortAlert(AppResources.Alert_NotConnected);
                 this._measurementService.ResetMeasurement();
-                await _deviceService.DisconnectDevice();
-                await NavigationDispatcher.PopToRoot();
+                try { await _deviceService.DisconnectDevice(); }
+                finally { await NavigationDispatcher.PopToRoot(); }
             }
             catch (ArgumentException)
             {
                 // Argument exception is thrown when method is incompatible with the connected device.
                 _messageService.ShortAlert(AppResources.Alert_DeviceIncompatible);
                 this._measurementService.ResetMeasurement();
-                await _deviceService.DisconnectDevice();
-                await NavigationDispatcher.PopToRoot();
+                try { await _deviceService.DisconnectDevice(); }
+                finally { await NavigationDispatcher.PopToRoot(); }
             }
             catch (Exception ex)
             {
                 _messageService.LongAlert(AppResources.Alert_SomethingWrong);
                 Debug.WriteLine(ex);
                 this._measurementService.ResetMeasurement();
-                await _deviceService.DisconnectDevice();
-                await NavigationDispatcher.PopToRoot();
+                try { await _deviceService.DisconnectDevice(); }
+                finally { await NavigationDispatcher.PopToRoot(); }
             }
         }
 

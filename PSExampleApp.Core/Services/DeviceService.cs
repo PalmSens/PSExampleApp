@@ -114,7 +114,7 @@ namespace PSExampleApp.Core.Services
                 this.ConnectedDevice = null;
             }
 
-            await this.DetectDevicesAsync();
+            _ = this.DetectDevicesAsync();
         }
 
         private void _instrumentService_DeviceDiscovered(object sender, PlatformDevice e)

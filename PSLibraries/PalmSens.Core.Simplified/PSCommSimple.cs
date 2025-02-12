@@ -256,14 +256,22 @@ namespace PalmSens.Core.Simplified
             if (_comm == null)
                 throw new NullReferenceException("Not connected to a device.");
 
-            //Update the autoranging depending on the current ranges supported by the connected device
-            if (Connected)
-                method.Ranging.SupportedCurrentRanges = Capabilities.SupportedRanges;
+            //Create a copy of the method and update the method with the device's supported current ranges
+            Method copy = null;
+            Method.CopyMethod(method, ref copy);
+
+            //Determine optimal pgstat mode for EmStat Pico / Sensit series devices
+            if (Capabilities is EmStatPicoCapabilities)
+            {
+                copy.DeterminePGStatMode(Capabilities);
+                Capabilities.ActiveSignalTrainConfiguration = copy.PGStatMode; //Set device capabilities to pgstat mode determined/set in method
+            }
+            copy.Ranging.SupportedCurrentRanges = Capabilities.SupportedRanges; //Update the autoranging depending on the current ranges supported by the connected device
 
             //Check whether method is compatible with the connected device
             bool isValidMethod;
             List<string> errors;
-            ValidateMethod(method, out isValidMethod, out errors);
+            ValidateMethod(copy, out isValidMethod, out errors);
             if (!isValidMethod)
                 throw new ArgumentException("Method is incompatible with the connected device.");
 
@@ -272,7 +280,7 @@ namespace PalmSens.Core.Simplified
             _comm.BeginMeasurement += GetActiveMeasurement;
 
             //Start the measurement on the connected device, this triggers an event that updates _activeMeasurement
-            string error = Run(() => _comm.Measure(method, muxChannel));
+            string error = Run(() => _comm.Measure(copy, muxChannel));
             if (!(string.IsNullOrEmpty(error)))
                 throw new Exception($"Could not start measurement: {error}");
 
@@ -298,14 +306,22 @@ namespace PalmSens.Core.Simplified
             if (_comm == null)
                 throw new NullReferenceException("Not connected to a device.");
 
-            //Update the autoranging depending on the current ranges supported by the connected device
-            if (Connected)
-                method.Ranging.SupportedCurrentRanges = Capabilities.SupportedRanges;
+            //Create a copy of the method and update the method with the device's supported current ranges
+            Method copy = null;
+            Method.CopyMethod(method, ref copy);
+
+            //Determine optimal pgstat mode for EmStat Pico / Sensit series devices
+            if (Capabilities is EmStatPicoCapabilities)
+            {
+                copy.DeterminePGStatMode(Capabilities);
+                Capabilities.ActiveSignalTrainConfiguration = copy.PGStatMode; //Set device capabilities to pgstat mode determined/set in method
+            }
+            copy.Ranging.SupportedCurrentRanges = Capabilities.SupportedRanges; //Update the autoranging depending on the current ranges supported by the connected device
 
             //Check whether method is compatible with the connected device
             bool isValidMethod;
             List<string> errors;
-            ValidateMethod(method, out isValidMethod, out errors);
+            ValidateMethod(copy, out isValidMethod, out errors);
             if (!isValidMethod)
                 throw new ArgumentException("Method is incompatible with the connected device.");
 
@@ -321,7 +337,7 @@ namespace PalmSens.Core.Simplified
                 //Need to check again as the task can be scheduled to run at a later point after which this could have changed
                 if (_comm == null)
                     throw new NullReferenceException("Not connected to a device");
-                return await _comm.MeasureAsync(method, muxChannel, taskBarrier);
+                return await _comm.MeasureAsync(copy, muxChannel, taskBarrier);
             });
 
             if (!(string.IsNullOrEmpty(error)))

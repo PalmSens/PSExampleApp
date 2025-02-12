@@ -232,6 +232,15 @@ namespace PSExampleApp.Forms.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The technique and/or method parameters are not compatible with the connected instrument..
+        /// </summary>
+        public static string Alert_MethodIncompatible {
+            get {
+                return ResourceManager.GetString("Alert_MethodIncompatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Method must have only one scan..
         /// </summary>
         public static string Alert_MethodIncompatibleNumberOfScans {
